@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>09.1 | 使用 Golang 打造 Web 應用程式</title>
+
+
+<link rel="stylesheet" href="/buildWebWithGolangTw/book.min.89885fa0429ec73067282f26fc0c6d38cfc617a443ec4e835d47b821c52c6e92.css" integrity="sha256-iYhfoEKexzBnKC8m/AxtOM/GF6RD7E6DXUe4IcUsbpI=">
+
+
+<script defer src="/buildWebWithGolangTw/search.min.4762838110f5450a8a33fcbe56c7ce734d09867f3e9ab5c1e6f7bbec99b65c68.js" integrity="sha256-R2KDgRD1RQqKM/y&#43;VsfOc00Jhn8&#43;mrXB5ve77Jm2XGg="></script>
+
+
+
+<link rel="icon" href="/buildWebWithGolangTw/favicon.png" type="image/x-icon">
+
+<base href="https://ezzdoc.com/buildWebWithGolangTw/">
+
+
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body>
+  <input type="checkbox" class="hidden" id="menu-control" />
+  <main class="flex container">
+
+    <aside class="book-menu fixed">
+      <nav>
+<h2 class="book-brand">
+  <a href="https://ezzdoc.com/buildWebWithGolangTw/"><span>使用 Golang 打造 Web 應用程式</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" placeholder="Search" id="book-search-input" maxlength="64" readonly />
+  <div class="book-search-spinner spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+    
+  
+  
+  
+
+  <style>
+  nav ul a[href$="\2f buildWebWithGolangTw\2f docs\2f 09.1\2f "] {
+      color: #004ed0;
+  }
+  </style>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/preface/">目錄</a></li>
+<li><a href="/buildWebWithGolangTw/docs/01.0/">1.Go 環境配置</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/01.1/">1.1 安裝 Go</a></li>
+<li><a href="/buildWebWithGolangTw/docs/01.2/">1.2 GOPATH 與工作空間</a></li>
+<li><a href="/buildWebWithGolangTw/docs/01.3/">1.3 Go 命令</a></li>
+<li><a href="/buildWebWithGolangTw/docs/01.4/">1.4 Go 開發工具</a></li>
+<li><a href="/buildWebWithGolangTw/docs/01.5/">1.5 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/02.0/">2.Go 語言基礎</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/02.1/">2.1 你好，Go</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.2/">2.2 Go 基礎</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.3/">2.3 流程和函式</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.4/">2.4 struct</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.5/">2.5 物件導向</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.6/">2.6 interface</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.7/">2.7 併發</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.8/">2.8 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/03.0/">3.Web 基礎</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/03.1/">3.1 web 工作方式</a></li>
+<li><a href="/buildWebWithGolangTw/docs/03.2/">3.2 Go 建立一個簡單的 web 服務</a></li>
+<li><a href="/buildWebWithGolangTw/docs/03.3/">3.3 Go 如何使得 web 工作</a></li>
+<li><a href="/buildWebWithGolangTw/docs/03.4/">3.4 Go 的 http 套件詳解</a></li>
+<li><a href="/buildWebWithGolangTw/docs/03.5/">3.5 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/04.0/">4.表單</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/04.1/">4.1 處理表單的輸入</a></li>
+<li><a href="/buildWebWithGolangTw/docs/04.2/">4.2 驗證表單的輸入</a></li>
+<li><a href="/buildWebWithGolangTw/docs/04.3/">4.3 預防跨站指令碼</a></li>
+<li><a href="/buildWebWithGolangTw/docs/04.4/">4.4 防止多次提交表單</a></li>
+<li><a href="/buildWebWithGolangTw/docs/04.5/">4.5 處理檔案上傳</a></li>
+<li><a href="/buildWebWithGolangTw/docs/04.6/">4.6 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/05.0/">5.訪問資料庫</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/05.1/">5.1 database/sql 介面</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.2/">5.2 使用 MySQL 資料庫</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.3/">5.3 使用 SQLite 資料庫</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.4/">5.4 使用 PostgreSQL 資料庫</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.5/">5.5 使用 Beego orm 函式庫進行 ORM 開發</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.6/">5.6 NOSQL 資料庫操作</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.7/">5.7 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/06.0/">6.session 和資料儲存</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/06.1/">6.1 session 和 cookie</a></li>
+<li><a href="/buildWebWithGolangTw/docs/06.2/">6.2 Go 如何使用 session</a></li>
+<li><a href="/buildWebWithGolangTw/docs/06.3/">6.3 session 儲存</a></li>
+<li><a href="/buildWebWithGolangTw/docs/06.4/">6.4 預防 session 劫持</a></li>
+<li><a href="/buildWebWithGolangTw/docs/06.5/">6.5 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/07.0/">7.文字檔案處理</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/07.1/">7.1 XML 處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.2/">7.2 JSON 處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.3/">7.3 正則處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.4/">7.4 範本處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.5/">7.5 檔案操作</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.6/">7.6 字串處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.7/">7.7 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/08.0/">8.Web 服務</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/08.1/">8.1 Socket 程式設計</a></li>
+<li><a href="/buildWebWithGolangTw/docs/08.2/">8.2 WebSocket</a></li>
+<li><a href="/buildWebWithGolangTw/docs/08.3/">8.3 REST</a></li>
+<li><a href="/buildWebWithGolangTw/docs/08.4/">8.4 RPC</a></li>
+<li><a href="/buildWebWithGolangTw/docs/08.5/">8.5 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/09.0/">9.安全與加密</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/09.1/">9.1 預防 CSRF 攻擊</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.2/">9.2 確保輸入過濾</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.3/">9.3 避免 XSS 攻擊</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.4/">9.4 避免 SQL 注入</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.5/">9.5 儲存密碼</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.6/">9.6 加密和解密資料</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.7/">9.7 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/10.0/">10.國際化和本地化</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/10.1/">10.1 設定預設地區</a></li>
+<li><a href="/buildWebWithGolangTw/docs/10.2/">10.2 本地化資源</a></li>
+<li><a href="/buildWebWithGolangTw/docs/10.3/">10.3 國際化站點</a></li>
+<li><a href="/buildWebWithGolangTw/docs/10.4/">10.4 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/11.0/">11.錯誤處理，除錯和測試</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/11.1/">11.1 錯誤處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/11.2/">11.2 使用 GDB 除錯</a></li>
+<li><a href="/buildWebWithGolangTw/docs/11.3/">11.3 Go 怎麼寫測試案例</a></li>
+<li><a href="/buildWebWithGolangTw/docs/11.4/">11.4 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/12.0/">12.部署與維護</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/12.1/">12.1 應用日誌</a></li>
+<li><a href="/buildWebWithGolangTw/docs/12.2/">12.2 網站錯誤處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/12.3/">12.3 應用部署</a></li>
+<li><a href="/buildWebWithGolangTw/docs/12.4/">12.4 備份和還原</a></li>
+<li><a href="/buildWebWithGolangTw/docs/12.5/">12.5 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/13.0/">13.如何設計一個 Web 框架</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/13.1/">13.1 專案規劃</a></li>
+<li><a href="/buildWebWithGolangTw/docs/13.2/">13.2 自訂路由器設計</a></li>
+<li><a href="/buildWebWithGolangTw/docs/13.3/">13.3 controller 設計</a></li>
+<li><a href="/buildWebWithGolangTw/docs/13.4/">13.4 日誌和配置設計</a></li>
+<li><a href="/buildWebWithGolangTw/docs/13.5/">13.5 實現部落格的增刪改</a></li>
+<li><a href="/buildWebWithGolangTw/docs/13.6/">13.6 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/14.0/">14.擴充套件 Web 框架</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/14.1/">14.1 靜態檔案支援</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.2/">14.2 Session 支援</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.3/">14.3 表單支援</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.4/">14.4 使用者認證</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.5/">14.5 多語言支援</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.6/">14.6 pprof 支援</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.7/">14.7 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/ref/">附錄 A 參考資料</a></li>
+</ul>
+
+
+
+
+
+
+
+</nav>
+
+
+<script>
+(function() {
+  var menu = document.querySelector("aside.book-menu nav");
+  addEventListener("beforeunload", function(event) {
+    localStorage.setItem("menu.scrollTop", menu.scrollTop);
+  });
+  menu.scrollTop = localStorage.getItem("menu.scrollTop");
+})();
+</script>
+
+    </aside>
+
+    <div class="book-page">
+      <header class="flex align-center justify-between book-header">
+  <label for="menu-control">
+    <img src="/buildWebWithGolangTw/svg/menu.svg" alt="Menu" />
+  </label>
+  <strong>09.1</strong>
+</header>
+
+      
+<article class="markdown">
+
+<h1 id="9-1-預防-csrf-攻擊">9.1 預防 CSRF 攻擊</h1>
+
+<h2 id="什麼是-csrf">什麼是 CSRF</h2>
+
+<p>CSRF（Cross-site request forgery），中文名稱：跨站請求偽造，也被稱為：one click attack/session riding，縮寫為：CSRF/XSRF。</p>
+
+<p>那麼 CSRF 到底能夠幹嘛呢？你可以這樣簡單的理解：攻擊者可以盜用你的登陸資訊，以你的身份模擬傳送各種請求。攻擊者只要藉助少許的社會工程學的詭計，例如透過 QQ 等聊天軟體傳送的連結(有些還偽裝成短域名，使用者無法分辨)，攻擊者就能迫使 Web 應用的使用者去執行攻擊者預設的操作。例如，當用戶登入網路銀行去檢視其存款餘額，在他沒有退出時，就點選了一個 QQ 好友發來的連結，那麼該使用者銀行帳戶中的資金就有可能被轉移到攻擊者指定的帳戶中。</p>
+
+<p>所以遇到 CSRF 攻擊時，將對終端使用者的資料和操作指令構成嚴重的威脅；當受攻擊的終端使用者具有管理員帳戶的時候，CSRF 攻擊將危及整個 Web 應用程式。</p>
+
+<h2 id="csrf-的原理">CSRF 的原理</h2>
+
+<p>下圖簡單闡述了 CSRF 攻擊的思想</p>
+
+<p><img src="images/9.1.csrf.png" alt="" /></p>
+
+<p>圖 9.1 CSRF 的攻擊過程</p>
+
+<p>從上圖可以看出，要完成一次 CSRF 攻擊，受害者必須依次完成兩個步驟 ：</p>
+
+<ul>
+<li>1.登入受信任網站 A，並在本地產生 Cookie 。</li>
+<li>2.在不退出 A 的情況下，訪問危險網站 B。</li>
+</ul>
+
+<p>看到這裡，讀者也許會問：“如果我不滿足以上兩個條件中的任意一個，就不會受到 CSRF 的攻擊”。是的，確實如此，但你不能保證以下情況不會發生：</p>
+
+<ul>
+<li>你不能保證你登入了一個網站後，不再開啟一個 tab 頁面並訪問另外的網站，特別現在瀏覽器都是支援多 tab 的。</li>
+<li>你不能保證你關閉瀏覽器了後，你本地的 Cookie 立刻過期，你上次的會話已經結束。</li>
+<li>上圖中所謂的攻擊網站，可能是一個存在其他漏洞的可信任的經常被人訪問的網站。</li>
+</ul>
+
+<p>因此對於使用者來說很難避免在登陸一個網站之後不點選一些連結進行其他操作，所以隨時可能成為 CSRF 的受害者。</p>
+
+<p>CSRF 攻擊主要是因為 Web 的隱式身份驗證機制，Web 的身份驗證機制雖然可以保證一個請求是來自於某個使用者的瀏覽器，但卻無法保證該請求是使用者批准傳送的。</p>
+
+<h2 id="如何預防-csrf">如何預防 CSRF</h2>
+
+<p>過上面的介紹，讀者是否覺得這種攻擊很恐怖，意識到恐怖是個好事情，這樣會促使你接著往下看如何改進和防止類似的漏洞出現。</p>
+
+<p>CSRF 的防禦可以從伺服器端和客戶端兩方面著手，防禦效果是從伺服器端著手效果比較好，現在一般的 CSRF 防禦也都在伺服器端進行。</p>
+
+<p>伺服器端的預防 CSRF 攻擊的方式方法有多種，但思想上都是差不多的，主要從以下 2 個方面入手：</p>
+
+<ul>
+<li>1、正確使用 GET,POST 和 Cookie；</li>
+<li>2、在非 GET 請求中增加偽隨機數；</li>
+</ul>
+
+<p>我們上一章介紹過 REST 方式的 Web 應用，一般而言，普通的 Web 應用都是以 GET、POST 為主，還有一種請求是 Cookie 方式。我們一般都是按照如下方式設計應用：</p>
+
+<p>1、GET 常用在檢視，列舉，展示等不需要改變資源屬性的時候；</p>
+
+<p>2、POST 常用在下達訂單，改變一個資源的屬性或者做其他一些事情；</p>
+
+<p>接下來我就以 Go 語言來舉例說明，如何限制對資源的訪問方法：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">mux</span>.<span style="color:#a6e22e">Get</span>(<span style="color:#e6db74">&#34;/user/:uid&#34;</span>, <span style="color:#a6e22e">getuser</span>)
+<span style="color:#a6e22e">mux</span>.<span style="color:#a6e22e">Post</span>(<span style="color:#e6db74">&#34;/user/:uid&#34;</span>, <span style="color:#a6e22e">modifyuser</span>)</code></pre></div>
+<p>這樣處理後，因為我們限定了修改只能使用 POST，當 GET 方式請求時就拒絕回應，所以上面圖示中 GET 方式的 CSRF 攻擊就可以防止了，但這樣就能全部解決問題了嗎？當然不是，因為 POST 也是可以模擬的。</p>
+
+<p>因此我們需要實施第二步，在非 GET 方式的請求中增加隨機數，這個大概有三種方式來進行：</p>
+
+<ul>
+<li>為每個使用者產生一個唯一的 cookie token，所有表單都包含同一個偽隨機值，這種方案最簡單，因為攻擊者不能獲得第三方的 Cookie(理論上)，所以表單中的資料也就構造失敗，但是由於使用者的 Cookie 很容易由於網站的 XSS 漏洞而被盜取，所以這個方案必須要在沒有 XSS 的情況下才安全。</li>
+<li>每個請求使用驗證碼，這個方案是完美的，因為要多次輸入驗證碼，所以使用者友好性很差，所以不適合實際運用。</li>
+<li>不同的表單包含一個不同的偽隨機值，我們在 4.4 小節介紹“如何防止表單多次提交”時介紹過此方案，複用相關程式碼，實現如下：</li>
+</ul>
+
+<p>產生隨機數 token</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">h</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">md5</span>.<span style="color:#a6e22e">New</span>()
+<span style="color:#a6e22e">io</span>.<span style="color:#a6e22e">WriteString</span>(<span style="color:#a6e22e">h</span>, <span style="color:#a6e22e">strconv</span>.<span style="color:#a6e22e">FormatInt</span>(<span style="color:#a6e22e">crutime</span>, <span style="color:#ae81ff">10</span>))
+<span style="color:#a6e22e">io</span>.<span style="color:#a6e22e">WriteString</span>(<span style="color:#a6e22e">h</span>, <span style="color:#e6db74">&#34;ganraomaxxxxxxxxx&#34;</span>)
+<span style="color:#a6e22e">token</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;%x&#34;</span>, <span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">Sum</span>(<span style="color:#66d9ef">nil</span>))
+
+<span style="color:#a6e22e">t</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">template</span>.<span style="color:#a6e22e">ParseFiles</span>(<span style="color:#e6db74">&#34;login.gtpl&#34;</span>)
+<span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Execute</span>(<span style="color:#a6e22e">w</span>, <span style="color:#a6e22e">token</span>)</code></pre></div>
+<p>輸出 token</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;hidden&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;token&#34;</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{.}}&#34;</span>&gt;</code></pre></div>
+<p>驗證 token</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">ParseForm</span>()
+<span style="color:#a6e22e">token</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">Form</span>.<span style="color:#a6e22e">Get</span>(<span style="color:#e6db74">&#34;token&#34;</span>)
+<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">token</span> <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#34;&#34;</span> {
+	<span style="color:#75715e">//驗證 token 的合法性
+</span><span style="color:#75715e"></span>} <span style="color:#66d9ef">else</span> {
+	<span style="color:#75715e">//不存在 token 報錯
+</span><span style="color:#75715e"></span>}</code></pre></div>
+<p>這樣基本就實現了安全的 POST，但是也許你會說如果破解了 token 的演算法呢，按照理論上是，但是實際上破解是基本不可能的，因為有人曾計算過，暴力破解該串大概需要 2 的 11 次方時間。</p>
+
+<h2 id="總結">總結</h2>
+
+<p>跨站請求偽造，即 CSRF，是一種非常危險的 Web 安全威脅，它被 Web 安全界稱為“沉睡的巨人”，其威脅程度由此“美譽”便可見一斑。本小節不僅對跨站請求偽造本身進行了簡單介紹，還詳細說明造成這種漏洞的原因所在，然後以此提了一些防範該攻擊的建議，希望對讀者編寫安全的 Web 應用能夠有所啟發。</p>
+
+<h2 id="links">links</h2>
+
+<ul>
+<li><a href="docs/preface">目錄</a></li>
+<li>上一節: <a href="docs/09.0">安全與加密</a></li>
+<li>下一節: <a href="docs/09.2">確保輸入過濾</a></li>
+</ul>
+</article>
+
+      
+<div class="book-footer justify-between">
+  
+  <div>
+    
+    <a href="/commit/fda25aafea9413c8ec77f5df29d5f6bb5f7dc3a6" title='Last modified Sep 21, 2019 by Jiuxiao' target="_blank" rel="noopener">
+      <img src="/buildWebWithGolangTw/svg/calendar.svg" alt="Changed" /> Sep 21, 2019
+    </a>
+  </div>
+  
+  
+</div>
+
+
+      
+    </div>
+
+    
+  
+
+  <aside class="book-toc level-3 fixed">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#9-1-預防-csrf-攻擊">9.1 預防 CSRF 攻擊</a>
+<ul>
+<li><a href="#什麼是-csrf">什麼是 CSRF</a></li>
+<li><a href="#csrf-的原理">CSRF 的原理</a></li>
+<li><a href="#如何預防-csrf">如何預防 CSRF</a></li>
+<li><a href="#總結">總結</a></li>
+<li><a href="#links">links</a></li>
+</ul></li>
+</ul>
+</nav>
+  </aside>
+
+
+
+  </main>
+
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-148025936-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+</body>
+
+</html>

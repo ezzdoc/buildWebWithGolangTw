@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>12.4 | 使用 Golang 打造 Web 應用程式</title>
+
+
+<link rel="stylesheet" href="/buildWebWithGolangTw/book.min.89885fa0429ec73067282f26fc0c6d38cfc617a443ec4e835d47b821c52c6e92.css" integrity="sha256-iYhfoEKexzBnKC8m/AxtOM/GF6RD7E6DXUe4IcUsbpI=">
+
+
+<script defer src="/buildWebWithGolangTw/search.min.4762838110f5450a8a33fcbe56c7ce734d09867f3e9ab5c1e6f7bbec99b65c68.js" integrity="sha256-R2KDgRD1RQqKM/y&#43;VsfOc00Jhn8&#43;mrXB5ve77Jm2XGg="></script>
+
+
+
+<link rel="icon" href="/buildWebWithGolangTw/favicon.png" type="image/x-icon">
+
+<base href="https://ezzdoc.com/buildWebWithGolangTw/">
+
+
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body>
+  <input type="checkbox" class="hidden" id="menu-control" />
+  <main class="flex container">
+
+    <aside class="book-menu fixed">
+      <nav>
+<h2 class="book-brand">
+  <a href="https://ezzdoc.com/buildWebWithGolangTw/"><span>使用 Golang 打造 Web 應用程式</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" placeholder="Search" id="book-search-input" maxlength="64" readonly />
+  <div class="book-search-spinner spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+    
+  
+  
+  
+
+  <style>
+  nav ul a[href$="\2f buildWebWithGolangTw\2f docs\2f 12.4\2f "] {
+      color: #004ed0;
+  }
+  </style>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/preface/">目錄</a></li>
+<li><a href="/buildWebWithGolangTw/docs/01.0/">1.Go 環境配置</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/01.1/">1.1 安裝 Go</a></li>
+<li><a href="/buildWebWithGolangTw/docs/01.2/">1.2 GOPATH 與工作空間</a></li>
+<li><a href="/buildWebWithGolangTw/docs/01.3/">1.3 Go 命令</a></li>
+<li><a href="/buildWebWithGolangTw/docs/01.4/">1.4 Go 開發工具</a></li>
+<li><a href="/buildWebWithGolangTw/docs/01.5/">1.5 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/02.0/">2.Go 語言基礎</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/02.1/">2.1 你好，Go</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.2/">2.2 Go 基礎</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.3/">2.3 流程和函式</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.4/">2.4 struct</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.5/">2.5 物件導向</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.6/">2.6 interface</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.7/">2.7 併發</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.8/">2.8 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/03.0/">3.Web 基礎</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/03.1/">3.1 web 工作方式</a></li>
+<li><a href="/buildWebWithGolangTw/docs/03.2/">3.2 Go 建立一個簡單的 web 服務</a></li>
+<li><a href="/buildWebWithGolangTw/docs/03.3/">3.3 Go 如何使得 web 工作</a></li>
+<li><a href="/buildWebWithGolangTw/docs/03.4/">3.4 Go 的 http 套件詳解</a></li>
+<li><a href="/buildWebWithGolangTw/docs/03.5/">3.5 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/04.0/">4.表單</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/04.1/">4.1 處理表單的輸入</a></li>
+<li><a href="/buildWebWithGolangTw/docs/04.2/">4.2 驗證表單的輸入</a></li>
+<li><a href="/buildWebWithGolangTw/docs/04.3/">4.3 預防跨站指令碼</a></li>
+<li><a href="/buildWebWithGolangTw/docs/04.4/">4.4 防止多次提交表單</a></li>
+<li><a href="/buildWebWithGolangTw/docs/04.5/">4.5 處理檔案上傳</a></li>
+<li><a href="/buildWebWithGolangTw/docs/04.6/">4.6 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/05.0/">5.訪問資料庫</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/05.1/">5.1 database/sql 介面</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.2/">5.2 使用 MySQL 資料庫</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.3/">5.3 使用 SQLite 資料庫</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.4/">5.4 使用 PostgreSQL 資料庫</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.5/">5.5 使用 Beego orm 函式庫進行 ORM 開發</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.6/">5.6 NOSQL 資料庫操作</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.7/">5.7 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/06.0/">6.session 和資料儲存</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/06.1/">6.1 session 和 cookie</a></li>
+<li><a href="/buildWebWithGolangTw/docs/06.2/">6.2 Go 如何使用 session</a></li>
+<li><a href="/buildWebWithGolangTw/docs/06.3/">6.3 session 儲存</a></li>
+<li><a href="/buildWebWithGolangTw/docs/06.4/">6.4 預防 session 劫持</a></li>
+<li><a href="/buildWebWithGolangTw/docs/06.5/">6.5 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/07.0/">7.文字檔案處理</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/07.1/">7.1 XML 處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.2/">7.2 JSON 處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.3/">7.3 正則處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.4/">7.4 範本處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.5/">7.5 檔案操作</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.6/">7.6 字串處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.7/">7.7 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/08.0/">8.Web 服務</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/08.1/">8.1 Socket 程式設計</a></li>
+<li><a href="/buildWebWithGolangTw/docs/08.2/">8.2 WebSocket</a></li>
+<li><a href="/buildWebWithGolangTw/docs/08.3/">8.3 REST</a></li>
+<li><a href="/buildWebWithGolangTw/docs/08.4/">8.4 RPC</a></li>
+<li><a href="/buildWebWithGolangTw/docs/08.5/">8.5 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/09.0/">9.安全與加密</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/09.1/">9.1 預防 CSRF 攻擊</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.2/">9.2 確保輸入過濾</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.3/">9.3 避免 XSS 攻擊</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.4/">9.4 避免 SQL 注入</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.5/">9.5 儲存密碼</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.6/">9.6 加密和解密資料</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.7/">9.7 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/10.0/">10.國際化和本地化</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/10.1/">10.1 設定預設地區</a></li>
+<li><a href="/buildWebWithGolangTw/docs/10.2/">10.2 本地化資源</a></li>
+<li><a href="/buildWebWithGolangTw/docs/10.3/">10.3 國際化站點</a></li>
+<li><a href="/buildWebWithGolangTw/docs/10.4/">10.4 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/11.0/">11.錯誤處理，除錯和測試</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/11.1/">11.1 錯誤處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/11.2/">11.2 使用 GDB 除錯</a></li>
+<li><a href="/buildWebWithGolangTw/docs/11.3/">11.3 Go 怎麼寫測試案例</a></li>
+<li><a href="/buildWebWithGolangTw/docs/11.4/">11.4 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/12.0/">12.部署與維護</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/12.1/">12.1 應用日誌</a></li>
+<li><a href="/buildWebWithGolangTw/docs/12.2/">12.2 網站錯誤處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/12.3/">12.3 應用部署</a></li>
+<li><a href="/buildWebWithGolangTw/docs/12.4/">12.4 備份和還原</a></li>
+<li><a href="/buildWebWithGolangTw/docs/12.5/">12.5 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/13.0/">13.如何設計一個 Web 框架</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/13.1/">13.1 專案規劃</a></li>
+<li><a href="/buildWebWithGolangTw/docs/13.2/">13.2 自訂路由器設計</a></li>
+<li><a href="/buildWebWithGolangTw/docs/13.3/">13.3 controller 設計</a></li>
+<li><a href="/buildWebWithGolangTw/docs/13.4/">13.4 日誌和配置設計</a></li>
+<li><a href="/buildWebWithGolangTw/docs/13.5/">13.5 實現部落格的增刪改</a></li>
+<li><a href="/buildWebWithGolangTw/docs/13.6/">13.6 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/14.0/">14.擴充套件 Web 框架</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/14.1/">14.1 靜態檔案支援</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.2/">14.2 Session 支援</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.3/">14.3 表單支援</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.4/">14.4 使用者認證</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.5/">14.5 多語言支援</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.6/">14.6 pprof 支援</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.7/">14.7 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/ref/">附錄 A 參考資料</a></li>
+</ul>
+
+
+
+
+
+
+
+</nav>
+
+
+<script>
+(function() {
+  var menu = document.querySelector("aside.book-menu nav");
+  addEventListener("beforeunload", function(event) {
+    localStorage.setItem("menu.scrollTop", menu.scrollTop);
+  });
+  menu.scrollTop = localStorage.getItem("menu.scrollTop");
+})();
+</script>
+
+    </aside>
+
+    <div class="book-page">
+      <header class="flex align-center justify-between book-header">
+  <label for="menu-control">
+    <img src="/buildWebWithGolangTw/svg/menu.svg" alt="Menu" />
+  </label>
+  <strong>12.4</strong>
+</header>
+
+      
+<article class="markdown">
+
+<h1 id="12-4-備份和還原">12.4 備份和還原</h1>
+
+<p>這小節我們要討論應用程式管理的另一個方面：生產伺服器上資料的備份和還原。我們經常會遇到生產伺服器的網路斷了、硬碟壞了、作業系統崩潰、或者資料庫不可用了等各種異常情況，所以維護人員需要對生產伺服器上的應用和資料做好異地災備，冷備熱備的準備。在接下來的介紹中，講解了如何備份應用、如何備份/還原 Mysql 資料庫和 redis 資料庫。</p>
+
+<h2 id="應用備份">應用備份</h2>
+
+<p>在大多數叢集環境下，Web 應用程式基本不需要備份，因為這個其實就是一個程式碼副本，我們在本地開發環境中，或者版本控制系統中已經保持這些程式碼。但是很多時候，一些開發的站點需要使用者來上傳檔案，那麼我們需要對這些使用者上傳的檔案進行備份。目前其實有一種合適的做法就是把和網站相關的需要儲存的檔案儲存到雲儲存，這樣即使系統崩潰，只要我們的檔案還在雲端儲存上，至少資料不會丟失。</p>
+
+<p>如果我們沒有采用雲儲存的情況下，如何做到網站的備份呢？這裡我們介紹一個檔案同步工具 rsync：rsync 能夠實現網站的備份，不同系統的檔案的同步，如果是 windows 的話，需要 windows 版本 cwrsync。</p>
+
+<h3 id="rsync-安裝">rsync 安裝</h3>
+
+<p>rysnc 的官方網站：<a href="http://rsync.samba.org/">http://rsync.samba.org/</a> 可以從上面取得最新版本的原始碼。當然，因為 rsync 是一款非常有用的軟體，所以很多 Linux 的發行版本都將它收錄在內了。</p>
+
+<p>軟體套件安裝</p>
+
+<pre><code># sudo apt-get  install  rsync  注：在 debian、ubuntu 等線上安裝方法；
+# yum install rsync    注：Fedora、Redhat、CentOS 等線上安裝方法；
+# rpm -ivh rsync       注：Fedora、Redhat、CentOS 等 rpm 套件安裝方法；
+</code></pre>
+
+<p>其它 Linux 發行版，請用相應的軟體套件管理方法來安裝。原始碼套件安裝</p>
+
+<pre><code>tar xvf  rsync-xxx.tar.gz
+cd rsync-xxx
+./configure --prefix=/usr  ;make ;make install   注：在用原始碼套件編譯安裝之前，您得安裝 gcc 等編譯工具才行；
+</code></pre>
+
+<h3 id="rsync-配置">rsync 配置</h3>
+
+<p>rsync 主要有以下三個配置檔案 rsyncd.conf(主配置檔案)、rsyncd.secrets(密碼檔案)、rsyncd.motd(rysnc 伺服器資訊)。</p>
+
+<p>關於這幾個檔案的配置大家可以參考官方網站或者其他介紹 rsync 的網站，下面介紹伺服器端和客戶端如何開啟</p>
+
+<ul>
+<li><p>伺服器端開啟：</p>
+
+<pre><code>#/usr/bin/rsync --daemon  --config=/etc/rsyncd.conf
+</code></pre>
+
+<p>&ndash;daemon 參數方式，是讓 rsync 以伺服器模式執行。把 rsync 加入開機啟動</p>
+
+<pre><code>echo 'rsync --daemon' &gt;&gt; /etc/rc.d/rc.local
+</code></pre>
+
+<p>設定 rsync 密碼</p>
+
+<pre><code>echo '你的使用者名稱 : 你的密碼' &gt; /etc/rsyncd.secrets
+chmod 600 /etc/rsyncd.secrets
+</code></pre></li>
+
+<li><p>客戶端同步：</p>
+
+<p>客戶端可以透過如下命令同步伺服器上的檔案：</p>
+
+<pre><code>rsync -avzP  --delete  --password-file=rsyncd.secrets   使用者名稱@192.168.145.5::www /var/rsync/backup
+</code></pre>
+
+<p>這條命令，簡要的說明一下幾個要點：</p>
+
+<ol>
+<li>-avzP 是啥，讀者可以使用&ndash;help 檢視</li>
+<li>&ndash;delete 是為了比如 A 上刪除了一個檔案，同步的時候，B 會自動刪除相對應的檔案</li>
+<li>&ndash;password-file 客戶端中/etc/rsyncd.secrets 設定的密碼，要和伺服器端的 /etc/rsyncd.secrets 中的密碼一樣，這樣 cron 執行的時候，就不需要密碼了</li>
+<li>這條命令中的&rdquo;使用者名稱&rdquo;為伺服器端的 /etc/rsyncd.secrets 中的使用者名稱</li>
+<li>這條命令中的 192.168.145.5 為伺服器端的 IP 地址</li>
+<li>::www，注意是 2 個 : 號，www 為伺服器端的配置檔案 /etc/rsyncd.conf 中的[www]，意思是根據伺服器端上的/etc/rsyncd.conf 來同步其中的 [www] 段內容，一個 : 號的時候，用於不根據配置檔案，直接同步指定目錄。</li>
+</ol>
+
+<p>為了讓同步即時性，可以設定 crontab，保持 rsync 每分鐘同步，當然使用者也可以根據檔案的重要程度設定不同的同步頻率。</p></li>
+</ul>
+
+<h2 id="mysql-備份">MySQL 備份</h2>
+
+<p>應用資料庫目前還是 MySQL 為主流，目前 MySQL 的備份有兩種方式：熱備份和冷備份，熱備份目前主要是採用 master/slave 方式（master/slave 方式的同步目前主要用於資料庫讀寫分離，也可以用於熱備份資料），關於如何配置這方面的資料，大家可以找到很多。冷備份的話就是資料有一定的延遲，但是可以保證該時間段之前的資料完整，例如有些時候可能我們的誤操作引起了資料的丟失，那麼 master/slave 模式是無法找回丟失資料的，但是透過冷備份可以部分還原資料。</p>
+
+<p>冷備份一般使用 shell 指令碼來實現定時備份資料庫，然後透過上面介紹 rsync 同步非本地機房的一臺伺服器。</p>
+
+<p>下面這個是定時備份 mysql 的備份指令碼，我們使用了 mysqldump 程式，這個命令可以把資料庫匯出到一個檔案中。</p>
+
+<pre><code>#!/bin/bash
+
+# 以下配置資訊請自己修改
+mysql_user=&quot;USER&quot; #MySQL 備份使用者
+mysql_password=&quot;PASSWORD&quot; #MySQL 備份使用者的密碼
+mysql_host=&quot;localhost&quot;
+mysql_port=&quot;3306&quot;
+mysql_charset=&quot;utf8&quot; #MySQL 編碼
+backup_db_arr=(&quot;db1&quot; &quot;db2&quot;) #要備份的資料庫名稱，多個用空格分開隔開 如(&quot;db1&quot; &quot;db2&quot; &quot;db3&quot;)
+backup_location=/var/www/mysql  #備份資料存放位置，末尾請不要帶&quot;/&quot;，此項可以保持預設，程式會自動建立資料夾
+expire_backup_delete=&quot;ON&quot; #是否開啟過期備份刪除 ON 為開啟 OFF 為關閉
+expire_days=3 #過期時間天數 預設為三天，此項只有在 expire_backup_delete 開啟時有效
+
+# 本行開始以下不需要修改
+backup_time=`date +%Y%m%d%H%M`  #定義備份詳細時間
+backup_Ymd=`date +%Y-%m-%d` #定義備份目錄中的年月日時間
+backup_3ago=`date -d '3 days ago' +%Y-%m-%d` #3 天之前的日期
+backup_dir=$backup_location/$backup_Ymd  #備份資料夾全路徑
+welcome_msg=&quot;Welcome to use MySQL backup tools!&quot; #歡迎語
+
+# 判斷 MYSQL 是否啟動,mysql 沒有啟動則備份退出
+mysql_ps=`ps -ef |grep mysql |wc -l`
+mysql_listen=`netstat -an |grep LISTEN |grep $mysql_port|wc -l`
+if [ [$mysql_ps == 0] -o [$mysql_listen == 0] ]; then
+        echo &quot;ERROR:MySQL is not running! backup stop!&quot;
+        exit
+else
+        echo $welcome_msg
+fi
+
+# 連線到 mysql 資料庫，無法連線則備份退出
+mysql -h$mysql_host -P$mysql_port -u$mysql_user -p$mysql_password &lt;&lt;end
+use mysql;
+select host,user from user where user='root' and host='localhost';
+exit
+end
+
+flag=`echo $?`
+if [ $flag != &quot;0&quot; ]; then
+        echo &quot;ERROR:Can't connect mysql server! backup stop!&quot;
+        exit
+else
+        echo &quot;MySQL connect ok! Please wait......&quot;
+        # 判斷有沒有定義備份的資料庫，如果定義則開始備份，否則退出備份
+        if [ &quot;$backup_db_arr&quot; != &quot;&quot; ];then
+                #dbnames=$(cut -d ',' -f1-5 $backup_database)
+                #echo &quot;arr is (${backup_db_arr[@]})&quot;
+                for dbname in ${backup_db_arr[@]}
+                do
+                        echo &quot;database $dbname backup start...&quot;
+                        `mkdir -p $backup_dir`
+                        `mysqldump -h$mysql_host -P$mysql_port -u$mysql_user -p$mysql_password $dbname --default-character-set=$mysql_charset | gzip &gt; $backup_dir/$dbname-$backup_time.sql.gz`
+                        flag=`echo $?`
+                        if [ $flag == &quot;0&quot; ];then
+                                echo &quot;database $dbname success backup to $backup_dir/$dbname-$backup_time.sql.gz&quot;
+                        else
+                                echo &quot;database $dbname backup fail!&quot;
+                        fi
+
+                done
+        else
+                echo &quot;ERROR:No database to backup! backup stop&quot;
+                exit
+        fi
+        # 如果開啟了刪除過期備份，則進行刪除操作
+        if [ &quot;$expire_backup_delete&quot; == &quot;ON&quot; -a  &quot;$backup_location&quot; != &quot;&quot; ];then
+                 #`find $backup_location/ -type d -o -type f -ctime +$expire_days -exec rm -rf {} \;`
+                 `find $backup_location/ -type d -mtime +$expire_days | xargs rm -rf`
+                 echo &quot;Expired backup data delete complete!&quot;
+        fi
+        echo &quot;All database backup success! Thank you!&quot;
+        exit
+fi
+</code></pre>
+
+<p>修改 shell 指令碼的屬性：</p>
+
+<pre><code>chmod 600 /root/mysql_backup.sh
+chmod +x /root/mysql_backup.sh
+</code></pre>
+
+<p>設定好屬性之後，把命令加入 crontab，我們設定了每天 00:00 定時自動備份，然後把備份的指令碼目錄/var/www/mysql 設定為 rsync 同步目錄。</p>
+
+<pre><code>00 00 * * * /root/mysql_backup.sh
+</code></pre>
+
+<h2 id="mysql-還原">MySQL 還原</h2>
+
+<p>前面介紹 MySQL 備份分為熱備份和冷備份，熱備份主要的目的是為了能夠即時的還原，例如應用伺服器出現了硬碟故障，那麼我們可以透過修改配置檔案把資料庫的讀取和寫入改成 slave，這樣就可以儘量少時間的中斷服務。</p>
+
+<p>但是有時候我們需要透過冷備份的 SQL 來進行資料還原，既然有了資料庫的備份，就可以透過命令匯入：</p>
+
+<pre><code>mysql -u username -p databse &lt; backup.sql
+</code></pre>
+
+<p>可以看到，匯出和匯入資料庫資料都是相當簡單，不過如果還需要管理許可權，或者其他的一些字符集的設定的話，可能會稍微複雜一些，但是這些都是可以透過一些命令來完成的。</p>
+
+<h2 id="redis-備份">redis 備份</h2>
+
+<p>redis 是目前我們使用最多的 NoSQL，它的備份也分為兩種：熱備份和冷備份，redis 也支援 master/slave 模式，所以我們的熱備份可以透過這種方式實現，相應的配置大家可以參考官方的文件配置，相當的簡單。我們這裡介紹冷備份的方式：redis 其實會定時的把記憶體裡面的快取資料儲存到資料庫檔案裡面，我們備份只要備份相應的檔案就可以，就是利用前面介紹的 rsync 備份到非本地機房就可以實現。</p>
+
+<h2 id="redis-還原">redis 還原</h2>
+
+<p>redis 的還原分為熱備份還原和冷備份還原，熱備份還原的目的和方法同 MySQL 的還原一樣，只要修改應用的相應的資料庫連線即可。</p>
+
+<p>但是有時候我們需要根據冷備份來還原資料，redis 的冷備份還原其實就是隻要把儲存的資料庫檔案 copy 到 redis 的工作目錄，然後啟動 redis 就可以了，redis 在啟動的時候會自動載入資料庫檔案到記憶體中，啟動的速度根據資料庫的檔案大小來決定。</p>
+
+<h2 id="小結">小結</h2>
+
+<p>本小節介紹了我們的應用部分的備份和還原，即如何做好災備，包括檔案的備份、資料庫的備份。同時也介紹了使用 rsync 同步不同系統的檔案，MySQL 資料庫和 redis 資料庫的備份和還原，希望透過本小節的介紹，能夠給作為開發的你對於線上產品的災備方案提供一個參考方案。</p>
+
+<h2 id="links">links</h2>
+
+<ul>
+<li><a href="docs/preface">目錄</a></li>
+<li>上一章: <a href="docs/12.3">應用部署</a></li>
+<li>下一節: <a href="docs/12.5">小結</a></li>
+</ul>
+</article>
+
+      
+<div class="book-footer justify-between">
+  
+  <div>
+    
+    <a href="/commit/fda25aafea9413c8ec77f5df29d5f6bb5f7dc3a6" title='Last modified Sep 21, 2019 by Jiuxiao' target="_blank" rel="noopener">
+      <img src="/buildWebWithGolangTw/svg/calendar.svg" alt="Changed" /> Sep 21, 2019
+    </a>
+  </div>
+  
+  
+</div>
+
+
+      
+    </div>
+
+    
+  
+
+  <aside class="book-toc level-3 fixed">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#12-4-備份和還原">12.4 備份和還原</a>
+<ul>
+<li><a href="#應用備份">應用備份</a>
+<ul>
+<li><a href="#rsync-安裝">rsync 安裝</a></li>
+<li><a href="#rsync-配置">rsync 配置</a></li>
+</ul></li>
+<li><a href="#mysql-備份">MySQL 備份</a></li>
+<li><a href="#mysql-還原">MySQL 還原</a></li>
+<li><a href="#redis-備份">redis 備份</a></li>
+<li><a href="#redis-還原">redis 還原</a></li>
+<li><a href="#小結">小結</a></li>
+<li><a href="#links">links</a></li>
+</ul></li>
+</ul>
+</nav>
+  </aside>
+
+
+
+  </main>
+
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-148025936-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+</body>
+
+</html>

@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>01.2 | 使用 Golang 打造 Web 應用程式</title>
+
+
+<link rel="stylesheet" href="/buildWebWithGolangTw/book.min.89885fa0429ec73067282f26fc0c6d38cfc617a443ec4e835d47b821c52c6e92.css" integrity="sha256-iYhfoEKexzBnKC8m/AxtOM/GF6RD7E6DXUe4IcUsbpI=">
+
+
+<script defer src="/buildWebWithGolangTw/search.min.4762838110f5450a8a33fcbe56c7ce734d09867f3e9ab5c1e6f7bbec99b65c68.js" integrity="sha256-R2KDgRD1RQqKM/y&#43;VsfOc00Jhn8&#43;mrXB5ve77Jm2XGg="></script>
+
+
+
+<link rel="icon" href="/buildWebWithGolangTw/favicon.png" type="image/x-icon">
+
+<base href="https://ezzdoc.com/buildWebWithGolangTw/">
+
+
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body>
+  <input type="checkbox" class="hidden" id="menu-control" />
+  <main class="flex container">
+
+    <aside class="book-menu fixed">
+      <nav>
+<h2 class="book-brand">
+  <a href="https://ezzdoc.com/buildWebWithGolangTw/"><span>使用 Golang 打造 Web 應用程式</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" placeholder="Search" id="book-search-input" maxlength="64" readonly />
+  <div class="book-search-spinner spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+    
+  
+  
+  
+
+  <style>
+  nav ul a[href$="\2f buildWebWithGolangTw\2f docs\2f 01.2\2f "] {
+      color: #004ed0;
+  }
+  </style>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/preface/">目錄</a></li>
+<li><a href="/buildWebWithGolangTw/docs/01.0/">1.Go 環境配置</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/01.1/">1.1 安裝 Go</a></li>
+<li><a href="/buildWebWithGolangTw/docs/01.2/">1.2 GOPATH 與工作空間</a></li>
+<li><a href="/buildWebWithGolangTw/docs/01.3/">1.3 Go 命令</a></li>
+<li><a href="/buildWebWithGolangTw/docs/01.4/">1.4 Go 開發工具</a></li>
+<li><a href="/buildWebWithGolangTw/docs/01.5/">1.5 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/02.0/">2.Go 語言基礎</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/02.1/">2.1 你好，Go</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.2/">2.2 Go 基礎</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.3/">2.3 流程和函式</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.4/">2.4 struct</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.5/">2.5 物件導向</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.6/">2.6 interface</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.7/">2.7 併發</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.8/">2.8 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/03.0/">3.Web 基礎</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/03.1/">3.1 web 工作方式</a></li>
+<li><a href="/buildWebWithGolangTw/docs/03.2/">3.2 Go 建立一個簡單的 web 服務</a></li>
+<li><a href="/buildWebWithGolangTw/docs/03.3/">3.3 Go 如何使得 web 工作</a></li>
+<li><a href="/buildWebWithGolangTw/docs/03.4/">3.4 Go 的 http 套件詳解</a></li>
+<li><a href="/buildWebWithGolangTw/docs/03.5/">3.5 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/04.0/">4.表單</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/04.1/">4.1 處理表單的輸入</a></li>
+<li><a href="/buildWebWithGolangTw/docs/04.2/">4.2 驗證表單的輸入</a></li>
+<li><a href="/buildWebWithGolangTw/docs/04.3/">4.3 預防跨站指令碼</a></li>
+<li><a href="/buildWebWithGolangTw/docs/04.4/">4.4 防止多次提交表單</a></li>
+<li><a href="/buildWebWithGolangTw/docs/04.5/">4.5 處理檔案上傳</a></li>
+<li><a href="/buildWebWithGolangTw/docs/04.6/">4.6 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/05.0/">5.訪問資料庫</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/05.1/">5.1 database/sql 介面</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.2/">5.2 使用 MySQL 資料庫</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.3/">5.3 使用 SQLite 資料庫</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.4/">5.4 使用 PostgreSQL 資料庫</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.5/">5.5 使用 Beego orm 函式庫進行 ORM 開發</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.6/">5.6 NOSQL 資料庫操作</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.7/">5.7 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/06.0/">6.session 和資料儲存</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/06.1/">6.1 session 和 cookie</a></li>
+<li><a href="/buildWebWithGolangTw/docs/06.2/">6.2 Go 如何使用 session</a></li>
+<li><a href="/buildWebWithGolangTw/docs/06.3/">6.3 session 儲存</a></li>
+<li><a href="/buildWebWithGolangTw/docs/06.4/">6.4 預防 session 劫持</a></li>
+<li><a href="/buildWebWithGolangTw/docs/06.5/">6.5 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/07.0/">7.文字檔案處理</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/07.1/">7.1 XML 處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.2/">7.2 JSON 處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.3/">7.3 正則處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.4/">7.4 範本處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.5/">7.5 檔案操作</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.6/">7.6 字串處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.7/">7.7 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/08.0/">8.Web 服務</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/08.1/">8.1 Socket 程式設計</a></li>
+<li><a href="/buildWebWithGolangTw/docs/08.2/">8.2 WebSocket</a></li>
+<li><a href="/buildWebWithGolangTw/docs/08.3/">8.3 REST</a></li>
+<li><a href="/buildWebWithGolangTw/docs/08.4/">8.4 RPC</a></li>
+<li><a href="/buildWebWithGolangTw/docs/08.5/">8.5 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/09.0/">9.安全與加密</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/09.1/">9.1 預防 CSRF 攻擊</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.2/">9.2 確保輸入過濾</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.3/">9.3 避免 XSS 攻擊</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.4/">9.4 避免 SQL 注入</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.5/">9.5 儲存密碼</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.6/">9.6 加密和解密資料</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.7/">9.7 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/10.0/">10.國際化和本地化</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/10.1/">10.1 設定預設地區</a></li>
+<li><a href="/buildWebWithGolangTw/docs/10.2/">10.2 本地化資源</a></li>
+<li><a href="/buildWebWithGolangTw/docs/10.3/">10.3 國際化站點</a></li>
+<li><a href="/buildWebWithGolangTw/docs/10.4/">10.4 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/11.0/">11.錯誤處理，除錯和測試</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/11.1/">11.1 錯誤處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/11.2/">11.2 使用 GDB 除錯</a></li>
+<li><a href="/buildWebWithGolangTw/docs/11.3/">11.3 Go 怎麼寫測試案例</a></li>
+<li><a href="/buildWebWithGolangTw/docs/11.4/">11.4 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/12.0/">12.部署與維護</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/12.1/">12.1 應用日誌</a></li>
+<li><a href="/buildWebWithGolangTw/docs/12.2/">12.2 網站錯誤處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/12.3/">12.3 應用部署</a></li>
+<li><a href="/buildWebWithGolangTw/docs/12.4/">12.4 備份和還原</a></li>
+<li><a href="/buildWebWithGolangTw/docs/12.5/">12.5 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/13.0/">13.如何設計一個 Web 框架</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/13.1/">13.1 專案規劃</a></li>
+<li><a href="/buildWebWithGolangTw/docs/13.2/">13.2 自訂路由器設計</a></li>
+<li><a href="/buildWebWithGolangTw/docs/13.3/">13.3 controller 設計</a></li>
+<li><a href="/buildWebWithGolangTw/docs/13.4/">13.4 日誌和配置設計</a></li>
+<li><a href="/buildWebWithGolangTw/docs/13.5/">13.5 實現部落格的增刪改</a></li>
+<li><a href="/buildWebWithGolangTw/docs/13.6/">13.6 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/14.0/">14.擴充套件 Web 框架</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/14.1/">14.1 靜態檔案支援</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.2/">14.2 Session 支援</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.3/">14.3 表單支援</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.4/">14.4 使用者認證</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.5/">14.5 多語言支援</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.6/">14.6 pprof 支援</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.7/">14.7 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/ref/">附錄 A 參考資料</a></li>
+</ul>
+
+
+
+
+
+
+
+</nav>
+
+
+<script>
+(function() {
+  var menu = document.querySelector("aside.book-menu nav");
+  addEventListener("beforeunload", function(event) {
+    localStorage.setItem("menu.scrollTop", menu.scrollTop);
+  });
+  menu.scrollTop = localStorage.getItem("menu.scrollTop");
+})();
+</script>
+
+    </aside>
+
+    <div class="book-page">
+      <header class="flex align-center justify-between book-header">
+  <label for="menu-control">
+    <img src="/buildWebWithGolangTw/svg/menu.svg" alt="Menu" />
+  </label>
+  <strong>01.2</strong>
+</header>
+
+      
+<article class="markdown">
+
+<h1 id="1-2-gopath-與工作空間">1.2 GOPATH 與工作空間</h1>
+
+<p>前面我們在安裝 Go 的時候看到需要設定 GOPATH 變數，Go 從 1.1 版本到 1.7 必須設定這個變數，而且不能和 Go 的安裝目錄一樣，這個目錄用來存放 Go 原始碼，Go 的可執行檔案，以及相應的編譯之後的套件檔案。所以這個目錄下面有三個子目錄：src、bin、pkg</p>
+
+<p>從 go 1.8 開始，GOPATH 環境變數現在有一個預設值，如果它沒有被設定。 它在 Unix 上預設為$HOME/go，在 Windows 上預設為%USERPROFILE%/go。</p>
+
+<h2 id="gopath-設定">GOPATH 設定</h2>
+
+<p>go 命令依賴一個重要的環境變數：$GOPATH</p>
+
+<p>Windows 系統中環境變數的形式為<code>%GOPATH%</code>，本書主要使用 Unix 形式，Windows 使用者請自行替換。</p>
+
+<p><em>（注：這個不是 Go 安裝目錄。下面以筆者的工作目錄為範例，如果你想不一樣請把 GOPATH 替換成你的工作目錄。）</em></p>
+
+<p>在類別 Unix 環境下大概這樣設定：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">export GOPATH<span style="color:#f92672">=</span>/home/apple/mygo</code></pre></div>
+<p>為了方便，應該建立以上資料夾，並且上一行加入到 <code>.bashrc</code> 或者 <code>.zshrc</code> 或者自己的 <code>sh</code> 的配置檔案中。</p>
+
+<p>Windows 設定如下，建立一個環境變數名稱叫做 GOPATH：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">GOPATH<span style="color:#f92672">=</span>c:<span style="color:#ae81ff">\m</span>ygo</code></pre></div>
+<p>GOPATH 允許多個目錄，當有多個目錄時，請注意分隔符，多個目錄的時候 Windows 是分號，Linux 系統是冒號，當有多個 GOPATH 時，預設會將 go get 的內容放在第一個目錄下。</p>
+
+<p>以上 $GOPATH 目錄約定有三個子目錄：</p>
+
+<ul>
+<li>src 存放原始碼（比如：.go .c .h .s 等）</li>
+<li>pkg 編譯後生成的檔案（比如：.a）</li>
+<li>bin 編譯後生成的可執行檔案（為了方便，可以把此目錄加入到 $PATH 變數中，如果有多個 gopath，那麼使用<code>${GOPATH//://bin:}/bin</code>新增所有的 bin 目錄）</li>
+</ul>
+
+<p>以後我所有的例子都是以 mygo 作為我的 gopath 目錄</p>
+
+<h2 id="程式碼目錄結構規劃">程式碼目錄結構規劃</h2>
+
+<p>GOPATH 下的 src 目錄就是接下來開發程式的主要目錄，所有的原始碼都是放在這個目錄下面，那麼一般我們的做法就是一個目錄一個專案，例如: $GOPATH/src/mymath 表示 mymath 這個套件或者可執行應用，這個根據 package 是 main 還是其他來決定，main 的話就是可執行應用，其他的話就是套件，這個會在後續詳細介紹 package。</p>
+
+<p>所以當建立應用或者一個程式碼套件時都是在 src 目錄下建立一個資料夾，資料夾名稱一般是程式碼套件名稱，當然也允許多階層目錄，例如在 src 下面建立了目錄$GOPATH/src/github.com/astaxie/beedb 那麼這個套件路徑就是&rdquo;github.com/astaxie/beedb&rdquo;，套件名稱是最後一個目錄 beedb</p>
+
+<p>下面我就以 mymath 為例來講述如何編寫套件，執行如下程式碼</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">cd $GOPATH/src
+mkdir mymath</code></pre></div>
+<p>建立檔案 sqrt.go，內容如下</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// $GOPATH/src/mymath/sqrt.go 原始碼如下：
+</span><span style="color:#75715e"></span><span style="color:#f92672">package</span> <span style="color:#a6e22e">mymath</span>
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Sqrt</span>(<span style="color:#a6e22e">x</span> <span style="color:#66d9ef">float64</span>) <span style="color:#66d9ef">float64</span> {
+	<span style="color:#a6e22e">z</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0.0</span>
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#ae81ff">1000</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+		<span style="color:#a6e22e">z</span> <span style="color:#f92672">-=</span> (<span style="color:#a6e22e">z</span><span style="color:#f92672">*</span><span style="color:#a6e22e">z</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">x</span>) <span style="color:#f92672">/</span> (<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">x</span>)
+	}
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">z</span>
+}</code></pre></div>
+<p>這樣我的套件目錄和程式碼已經建立完畢，注意：一般建議 package 的名稱和目錄名保持一致</p>
+
+<h2 id="編譯應用">編譯應用</h2>
+
+<p>上面我們已經建立了自己的套件，如何進行編譯安裝呢？有兩種方式可以進行安裝</p>
+
+<p>1、只要進入對應的套件目錄，然後執行<code>go install</code>，就可以安裝了</p>
+
+<p>2、在任意的目錄執行如下程式碼<code>go install mymath</code></p>
+
+<p>安裝完之後，我們可以進入如下目錄</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">cd $GOPATH/pkg/<span style="color:#e6db74">${</span>GOOS<span style="color:#e6db74">}</span>_<span style="color:#e6db74">${</span>GOARCH<span style="color:#e6db74">}</span>
+//可以看到如下檔案
+mymath.a</code></pre></div>
+<p>這個.a 檔案是套件，那麼我們如何進行呼叫呢？</p>
+
+<p>接下來我們建立一個應用程式來呼叫這個套件</p>
+
+<p>建立套件 mathapp</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">cd $GOPATH/src
+mkdir mathapp
+cd mathapp
+vim main.go</code></pre></div>
+<p><code>$GOPATH/src/mathapp/main.go</code>原始碼：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+	<span style="color:#e6db74">&#34;mymath&#34;</span>
+	<span style="color:#e6db74">&#34;fmt&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;Hello, world.  Sqrt(2) = %v\n&#34;</span>, <span style="color:#a6e22e">mymath</span>.<span style="color:#a6e22e">Sqrt</span>(<span style="color:#ae81ff">2</span>))
+}</code></pre></div>
+<p>可以看到這個的 package 是<code>main</code>，import 裡面呼叫的套件是<code>mymath</code>，這個就是相對於<code>$GOPATH/src</code>的路徑，如果是多階層目錄，就在 import 裡面引入多階層目錄，如果你有多個 GOPATH，也是一樣，Go 會自動在多個<code>$GOPATH/src</code>中尋找。</p>
+
+<p>如何編譯程式呢？進入該應用目錄，然後執行<code>go build</code>，那麼在該目錄下面會產生一個 mathapp 的可執行檔案</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">./mathapp</code></pre></div>
+<p>輸出如下內容</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">Hello, world.  Sqrt<span style="color:#f92672">(</span><span style="color:#ae81ff">2</span><span style="color:#f92672">)</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>.414213562373095</code></pre></div>
+<p>如何安裝該應用，進入該目錄執行<code>go install</code>，那麼在$GOPATH/bin/下增加了一個可執行檔案 mathapp, 還記得前面我們把<code>$GOPATH/bin</code>加到我們的 PATH 裡面了，這樣可以在命令列輸入如下命令就可以執行</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">mathapp</code></pre></div>
+<p>也是輸出如下內容</p>
+
+<pre><code>Hello, world.  Sqrt(2) = 1.414213562373095
+</code></pre>
+
+<p>這裡我們展示如何編譯和安裝一個可執行的應用，以及如何設計我們的目錄結構。</p>
+
+<h2 id="取得遠端套件">取得遠端套件</h2>
+
+<p>go 語言有一個取得遠端套件的工具就是<code>go get</code>，目前 go get 支援多數開源社群(例如：github、googlecode、bitbucket、Launchpad)</p>
+
+<pre><code>go get github.com/astaxie/beedb
+</code></pre>
+
+<blockquote>
+<p>go get -u 參數可以自動更新套件，而且當 go get 的時候會自動取得該套件依賴的其他第三方套件</p>
+</blockquote>
+
+<p>透過這個命令可以取得相應的原始碼，對應的開源平臺採用不同的原始碼控制工具，例如 github 採用 git、googlecode 採用 hg，所以要想取得這些原始碼，必須先安裝相應的原始碼控制工具</p>
+
+<p>透過上面取得的程式碼在我們本地的原始碼相應的程式碼結構如下</p>
+
+<pre><code>$GOPATH
+  src
+   |--github.com
+          |-astaxie
+              |-beedb
+   pkg
+    |--相應平臺
+         |-github.com
+               |--astaxie
+                    |beedb.a
+</code></pre>
+
+<p>go get 本質上可以理解為首先第一步是透過原始碼工具 clone 程式碼到 src 下面，然後執行<code>go install</code></p>
+
+<p>在程式碼中如何使用遠端套件，很簡單的就是和使用本地套件一樣，只要在開頭 import 相應的路徑就可以</p>
+
+<pre><code>import &quot;github.com/astaxie/beedb&quot;
+</code></pre>
+
+<h2 id="程式的整體結構">程式的整體結構</h2>
+
+<p>透過上面建立的我本地的 mygo 的目錄結構如下所示</p>
+
+<pre><code>bin/
+    mathapp
+pkg/
+    平臺名/ 如：darwin_amd64、linux_amd64
+         mymath.a
+         github.com/
+              astaxie/
+                   beedb.a
+src/
+    mathapp
+          main.go
+    mymath/
+          sqrt.go
+    github.com/
+           astaxie/
+                beedb/
+                    beedb.go
+                    util.go
+</code></pre>
+
+<p>從上面的結構我們可以很清晰的看到，bin 目錄下面存的是編譯之後可執行的檔案，pkg 下面存放的是套件，src 下面儲存的是應用原始碼</p>
+
+<h2 id="links">links</h2>
+
+<ul>
+<li><a href="docs/preface">目錄</a></li>
+<li>上一節: <a href="docs/01.1">安裝 Go</a></li>
+<li>下一節: <a href="docs/01.3">GO 命令</a></li>
+</ul>
+</article>
+
+      
+<div class="book-footer justify-between">
+  
+  <div>
+    
+    <a href="/commit/fda25aafea9413c8ec77f5df29d5f6bb5f7dc3a6" title='Last modified Sep 21, 2019 by Jiuxiao' target="_blank" rel="noopener">
+      <img src="/buildWebWithGolangTw/svg/calendar.svg" alt="Changed" /> Sep 21, 2019
+    </a>
+  </div>
+  
+  
+</div>
+
+
+      
+    </div>
+
+    
+  
+
+  <aside class="book-toc level-3 fixed">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#1-2-gopath-與工作空間">1.2 GOPATH 與工作空間</a>
+<ul>
+<li><a href="#gopath-設定">GOPATH 設定</a></li>
+<li><a href="#程式碼目錄結構規劃">程式碼目錄結構規劃</a></li>
+<li><a href="#編譯應用">編譯應用</a></li>
+<li><a href="#取得遠端套件">取得遠端套件</a></li>
+<li><a href="#程式的整體結構">程式的整體結構</a></li>
+<li><a href="#links">links</a></li>
+</ul></li>
+</ul>
+</nav>
+  </aside>
+
+
+
+  </main>
+
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-148025936-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+</body>
+
+</html>

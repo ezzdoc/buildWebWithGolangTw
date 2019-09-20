@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>05.2 | 使用 Golang 打造 Web 應用程式</title>
+
+
+<link rel="stylesheet" href="/buildWebWithGolangTw/book.min.89885fa0429ec73067282f26fc0c6d38cfc617a443ec4e835d47b821c52c6e92.css" integrity="sha256-iYhfoEKexzBnKC8m/AxtOM/GF6RD7E6DXUe4IcUsbpI=">
+
+
+<script defer src="/buildWebWithGolangTw/search.min.4762838110f5450a8a33fcbe56c7ce734d09867f3e9ab5c1e6f7bbec99b65c68.js" integrity="sha256-R2KDgRD1RQqKM/y&#43;VsfOc00Jhn8&#43;mrXB5ve77Jm2XGg="></script>
+
+
+
+<link rel="icon" href="/buildWebWithGolangTw/favicon.png" type="image/x-icon">
+
+<base href="https://ezzdoc.com/buildWebWithGolangTw/">
+
+
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body>
+  <input type="checkbox" class="hidden" id="menu-control" />
+  <main class="flex container">
+
+    <aside class="book-menu fixed">
+      <nav>
+<h2 class="book-brand">
+  <a href="https://ezzdoc.com/buildWebWithGolangTw/"><span>使用 Golang 打造 Web 應用程式</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" placeholder="Search" id="book-search-input" maxlength="64" readonly />
+  <div class="book-search-spinner spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+    
+  
+  
+  
+
+  <style>
+  nav ul a[href$="\2f buildWebWithGolangTw\2f docs\2f 05.2\2f "] {
+      color: #004ed0;
+  }
+  </style>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/preface/">目錄</a></li>
+<li><a href="/buildWebWithGolangTw/docs/01.0/">1.Go 環境配置</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/01.1/">1.1 安裝 Go</a></li>
+<li><a href="/buildWebWithGolangTw/docs/01.2/">1.2 GOPATH 與工作空間</a></li>
+<li><a href="/buildWebWithGolangTw/docs/01.3/">1.3 Go 命令</a></li>
+<li><a href="/buildWebWithGolangTw/docs/01.4/">1.4 Go 開發工具</a></li>
+<li><a href="/buildWebWithGolangTw/docs/01.5/">1.5 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/02.0/">2.Go 語言基礎</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/02.1/">2.1 你好，Go</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.2/">2.2 Go 基礎</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.3/">2.3 流程和函式</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.4/">2.4 struct</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.5/">2.5 物件導向</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.6/">2.6 interface</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.7/">2.7 併發</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.8/">2.8 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/03.0/">3.Web 基礎</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/03.1/">3.1 web 工作方式</a></li>
+<li><a href="/buildWebWithGolangTw/docs/03.2/">3.2 Go 建立一個簡單的 web 服務</a></li>
+<li><a href="/buildWebWithGolangTw/docs/03.3/">3.3 Go 如何使得 web 工作</a></li>
+<li><a href="/buildWebWithGolangTw/docs/03.4/">3.4 Go 的 http 套件詳解</a></li>
+<li><a href="/buildWebWithGolangTw/docs/03.5/">3.5 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/04.0/">4.表單</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/04.1/">4.1 處理表單的輸入</a></li>
+<li><a href="/buildWebWithGolangTw/docs/04.2/">4.2 驗證表單的輸入</a></li>
+<li><a href="/buildWebWithGolangTw/docs/04.3/">4.3 預防跨站指令碼</a></li>
+<li><a href="/buildWebWithGolangTw/docs/04.4/">4.4 防止多次提交表單</a></li>
+<li><a href="/buildWebWithGolangTw/docs/04.5/">4.5 處理檔案上傳</a></li>
+<li><a href="/buildWebWithGolangTw/docs/04.6/">4.6 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/05.0/">5.訪問資料庫</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/05.1/">5.1 database/sql 介面</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.2/">5.2 使用 MySQL 資料庫</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.3/">5.3 使用 SQLite 資料庫</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.4/">5.4 使用 PostgreSQL 資料庫</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.5/">5.5 使用 Beego orm 函式庫進行 ORM 開發</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.6/">5.6 NOSQL 資料庫操作</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.7/">5.7 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/06.0/">6.session 和資料儲存</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/06.1/">6.1 session 和 cookie</a></li>
+<li><a href="/buildWebWithGolangTw/docs/06.2/">6.2 Go 如何使用 session</a></li>
+<li><a href="/buildWebWithGolangTw/docs/06.3/">6.3 session 儲存</a></li>
+<li><a href="/buildWebWithGolangTw/docs/06.4/">6.4 預防 session 劫持</a></li>
+<li><a href="/buildWebWithGolangTw/docs/06.5/">6.5 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/07.0/">7.文字檔案處理</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/07.1/">7.1 XML 處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.2/">7.2 JSON 處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.3/">7.3 正則處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.4/">7.4 範本處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.5/">7.5 檔案操作</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.6/">7.6 字串處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.7/">7.7 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/08.0/">8.Web 服務</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/08.1/">8.1 Socket 程式設計</a></li>
+<li><a href="/buildWebWithGolangTw/docs/08.2/">8.2 WebSocket</a></li>
+<li><a href="/buildWebWithGolangTw/docs/08.3/">8.3 REST</a></li>
+<li><a href="/buildWebWithGolangTw/docs/08.4/">8.4 RPC</a></li>
+<li><a href="/buildWebWithGolangTw/docs/08.5/">8.5 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/09.0/">9.安全與加密</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/09.1/">9.1 預防 CSRF 攻擊</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.2/">9.2 確保輸入過濾</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.3/">9.3 避免 XSS 攻擊</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.4/">9.4 避免 SQL 注入</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.5/">9.5 儲存密碼</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.6/">9.6 加密和解密資料</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.7/">9.7 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/10.0/">10.國際化和本地化</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/10.1/">10.1 設定預設地區</a></li>
+<li><a href="/buildWebWithGolangTw/docs/10.2/">10.2 本地化資源</a></li>
+<li><a href="/buildWebWithGolangTw/docs/10.3/">10.3 國際化站點</a></li>
+<li><a href="/buildWebWithGolangTw/docs/10.4/">10.4 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/11.0/">11.錯誤處理，除錯和測試</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/11.1/">11.1 錯誤處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/11.2/">11.2 使用 GDB 除錯</a></li>
+<li><a href="/buildWebWithGolangTw/docs/11.3/">11.3 Go 怎麼寫測試案例</a></li>
+<li><a href="/buildWebWithGolangTw/docs/11.4/">11.4 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/12.0/">12.部署與維護</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/12.1/">12.1 應用日誌</a></li>
+<li><a href="/buildWebWithGolangTw/docs/12.2/">12.2 網站錯誤處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/12.3/">12.3 應用部署</a></li>
+<li><a href="/buildWebWithGolangTw/docs/12.4/">12.4 備份和還原</a></li>
+<li><a href="/buildWebWithGolangTw/docs/12.5/">12.5 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/13.0/">13.如何設計一個 Web 框架</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/13.1/">13.1 專案規劃</a></li>
+<li><a href="/buildWebWithGolangTw/docs/13.2/">13.2 自訂路由器設計</a></li>
+<li><a href="/buildWebWithGolangTw/docs/13.3/">13.3 controller 設計</a></li>
+<li><a href="/buildWebWithGolangTw/docs/13.4/">13.4 日誌和配置設計</a></li>
+<li><a href="/buildWebWithGolangTw/docs/13.5/">13.5 實現部落格的增刪改</a></li>
+<li><a href="/buildWebWithGolangTw/docs/13.6/">13.6 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/14.0/">14.擴充套件 Web 框架</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/14.1/">14.1 靜態檔案支援</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.2/">14.2 Session 支援</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.3/">14.3 表單支援</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.4/">14.4 使用者認證</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.5/">14.5 多語言支援</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.6/">14.6 pprof 支援</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.7/">14.7 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/ref/">附錄 A 參考資料</a></li>
+</ul>
+
+
+
+
+
+
+
+</nav>
+
+
+<script>
+(function() {
+  var menu = document.querySelector("aside.book-menu nav");
+  addEventListener("beforeunload", function(event) {
+    localStorage.setItem("menu.scrollTop", menu.scrollTop);
+  });
+  menu.scrollTop = localStorage.getItem("menu.scrollTop");
+})();
+</script>
+
+    </aside>
+
+    <div class="book-page">
+      <header class="flex align-center justify-between book-header">
+  <label for="menu-control">
+    <img src="/buildWebWithGolangTw/svg/menu.svg" alt="Menu" />
+  </label>
+  <strong>05.2</strong>
+</header>
+
+      
+<article class="markdown">
+
+<h1 id="5-2-使用-mysql-資料庫">5.2 使用 MySQL 資料庫</h1>
+
+<p>目前 Internet 上流行的網站構架方式是 LAMP，其中的 M 即 MySQL, 作為資料庫，MySQL 以免費、開源、使用方便為優勢成為了很多 Web 開發的後端資料庫儲存引擎。</p>
+
+<h2 id="mysql-驅動">MySQL 驅動</h2>
+
+<p>Go 中支援 MySQL 的驅動目前比較多，有如下幾種，有些是支援 database/sql 標準，而有些是採用了自己的實現介面，常用的有如下幾種:</p>
+
+<ul>
+<li><a href="https://github.com/go-sql-driver/mysql">https://github.com/go-sql-driver/mysql</a>  支援 database/sql，全部採用 go 寫。</li>
+<li><a href="https://github.com/ziutek/mymysql">https://github.com/ziutek/mymysql</a>   支援 database/sql，也支援自訂的介面，全部採用 go 寫。</li>
+<li><a href="https://github.com/Philio/GoMySQL">https://github.com/Philio/GoMySQL</a> 不支援 database/sql，自訂介面，全部採用 go 寫。</li>
+</ul>
+
+<p>接下來的例子我主要以第一個驅動為例(我目前專案中也是採用它來驅動)，也推薦大家採用它，主要理由：</p>
+
+<ul>
+<li>這個驅動比較新，維護的比較好</li>
+<li>完全支援 database/sql 介面</li>
+<li>支援 keepalive，保持長連線，雖然 <a href="http://www.mikespook.com"> 星星</a>fork 的 mymysql 也支援 keepalive，但不是執行緒安全的，這個從底層就支援了 keepalive。</li>
+</ul>
+
+<h2 id="範例程式碼">範例程式碼</h2>
+
+<p>接下來的幾個小節裡面我們都將採用同一個資料庫表結構：資料庫 test，使用者表 userinfo，關聯使用者資訊表 userdetail。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TABLE</span> <span style="color:#f92672">`</span>userinfo<span style="color:#f92672">`</span> (
+	<span style="color:#f92672">`</span>uid<span style="color:#f92672">`</span> INT(<span style="color:#ae81ff">10</span>) <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span> AUTO_INCREMENT,
+	<span style="color:#f92672">`</span>username<span style="color:#f92672">`</span> VARCHAR(<span style="color:#ae81ff">64</span>) <span style="color:#66d9ef">NULL</span> <span style="color:#66d9ef">DEFAULT</span> <span style="color:#66d9ef">NULL</span>,
+	<span style="color:#f92672">`</span>department<span style="color:#f92672">`</span> VARCHAR(<span style="color:#ae81ff">64</span>) <span style="color:#66d9ef">NULL</span> <span style="color:#66d9ef">DEFAULT</span> <span style="color:#66d9ef">NULL</span>,
+	<span style="color:#f92672">`</span>created<span style="color:#f92672">`</span> DATE <span style="color:#66d9ef">NULL</span> <span style="color:#66d9ef">DEFAULT</span> <span style="color:#66d9ef">NULL</span>,
+	<span style="color:#66d9ef">PRIMARY</span> <span style="color:#66d9ef">KEY</span> (<span style="color:#f92672">`</span>uid<span style="color:#f92672">`</span>)
+);
+
+<span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TABLE</span> <span style="color:#f92672">`</span>userdetail<span style="color:#f92672">`</span> (
+	<span style="color:#f92672">`</span>uid<span style="color:#f92672">`</span> INT(<span style="color:#ae81ff">10</span>) <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span> <span style="color:#66d9ef">DEFAULT</span> <span style="color:#e6db74">&#39;0&#39;</span>,
+	<span style="color:#f92672">`</span>intro<span style="color:#f92672">`</span> TEXT <span style="color:#66d9ef">NULL</span>,
+	<span style="color:#f92672">`</span>profile<span style="color:#f92672">`</span> TEXT <span style="color:#66d9ef">NULL</span>,
+	<span style="color:#66d9ef">PRIMARY</span> <span style="color:#66d9ef">KEY</span> (<span style="color:#f92672">`</span>uid<span style="color:#f92672">`</span>)
+)</code></pre></div>
+<p>如下範例將示範如何使用 database/sql 介面對資料庫表進行增刪改查操作</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+	<span style="color:#e6db74">&#34;database/sql&#34;</span>
+	<span style="color:#e6db74">&#34;fmt&#34;</span>
+	<span style="color:#75715e">//&#34;time&#34;
+</span><span style="color:#75715e"></span>
+	<span style="color:#a6e22e">_</span> <span style="color:#e6db74">&#34;github.com/go-sql-driver/mysql&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#a6e22e">db</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">sql</span>.<span style="color:#a6e22e">Open</span>(<span style="color:#e6db74">&#34;mysql&#34;</span>, <span style="color:#e6db74">&#34;astaxie:astaxie@/test?charset=utf8&#34;</span>)
+	<span style="color:#a6e22e">checkErr</span>(<span style="color:#a6e22e">err</span>)
+
+	<span style="color:#75715e">//插入資料
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">stmt</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">Prepare</span>(<span style="color:#e6db74">&#34;INSERT userinfo SET username=?,department=?,created=?&#34;</span>)
+	<span style="color:#a6e22e">checkErr</span>(<span style="color:#a6e22e">err</span>)
+
+	<span style="color:#a6e22e">res</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">stmt</span>.<span style="color:#a6e22e">Exec</span>(<span style="color:#e6db74">&#34;astaxie&#34;</span>, <span style="color:#e6db74">&#34;研發部門&#34;</span>, <span style="color:#e6db74">&#34;2012-12-09&#34;</span>)
+	<span style="color:#a6e22e">checkErr</span>(<span style="color:#a6e22e">err</span>)
+
+	<span style="color:#a6e22e">id</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">LastInsertId</span>()
+	<span style="color:#a6e22e">checkErr</span>(<span style="color:#a6e22e">err</span>)
+
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">id</span>)
+	<span style="color:#75715e">//更新資料
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">stmt</span>, <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">Prepare</span>(<span style="color:#e6db74">&#34;update userinfo set username=? where uid=?&#34;</span>)
+	<span style="color:#a6e22e">checkErr</span>(<span style="color:#a6e22e">err</span>)
+
+	<span style="color:#a6e22e">res</span>, <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">stmt</span>.<span style="color:#a6e22e">Exec</span>(<span style="color:#e6db74">&#34;astaxieupdate&#34;</span>, <span style="color:#a6e22e">id</span>)
+	<span style="color:#a6e22e">checkErr</span>(<span style="color:#a6e22e">err</span>)
+
+	<span style="color:#a6e22e">affect</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">RowsAffected</span>()
+	<span style="color:#a6e22e">checkErr</span>(<span style="color:#a6e22e">err</span>)
+
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">affect</span>)
+
+	<span style="color:#75715e">//查詢資料
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">rows</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">Query</span>(<span style="color:#e6db74">&#34;SELECT * FROM userinfo&#34;</span>)
+	<span style="color:#a6e22e">checkErr</span>(<span style="color:#a6e22e">err</span>)
+
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">rows</span>.<span style="color:#a6e22e">Next</span>() {
+		<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">uid</span> <span style="color:#66d9ef">int</span>
+		<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">username</span> <span style="color:#66d9ef">string</span>
+		<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">department</span> <span style="color:#66d9ef">string</span>
+		<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">created</span> <span style="color:#66d9ef">string</span>
+		<span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">rows</span>.<span style="color:#a6e22e">Scan</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">uid</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">username</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">department</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">created</span>)
+		<span style="color:#a6e22e">checkErr</span>(<span style="color:#a6e22e">err</span>)
+		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">uid</span>)
+		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">username</span>)
+		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">department</span>)
+		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">created</span>)
+	}
+
+	<span style="color:#75715e">//刪除資料
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">stmt</span>, <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">Prepare</span>(<span style="color:#e6db74">&#34;delete from userinfo where uid=?&#34;</span>)
+	<span style="color:#a6e22e">checkErr</span>(<span style="color:#a6e22e">err</span>)
+
+	<span style="color:#a6e22e">res</span>, <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">stmt</span>.<span style="color:#a6e22e">Exec</span>(<span style="color:#a6e22e">id</span>)
+	<span style="color:#a6e22e">checkErr</span>(<span style="color:#a6e22e">err</span>)
+
+	<span style="color:#a6e22e">affect</span>, <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">RowsAffected</span>()
+	<span style="color:#a6e22e">checkErr</span>(<span style="color:#a6e22e">err</span>)
+
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">affect</span>)
+
+	<span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">Close</span>()
+
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">checkErr</span>(<span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>) {
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		panic(<span style="color:#a6e22e">err</span>)
+	}
+}</code></pre></div>
+<p>透過上面的程式碼我們可以看出，Go 操作 Mysql 資料庫是很方便的。</p>
+
+<p>關鍵的幾個函式我解釋一下：</p>
+
+<p>sql.Open()函式用來開啟一個註冊過的資料庫驅動，go-sql-driver 中註冊了 mysql 這個資料庫驅動，第二個參數是 DSN(Data Source Name)，它是 go-sql-driver 定義的一些資料庫連結和配置資訊。它支援如下格式：</p>
+
+<pre><code>user@unix(/path/to/socket)/dbname?charset=utf8
+user:password@tcp(localhost:5555)/dbname?charset=utf8
+user:password@/dbname
+user:password@tcp([de:ad:be:ef::ca:fe]:80)/dbname
+</code></pre>
+
+<p>db.Prepare()函式用來回傳準備要執行的 sql 操作，然後回傳準備完畢的執行狀態。</p>
+
+<p>db.Query()函式用來直接執行 Sql 回傳 Rows 結果。</p>
+
+<p>stmt.Exec()函式用來執行 stmt 準備好的 SQL 語句</p>
+
+<p>我們可以看到我們傳入的參數都是 =? 對應的資料，這樣做的方式可以一定程度上防止 SQL 注入。</p>
+
+<h2 id="links">links</h2>
+
+<ul>
+<li><a href="docs/preface">目錄</a></li>
+<li>上一節: <a href="docs/05.1">database/sql 介面</a></li>
+<li>下一節: <a href="docs/05.3">使用 SQLite 資料庫</a></li>
+</ul>
+</article>
+
+      
+<div class="book-footer justify-between">
+  
+  <div>
+    
+    <a href="/commit/fda25aafea9413c8ec77f5df29d5f6bb5f7dc3a6" title='Last modified Sep 21, 2019 by Jiuxiao' target="_blank" rel="noopener">
+      <img src="/buildWebWithGolangTw/svg/calendar.svg" alt="Changed" /> Sep 21, 2019
+    </a>
+  </div>
+  
+  
+</div>
+
+
+      
+    </div>
+
+    
+  
+
+  <aside class="book-toc level-3 fixed">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#5-2-使用-mysql-資料庫">5.2 使用 MySQL 資料庫</a>
+<ul>
+<li><a href="#mysql-驅動">MySQL 驅動</a></li>
+<li><a href="#範例程式碼">範例程式碼</a></li>
+<li><a href="#links">links</a></li>
+</ul></li>
+</ul>
+</nav>
+  </aside>
+
+
+
+  </main>
+
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-148025936-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+</body>
+
+</html>

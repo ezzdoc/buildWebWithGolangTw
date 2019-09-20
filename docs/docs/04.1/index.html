@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>04.1 | 使用 Golang 打造 Web 應用程式</title>
+
+
+<link rel="stylesheet" href="/buildWebWithGolangTw/book.min.89885fa0429ec73067282f26fc0c6d38cfc617a443ec4e835d47b821c52c6e92.css" integrity="sha256-iYhfoEKexzBnKC8m/AxtOM/GF6RD7E6DXUe4IcUsbpI=">
+
+
+<script defer src="/buildWebWithGolangTw/search.min.4762838110f5450a8a33fcbe56c7ce734d09867f3e9ab5c1e6f7bbec99b65c68.js" integrity="sha256-R2KDgRD1RQqKM/y&#43;VsfOc00Jhn8&#43;mrXB5ve77Jm2XGg="></script>
+
+
+
+<link rel="icon" href="/buildWebWithGolangTw/favicon.png" type="image/x-icon">
+
+<base href="https://ezzdoc.com/buildWebWithGolangTw/">
+
+
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body>
+  <input type="checkbox" class="hidden" id="menu-control" />
+  <main class="flex container">
+
+    <aside class="book-menu fixed">
+      <nav>
+<h2 class="book-brand">
+  <a href="https://ezzdoc.com/buildWebWithGolangTw/"><span>使用 Golang 打造 Web 應用程式</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" placeholder="Search" id="book-search-input" maxlength="64" readonly />
+  <div class="book-search-spinner spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+    
+  
+  
+  
+
+  <style>
+  nav ul a[href$="\2f buildWebWithGolangTw\2f docs\2f 04.1\2f "] {
+      color: #004ed0;
+  }
+  </style>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/preface/">目錄</a></li>
+<li><a href="/buildWebWithGolangTw/docs/01.0/">1.Go 環境配置</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/01.1/">1.1 安裝 Go</a></li>
+<li><a href="/buildWebWithGolangTw/docs/01.2/">1.2 GOPATH 與工作空間</a></li>
+<li><a href="/buildWebWithGolangTw/docs/01.3/">1.3 Go 命令</a></li>
+<li><a href="/buildWebWithGolangTw/docs/01.4/">1.4 Go 開發工具</a></li>
+<li><a href="/buildWebWithGolangTw/docs/01.5/">1.5 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/02.0/">2.Go 語言基礎</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/02.1/">2.1 你好，Go</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.2/">2.2 Go 基礎</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.3/">2.3 流程和函式</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.4/">2.4 struct</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.5/">2.5 物件導向</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.6/">2.6 interface</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.7/">2.7 併發</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.8/">2.8 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/03.0/">3.Web 基礎</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/03.1/">3.1 web 工作方式</a></li>
+<li><a href="/buildWebWithGolangTw/docs/03.2/">3.2 Go 建立一個簡單的 web 服務</a></li>
+<li><a href="/buildWebWithGolangTw/docs/03.3/">3.3 Go 如何使得 web 工作</a></li>
+<li><a href="/buildWebWithGolangTw/docs/03.4/">3.4 Go 的 http 套件詳解</a></li>
+<li><a href="/buildWebWithGolangTw/docs/03.5/">3.5 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/04.0/">4.表單</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/04.1/">4.1 處理表單的輸入</a></li>
+<li><a href="/buildWebWithGolangTw/docs/04.2/">4.2 驗證表單的輸入</a></li>
+<li><a href="/buildWebWithGolangTw/docs/04.3/">4.3 預防跨站指令碼</a></li>
+<li><a href="/buildWebWithGolangTw/docs/04.4/">4.4 防止多次提交表單</a></li>
+<li><a href="/buildWebWithGolangTw/docs/04.5/">4.5 處理檔案上傳</a></li>
+<li><a href="/buildWebWithGolangTw/docs/04.6/">4.6 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/05.0/">5.訪問資料庫</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/05.1/">5.1 database/sql 介面</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.2/">5.2 使用 MySQL 資料庫</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.3/">5.3 使用 SQLite 資料庫</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.4/">5.4 使用 PostgreSQL 資料庫</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.5/">5.5 使用 Beego orm 函式庫進行 ORM 開發</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.6/">5.6 NOSQL 資料庫操作</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.7/">5.7 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/06.0/">6.session 和資料儲存</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/06.1/">6.1 session 和 cookie</a></li>
+<li><a href="/buildWebWithGolangTw/docs/06.2/">6.2 Go 如何使用 session</a></li>
+<li><a href="/buildWebWithGolangTw/docs/06.3/">6.3 session 儲存</a></li>
+<li><a href="/buildWebWithGolangTw/docs/06.4/">6.4 預防 session 劫持</a></li>
+<li><a href="/buildWebWithGolangTw/docs/06.5/">6.5 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/07.0/">7.文字檔案處理</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/07.1/">7.1 XML 處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.2/">7.2 JSON 處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.3/">7.3 正則處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.4/">7.4 範本處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.5/">7.5 檔案操作</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.6/">7.6 字串處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.7/">7.7 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/08.0/">8.Web 服務</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/08.1/">8.1 Socket 程式設計</a></li>
+<li><a href="/buildWebWithGolangTw/docs/08.2/">8.2 WebSocket</a></li>
+<li><a href="/buildWebWithGolangTw/docs/08.3/">8.3 REST</a></li>
+<li><a href="/buildWebWithGolangTw/docs/08.4/">8.4 RPC</a></li>
+<li><a href="/buildWebWithGolangTw/docs/08.5/">8.5 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/09.0/">9.安全與加密</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/09.1/">9.1 預防 CSRF 攻擊</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.2/">9.2 確保輸入過濾</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.3/">9.3 避免 XSS 攻擊</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.4/">9.4 避免 SQL 注入</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.5/">9.5 儲存密碼</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.6/">9.6 加密和解密資料</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.7/">9.7 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/10.0/">10.國際化和本地化</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/10.1/">10.1 設定預設地區</a></li>
+<li><a href="/buildWebWithGolangTw/docs/10.2/">10.2 本地化資源</a></li>
+<li><a href="/buildWebWithGolangTw/docs/10.3/">10.3 國際化站點</a></li>
+<li><a href="/buildWebWithGolangTw/docs/10.4/">10.4 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/11.0/">11.錯誤處理，除錯和測試</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/11.1/">11.1 錯誤處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/11.2/">11.2 使用 GDB 除錯</a></li>
+<li><a href="/buildWebWithGolangTw/docs/11.3/">11.3 Go 怎麼寫測試案例</a></li>
+<li><a href="/buildWebWithGolangTw/docs/11.4/">11.4 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/12.0/">12.部署與維護</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/12.1/">12.1 應用日誌</a></li>
+<li><a href="/buildWebWithGolangTw/docs/12.2/">12.2 網站錯誤處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/12.3/">12.3 應用部署</a></li>
+<li><a href="/buildWebWithGolangTw/docs/12.4/">12.4 備份和還原</a></li>
+<li><a href="/buildWebWithGolangTw/docs/12.5/">12.5 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/13.0/">13.如何設計一個 Web 框架</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/13.1/">13.1 專案規劃</a></li>
+<li><a href="/buildWebWithGolangTw/docs/13.2/">13.2 自訂路由器設計</a></li>
+<li><a href="/buildWebWithGolangTw/docs/13.3/">13.3 controller 設計</a></li>
+<li><a href="/buildWebWithGolangTw/docs/13.4/">13.4 日誌和配置設計</a></li>
+<li><a href="/buildWebWithGolangTw/docs/13.5/">13.5 實現部落格的增刪改</a></li>
+<li><a href="/buildWebWithGolangTw/docs/13.6/">13.6 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/14.0/">14.擴充套件 Web 框架</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/14.1/">14.1 靜態檔案支援</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.2/">14.2 Session 支援</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.3/">14.3 表單支援</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.4/">14.4 使用者認證</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.5/">14.5 多語言支援</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.6/">14.6 pprof 支援</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.7/">14.7 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/ref/">附錄 A 參考資料</a></li>
+</ul>
+
+
+
+
+
+
+
+</nav>
+
+
+<script>
+(function() {
+  var menu = document.querySelector("aside.book-menu nav");
+  addEventListener("beforeunload", function(event) {
+    localStorage.setItem("menu.scrollTop", menu.scrollTop);
+  });
+  menu.scrollTop = localStorage.getItem("menu.scrollTop");
+})();
+</script>
+
+    </aside>
+
+    <div class="book-page">
+      <header class="flex align-center justify-between book-header">
+  <label for="menu-control">
+    <img src="/buildWebWithGolangTw/svg/menu.svg" alt="Menu" />
+  </label>
+  <strong>04.1</strong>
+</header>
+
+      
+<article class="markdown">
+
+<h1 id="4-1-處理表單的輸入">4.1 處理表單的輸入</h1>
+
+<p>先來看一個表單提交的例子，我們有如下的表單內容，命名成檔案 login.gtpl(放入當前建立專案的目錄裡面)</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">html</span>&gt;
+&lt;<span style="color:#f92672">head</span>&gt;
+&lt;<span style="color:#f92672">title</span>&gt;&lt;/<span style="color:#f92672">title</span>&gt;
+&lt;/<span style="color:#f92672">head</span>&gt;
+&lt;<span style="color:#f92672">body</span>&gt;
+&lt;<span style="color:#f92672">form</span> <span style="color:#a6e22e">action</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/login&#34;</span> <span style="color:#a6e22e">method</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;post&#34;</span>&gt;
+	使用者名稱:&lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;username&#34;</span>&gt;
+	密碼:&lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;password&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;password&#34;</span>&gt;
+	&lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;submit&#34;</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;登入&#34;</span>&gt;
+&lt;/<span style="color:#f92672">form</span>&gt;
+&lt;/<span style="color:#f92672">body</span>&gt;
+&lt;/<span style="color:#f92672">html</span>&gt;</code></pre></div>
+<p>上面提交表單到伺服器的<code>/login</code>，當用戶輸入資訊點選登入之後，會跳轉到伺服器的路由 <code>login</code> 裡面，我們首先要判斷這個是什麼方式傳遞過來，POST 還是 GET 呢？</p>
+
+<p>http 套件裡面有一個很簡單的方式就可以取得，我們在前面 web 的例子的基礎上來看看怎麼處理 login 頁面的 form 資料</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+	<span style="color:#e6db74">&#34;fmt&#34;</span>
+	<span style="color:#e6db74">&#34;html/template&#34;</span>
+	<span style="color:#e6db74">&#34;log&#34;</span>
+	<span style="color:#e6db74">&#34;net/http&#34;</span>
+	<span style="color:#e6db74">&#34;strings&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">sayhelloName</span>(<span style="color:#a6e22e">w</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ResponseWriter</span>, <span style="color:#a6e22e">r</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Request</span>) {
+	<span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">ParseForm</span>()       <span style="color:#75715e">//解析 url 傳遞的參數，對於 POST 則解析 HTTP 回應內容的主體（request body）
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">//注意 : 如果沒有呼叫 ParseForm 方法，下面無法取得表單的資料
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">Form</span>) <span style="color:#75715e">//這些資訊是輸出到伺服器端的列印資訊
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;path&#34;</span>, <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">URL</span>.<span style="color:#a6e22e">Path</span>)
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;scheme&#34;</span>, <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">URL</span>.<span style="color:#a6e22e">Scheme</span>)
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">Form</span>[<span style="color:#e6db74">&#34;url_long&#34;</span>])
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">k</span>, <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">Form</span> {
+		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;key:&#34;</span>, <span style="color:#a6e22e">k</span>)
+		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;val:&#34;</span>, <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">Join</span>(<span style="color:#a6e22e">v</span>, <span style="color:#e6db74">&#34;&#34;</span>))
+	}
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Fprintf</span>(<span style="color:#a6e22e">w</span>, <span style="color:#e6db74">&#34;Hello astaxie!&#34;</span>) <span style="color:#75715e">//這個寫入到 w 的是輸出到客戶端的
+</span><span style="color:#75715e"></span>}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">login</span>(<span style="color:#a6e22e">w</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ResponseWriter</span>, <span style="color:#a6e22e">r</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Request</span>) {
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;method:&#34;</span>, <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">Method</span>) <span style="color:#75715e">//取得請求的方法
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">Method</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;GET&#34;</span> {
+		<span style="color:#a6e22e">t</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">template</span>.<span style="color:#a6e22e">ParseFiles</span>(<span style="color:#e6db74">&#34;login.gtpl&#34;</span>)
+		<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Execute</span>(<span style="color:#a6e22e">w</span>, <span style="color:#66d9ef">nil</span>))
+	} <span style="color:#66d9ef">else</span> {
+		<span style="color:#75715e">//請求的是登入資料，那麼執行登入的邏輯判斷
+</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;username:&#34;</span>, <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">Form</span>[<span style="color:#e6db74">&#34;username&#34;</span>])
+		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;password:&#34;</span>, <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">Form</span>[<span style="color:#e6db74">&#34;password&#34;</span>])
+	}
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">HandleFunc</span>(<span style="color:#e6db74">&#34;/&#34;</span>, <span style="color:#a6e22e">sayhelloName</span>)       <span style="color:#75715e">//設定訪問的路由
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">HandleFunc</span>(<span style="color:#e6db74">&#34;/login&#34;</span>, <span style="color:#a6e22e">login</span>)         <span style="color:#75715e">//設定訪問的路由
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ListenAndServe</span>(<span style="color:#e6db74">&#34;:9090&#34;</span>, <span style="color:#66d9ef">nil</span>) <span style="color:#75715e">//設定監聽的埠
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#e6db74">&#34;ListenAndServe: &#34;</span>, <span style="color:#a6e22e">err</span>)
+	}
+}</code></pre></div>
+<p>透過上面的程式碼我們可以看出取得請求方法是透過<code>r.Method</code>來完成的，這是個字串型別的變數，回傳 GET, POST, PUT 等 method 資訊。</p>
+
+<p>login 函式中我們根據<code>r.Method</code>來判斷是顯示登入介面還是處理登入邏輯。當 GET 方式請求時顯示登入介面，其他方式請求時則處理登入邏輯，如查詢資料庫、驗證登入資訊等。</p>
+
+<p>當我們在瀏覽器裡面開啟<code>http://127.0.0.1:9090/login</code>的時候，出現如下介面</p>
+
+<p><img src="images/4.1.login.png" alt="" /></p>
+
+<p>如果你看到一個空頁面，可能是你寫的 login.gtpl 檔案中有錯誤，請根據控制檯中的日誌進行修復。</p>
+
+<p>圖 4.1 使用者登入介面</p>
+
+<p>我們輸入使用者名稱和密碼之後發現在伺服器端是不會顯示出來任何輸出的，為什麼呢？預設情況下，Handler 裡面是不會自動解析 form 的，必須明確的呼叫<code>r.ParseForm()</code>後，你才能對這個表單資料進行操作。我們修改一下程式碼，在<code>fmt.Println(&quot;username:&quot;, r.Form[&quot;username&quot;])</code>之前加一行<code>r.ParseForm()</code>，重新編譯，再次測試輸入提交，現在是不是在伺服器端有輸出你的輸入的使用者名稱和密碼了。</p>
+
+<p><code>r.Form</code>裡面包含了所有請求的參數，比如 URL 中 query-string、POST 的資料、PUT 的資料，所以當你在 URL 中的 query-string 欄位和 POST 衝突時，會儲存成一個 slice，裡面儲存了多個值，Go 官方文件中說在接下來的版本里面將會把 POST、GET 這些資料分離開來。</p>
+
+<p>現在我們修改一下 login.gtpl 裡面 form 的 action 值<code>http://127.0.0.1:9090/login</code>修改為<code>http://127.0.0.1:9090/login?username=astaxie</code>，再次測試，伺服器的輸出 username 是不是一個 slice。伺服器端的輸出如下：</p>
+
+<p><img src="images/4.1.slice.png" alt="" /></p>
+
+<p>圖 4.2 伺服器端列印接收到的資訊</p>
+
+<p><code>request.Form</code>是一個 url.Values 型別，裡面儲存的是對應的類似 <code>key=value</code> 的資訊，下面展示了可以對 form 資料進行的一些操作:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">url</span>.<span style="color:#a6e22e">Values</span>{}
+<span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Set</span>(<span style="color:#e6db74">&#34;name&#34;</span>, <span style="color:#e6db74">&#34;Ava&#34;</span>)
+<span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#e6db74">&#34;friend&#34;</span>, <span style="color:#e6db74">&#34;Jess&#34;</span>)
+<span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#e6db74">&#34;friend&#34;</span>, <span style="color:#e6db74">&#34;Sarah&#34;</span>)
+<span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#e6db74">&#34;friend&#34;</span>, <span style="color:#e6db74">&#34;Zoe&#34;</span>)
+<span style="color:#75715e">// v.Encode() == &#34;name=Ava&amp;friend=Jess&amp;friend=Sarah&amp;friend=Zoe&#34;
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Get</span>(<span style="color:#e6db74">&#34;name&#34;</span>))
+<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Get</span>(<span style="color:#e6db74">&#34;friend&#34;</span>))
+<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">v</span>[<span style="color:#e6db74">&#34;friend&#34;</span>])</code></pre></div>
+<blockquote>
+<p><strong>Tips</strong>:
+Request 本身也提供了 FormValue()函式來取得使用者提交的參數。如 r.Form[&ldquo;username&rdquo;]也可寫成 r.FormValue(&ldquo;username&rdquo;)。呼叫 r.FormValue 時會自動呼叫 r.ParseForm，所以不必提前呼叫。r.FormValue 只會回傳同名參數中的第一個，若參數不存在則回傳空字串。</p>
+</blockquote>
+
+<h2 id="links">links</h2>
+
+<ul>
+<li><a href="docs/preface">目錄</a>
+
+<ul>
+<li>上一節: <a href="docs/04.0">表單</a></li>
+<li>下一節: <a href="docs/04.2">驗證表單的輸入</a></li>
+</ul></li>
+</ul>
+</article>
+
+      
+<div class="book-footer justify-between">
+  
+  <div>
+    
+    <a href="/commit/fda25aafea9413c8ec77f5df29d5f6bb5f7dc3a6" title='Last modified Sep 21, 2019 by Jiuxiao' target="_blank" rel="noopener">
+      <img src="/buildWebWithGolangTw/svg/calendar.svg" alt="Changed" /> Sep 21, 2019
+    </a>
+  </div>
+  
+  
+</div>
+
+
+      
+    </div>
+
+    
+  
+
+  <aside class="book-toc level-3 fixed">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#4-1-處理表單的輸入">4.1 處理表單的輸入</a>
+<ul>
+<li><a href="#links">links</a></li>
+</ul></li>
+</ul>
+</nav>
+  </aside>
+
+
+
+  </main>
+
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-148025936-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+</body>
+
+</html>

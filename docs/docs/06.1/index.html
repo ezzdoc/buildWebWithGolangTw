@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>06.1 | 使用 Golang 打造 Web 應用程式</title>
+
+
+<link rel="stylesheet" href="/buildWebWithGolangTw/book.min.89885fa0429ec73067282f26fc0c6d38cfc617a443ec4e835d47b821c52c6e92.css" integrity="sha256-iYhfoEKexzBnKC8m/AxtOM/GF6RD7E6DXUe4IcUsbpI=">
+
+
+<script defer src="/buildWebWithGolangTw/search.min.4762838110f5450a8a33fcbe56c7ce734d09867f3e9ab5c1e6f7bbec99b65c68.js" integrity="sha256-R2KDgRD1RQqKM/y&#43;VsfOc00Jhn8&#43;mrXB5ve77Jm2XGg="></script>
+
+
+
+<link rel="icon" href="/buildWebWithGolangTw/favicon.png" type="image/x-icon">
+
+<base href="https://ezzdoc.com/buildWebWithGolangTw/">
+
+
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body>
+  <input type="checkbox" class="hidden" id="menu-control" />
+  <main class="flex container">
+
+    <aside class="book-menu fixed">
+      <nav>
+<h2 class="book-brand">
+  <a href="https://ezzdoc.com/buildWebWithGolangTw/"><span>使用 Golang 打造 Web 應用程式</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" placeholder="Search" id="book-search-input" maxlength="64" readonly />
+  <div class="book-search-spinner spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+    
+  
+  
+  
+
+  <style>
+  nav ul a[href$="\2f buildWebWithGolangTw\2f docs\2f 06.1\2f "] {
+      color: #004ed0;
+  }
+  </style>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/preface/">目錄</a></li>
+<li><a href="/buildWebWithGolangTw/docs/01.0/">1.Go 環境配置</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/01.1/">1.1 安裝 Go</a></li>
+<li><a href="/buildWebWithGolangTw/docs/01.2/">1.2 GOPATH 與工作空間</a></li>
+<li><a href="/buildWebWithGolangTw/docs/01.3/">1.3 Go 命令</a></li>
+<li><a href="/buildWebWithGolangTw/docs/01.4/">1.4 Go 開發工具</a></li>
+<li><a href="/buildWebWithGolangTw/docs/01.5/">1.5 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/02.0/">2.Go 語言基礎</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/02.1/">2.1 你好，Go</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.2/">2.2 Go 基礎</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.3/">2.3 流程和函式</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.4/">2.4 struct</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.5/">2.5 物件導向</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.6/">2.6 interface</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.7/">2.7 併發</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.8/">2.8 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/03.0/">3.Web 基礎</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/03.1/">3.1 web 工作方式</a></li>
+<li><a href="/buildWebWithGolangTw/docs/03.2/">3.2 Go 建立一個簡單的 web 服務</a></li>
+<li><a href="/buildWebWithGolangTw/docs/03.3/">3.3 Go 如何使得 web 工作</a></li>
+<li><a href="/buildWebWithGolangTw/docs/03.4/">3.4 Go 的 http 套件詳解</a></li>
+<li><a href="/buildWebWithGolangTw/docs/03.5/">3.5 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/04.0/">4.表單</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/04.1/">4.1 處理表單的輸入</a></li>
+<li><a href="/buildWebWithGolangTw/docs/04.2/">4.2 驗證表單的輸入</a></li>
+<li><a href="/buildWebWithGolangTw/docs/04.3/">4.3 預防跨站指令碼</a></li>
+<li><a href="/buildWebWithGolangTw/docs/04.4/">4.4 防止多次提交表單</a></li>
+<li><a href="/buildWebWithGolangTw/docs/04.5/">4.5 處理檔案上傳</a></li>
+<li><a href="/buildWebWithGolangTw/docs/04.6/">4.6 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/05.0/">5.訪問資料庫</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/05.1/">5.1 database/sql 介面</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.2/">5.2 使用 MySQL 資料庫</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.3/">5.3 使用 SQLite 資料庫</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.4/">5.4 使用 PostgreSQL 資料庫</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.5/">5.5 使用 Beego orm 函式庫進行 ORM 開發</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.6/">5.6 NOSQL 資料庫操作</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.7/">5.7 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/06.0/">6.session 和資料儲存</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/06.1/">6.1 session 和 cookie</a></li>
+<li><a href="/buildWebWithGolangTw/docs/06.2/">6.2 Go 如何使用 session</a></li>
+<li><a href="/buildWebWithGolangTw/docs/06.3/">6.3 session 儲存</a></li>
+<li><a href="/buildWebWithGolangTw/docs/06.4/">6.4 預防 session 劫持</a></li>
+<li><a href="/buildWebWithGolangTw/docs/06.5/">6.5 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/07.0/">7.文字檔案處理</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/07.1/">7.1 XML 處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.2/">7.2 JSON 處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.3/">7.3 正則處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.4/">7.4 範本處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.5/">7.5 檔案操作</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.6/">7.6 字串處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.7/">7.7 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/08.0/">8.Web 服務</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/08.1/">8.1 Socket 程式設計</a></li>
+<li><a href="/buildWebWithGolangTw/docs/08.2/">8.2 WebSocket</a></li>
+<li><a href="/buildWebWithGolangTw/docs/08.3/">8.3 REST</a></li>
+<li><a href="/buildWebWithGolangTw/docs/08.4/">8.4 RPC</a></li>
+<li><a href="/buildWebWithGolangTw/docs/08.5/">8.5 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/09.0/">9.安全與加密</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/09.1/">9.1 預防 CSRF 攻擊</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.2/">9.2 確保輸入過濾</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.3/">9.3 避免 XSS 攻擊</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.4/">9.4 避免 SQL 注入</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.5/">9.5 儲存密碼</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.6/">9.6 加密和解密資料</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.7/">9.7 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/10.0/">10.國際化和本地化</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/10.1/">10.1 設定預設地區</a></li>
+<li><a href="/buildWebWithGolangTw/docs/10.2/">10.2 本地化資源</a></li>
+<li><a href="/buildWebWithGolangTw/docs/10.3/">10.3 國際化站點</a></li>
+<li><a href="/buildWebWithGolangTw/docs/10.4/">10.4 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/11.0/">11.錯誤處理，除錯和測試</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/11.1/">11.1 錯誤處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/11.2/">11.2 使用 GDB 除錯</a></li>
+<li><a href="/buildWebWithGolangTw/docs/11.3/">11.3 Go 怎麼寫測試案例</a></li>
+<li><a href="/buildWebWithGolangTw/docs/11.4/">11.4 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/12.0/">12.部署與維護</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/12.1/">12.1 應用日誌</a></li>
+<li><a href="/buildWebWithGolangTw/docs/12.2/">12.2 網站錯誤處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/12.3/">12.3 應用部署</a></li>
+<li><a href="/buildWebWithGolangTw/docs/12.4/">12.4 備份和還原</a></li>
+<li><a href="/buildWebWithGolangTw/docs/12.5/">12.5 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/13.0/">13.如何設計一個 Web 框架</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/13.1/">13.1 專案規劃</a></li>
+<li><a href="/buildWebWithGolangTw/docs/13.2/">13.2 自訂路由器設計</a></li>
+<li><a href="/buildWebWithGolangTw/docs/13.3/">13.3 controller 設計</a></li>
+<li><a href="/buildWebWithGolangTw/docs/13.4/">13.4 日誌和配置設計</a></li>
+<li><a href="/buildWebWithGolangTw/docs/13.5/">13.5 實現部落格的增刪改</a></li>
+<li><a href="/buildWebWithGolangTw/docs/13.6/">13.6 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/14.0/">14.擴充套件 Web 框架</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/14.1/">14.1 靜態檔案支援</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.2/">14.2 Session 支援</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.3/">14.3 表單支援</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.4/">14.4 使用者認證</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.5/">14.5 多語言支援</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.6/">14.6 pprof 支援</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.7/">14.7 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/ref/">附錄 A 參考資料</a></li>
+</ul>
+
+
+
+
+
+
+
+</nav>
+
+
+<script>
+(function() {
+  var menu = document.querySelector("aside.book-menu nav");
+  addEventListener("beforeunload", function(event) {
+    localStorage.setItem("menu.scrollTop", menu.scrollTop);
+  });
+  menu.scrollTop = localStorage.getItem("menu.scrollTop");
+})();
+</script>
+
+    </aside>
+
+    <div class="book-page">
+      <header class="flex align-center justify-between book-header">
+  <label for="menu-control">
+    <img src="/buildWebWithGolangTw/svg/menu.svg" alt="Menu" />
+  </label>
+  <strong>06.1</strong>
+</header>
+
+      
+<article class="markdown">
+
+<h1 id="6-1-session-和-cookie">6.1 session 和 cookie</h1>
+
+<p>session 和 cookie 是網站瀏覽中較為常見的兩個概念，也是比較難以辨析的兩個概念，但它們在瀏覽需要認證的服務頁面以及頁面統計中卻相當關鍵。我們先來了解一下 session 和 cookie 怎麼來的？考慮這樣一個問題：</p>
+
+<p>如何抓取一個訪問受限的網頁？如新浪微博好友的主頁，個人微博頁面等。</p>
+
+<p>顯然，透過瀏覽器，我們可以手動輸入使用者名稱和密碼來訪問頁面，而所謂的“抓取”，其實就是使用程式來模擬完成同樣的工作，因此我們需要了解“登入”過程中到底發生了什麼。</p>
+
+<p>當用戶來到微博登入頁面，輸入使用者名稱和密碼之後點選“登入”後瀏覽器將認證資訊 POST 給遠端的伺服器，伺服器執行驗證邏輯，如果驗證透過，則瀏覽器會跳轉到登入使用者的微博首頁，在登入成功後，伺服器如何驗證我們對其他受限制頁面的訪問呢？因為 HTTP 協議是無狀態的，所以很顯然伺服器不可能知道我們已經在上一次的 HTTP 請求中通過了驗證。當然，最簡單的解決方案就是所有的請求裡面都帶上使用者名稱和密碼，這樣雖然可行，但大大加重了伺服器的負擔（對於每個 request 都需要到資料庫驗證），也大大降低了使用者體驗(每個頁面都需要重新輸入使用者名稱密碼，每個頁面都帶有登入表單)。既然直接在請求中帶上使用者名稱與密碼不可行，那麼就只有在伺服器或客戶端儲存一些類似的可以代表身份的資訊了，所以就有了 cookie 與 session。</p>
+
+<p>cookie，簡而言之就是在本地計算機儲存一些使用者操作的歷史資訊（當然包括登入資訊），並在使用者再次訪問該站點時瀏覽器透過 HTTP 協議將本地 cookie 內容傳送給伺服器，從而完成驗證，或繼續上一步操作。</p>
+
+<p><img src="images/6.1.cookie2.png" alt="" /></p>
+
+<p>圖 6.1 cookie 的原理圖</p>
+
+<p>session，簡而言之就是在伺服器上儲存使用者操作的歷史資訊。伺服器使用 session id 來標識 session，session id 由伺服器負責產生，保證隨機性與唯一性，相當於一個隨機金鑰，避免在握手或傳輸中暴露使用者真實密碼。但該方式下，仍然需要將傳送請求的客戶端與 session 進行對應，所以可以藉助 cookie 機制來取得客戶端的標識（即 session id），也可以透過 GET 方式將 id 提交給伺服器。</p>
+
+<p><img src="images/6.1.session.png" alt="" /></p>
+
+<p>圖 6.2 session 的原理圖</p>
+
+<h2 id="cookie">cookie</h2>
+
+<p>Cookie 是由瀏覽器維持的，儲存在客戶端的一小段文字資訊，伴隨著使用者請求和頁面在 Web 伺服器和瀏覽器之間傳遞。使用者每次訪問站點時，Web 應用程式都可以讀取 cookie 包含的資訊。瀏覽器設定裡面有 cookie 隱私資料選項，開啟它，可以看到很多已訪問網站的 cookies，如下圖所示：</p>
+
+<p><img src="images/6.1.cookie.png" alt="" /></p>
+
+<p>圖 6.3 瀏覽器端儲存的 cookie 資訊</p>
+
+<p>cookie 是有時間限制的，根據生命期不同分成兩種：會話 cookie 和持久 cookie；</p>
+
+<p>如果不設定過期時間，則表示這個 cookie 的生命週期為從建立到瀏覽器關閉為止，只要關閉瀏覽器視窗，cookie 就消失了。這種生命期為瀏覽會話期的 cookie 被稱為會話 cookie。會話 cookie 一般不儲存在硬碟上而是儲存在記憶體裡。</p>
+
+<p>如果設定了過期時間(setMaxAge(60*60*24))，瀏覽器就會把 cookie 儲存到硬碟上，關閉後再次開啟瀏覽器，這些 cookie 依然有效直到超過設定的過期時間。儲存在硬碟上的 cookie 可以在不同的瀏覽器程序間共享，比如兩個 IE 視窗。而對於儲存在記憶體的 cookie，不同的瀏覽器有不同的處理方式。
+　　</p>
+
+<h3 id="go-設定-cookie">Go 設定 cookie</h3>
+
+<p>Go 語言中透過 net/http 套件中的 SetCookie 來設定：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">SetCookie</span>(<span style="color:#a6e22e">w</span> <span style="color:#a6e22e">ResponseWriter</span>, <span style="color:#a6e22e">cookie</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Cookie</span>)</code></pre></div>
+<p>w 表示需要寫入的  response，cookie 是一個 struct，讓我們來看一下 cookie 物件是怎麼樣的</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Cookie</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">Name</span>       <span style="color:#66d9ef">string</span>
+	<span style="color:#a6e22e">Value</span>      <span style="color:#66d9ef">string</span>
+	<span style="color:#a6e22e">Path</span>       <span style="color:#66d9ef">string</span>
+	<span style="color:#a6e22e">Domain</span>     <span style="color:#66d9ef">string</span>
+	<span style="color:#a6e22e">Expires</span>    <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Time</span>
+	<span style="color:#a6e22e">RawExpires</span> <span style="color:#66d9ef">string</span>
+
+<span style="color:#75715e">// MaxAge=0 means no &#39;Max-Age&#39; attribute specified.
+</span><span style="color:#75715e">// MaxAge&lt;0 means delete cookie now, equivalently &#39;Max-Age: 0&#39;
+</span><span style="color:#75715e">// MaxAge&gt;0 means Max-Age attribute present and given in seconds
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">MaxAge</span>   <span style="color:#66d9ef">int</span>
+	<span style="color:#a6e22e">Secure</span>   <span style="color:#66d9ef">bool</span>
+	<span style="color:#a6e22e">HttpOnly</span> <span style="color:#66d9ef">bool</span>
+	<span style="color:#a6e22e">Raw</span>      <span style="color:#66d9ef">string</span>
+	<span style="color:#a6e22e">Unparsed</span> []<span style="color:#66d9ef">string</span> <span style="color:#75715e">// Raw text of unparsed attribute-value pairs
+</span><span style="color:#75715e"></span>}</code></pre></div>
+<p>我們來看一個例子，如何設定 cookie</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">expiration</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>()
+<span style="color:#a6e22e">expiration</span> = <span style="color:#a6e22e">expiration</span>.<span style="color:#a6e22e">AddDate</span>(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>)
+<span style="color:#a6e22e">cookie</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Cookie</span>{<span style="color:#a6e22e">Name</span>: <span style="color:#e6db74">&#34;username&#34;</span>, <span style="color:#a6e22e">Value</span>: <span style="color:#e6db74">&#34;astaxie&#34;</span>, <span style="color:#a6e22e">Expires</span>: <span style="color:#a6e22e">expiration</span>}
+<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">SetCookie</span>(<span style="color:#a6e22e">w</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">cookie</span>)</code></pre></div>
+<p>　　</p>
+
+<h3 id="go-讀取-cookie">Go 讀取 cookie</h3>
+
+<p>上面的例子示範了如何設定 cookie 資料，我們這裡來示範一下如何讀取 cookie</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">cookie</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">Cookie</span>(<span style="color:#e6db74">&#34;username&#34;</span>)
+<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Fprint</span>(<span style="color:#a6e22e">w</span>, <span style="color:#a6e22e">cookie</span>)</code></pre></div>
+<p>還有另外一種讀取方式</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">cookie</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">Cookies</span>() {
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Fprint</span>(<span style="color:#a6e22e">w</span>, <span style="color:#a6e22e">cookie</span>.<span style="color:#a6e22e">Name</span>)
+}</code></pre></div>
+<p>可以看到透過 request 取得 cookie 非常方便。</p>
+
+<h2 id="session">session</h2>
+
+<p>session，中文經常翻譯為會話，其本來的含義是指有始有終的一系列動作/訊息，比如打電話是從拿起電話撥號到結束通話電話這中間的一系列過程可以稱之為一個 session。然而當 session 一詞與網路協議相關聯時，它又往往隱含了“連線導向”和/或“保持狀態”這樣兩個含義。</p>
+
+<p>session 在 Web 開發環境下的語義又有了新的擴充套件，它的含義是指一類別用來在客戶端與伺服器端之間保持狀態的解決方案。有時候 Session 也用來指這種解決方案的儲存結構。</p>
+
+<p>session 機制是一種伺服器端的機制，伺服器使用一種類似於散列表的結構(也可能就是使用散列表)來儲存資訊。</p>
+
+<p>但程式需要為某個客戶端的請求建立一個 session 的時候，伺服器首先檢查這個客戶端的請求裡是否包含了一個 session 標識－稱為 session id，如果已經包含一個 session id 則說明以前已經為此客戶建立過 session，伺服器就按照 session id 把這個 session 檢索出來使用(如果檢索不到，可能會建立一個，這種情況可能出現在伺服器端已經刪除了該使用者對應的 session 物件，但使用者人為地在請求的 URL 後面附加上一個 JSESSION 的參數)。如果客戶請求不包含 session id，則為此客戶建立一個 session 並且同時產生一個與此 session 相關聯的 session id，這個 session id 將在本次回應中回傳給客戶端儲存。</p>
+
+<p>session 機制本身並不複雜，然而其實現和配置上的靈活性卻使得具體情況複雜多變。這也要求我們不能把僅僅某一次的經驗或者某一個瀏覽器，伺服器的經驗當作普遍適用的。</p>
+
+<h2 id="小結">小結</h2>
+
+<p>如上文所述，session 和 cookie 的目的相同，都是為了克服 http 協議無狀態的缺陷，但完成的方法不同。session 透過 cookie，在客戶端儲存 session id，而將使用者的其他會話訊息儲存在伺服器端的 session 物件中，與此相對的，cookie 需要將所有資訊都儲存在客戶端。因此 cookie 存在著一定的安全隱患，例如本地 cookie 中儲存的使用者名稱密碼被破譯，或 cookie 被其他網站收集（例如：1. appA 主動設定域 B cookie，讓域 B cookie 取得；2. XSS，在 appA 上透過 javascript 取得 document.cookie，並傳遞給自己的 appB）。</p>
+
+<p>透過上面的一些簡單介紹我們了解了 cookie 和 session 的一些基礎知識，知道他們之間的聯絡和區別，做 web 開發之前，有必要將一些必要知識了解清楚，才不會在用到時捉襟見肘，或是在調 bug 時如無頭蒼蠅亂轉。接下來的幾小節我們將詳細介紹 session 相關的知識。</p>
+
+<h2 id="links">links</h2>
+
+<ul>
+<li><a href="docs/preface">目錄</a></li>
+<li>上一節: <a href="docs/06.0">session 和資料儲存</a></li>
+<li>下一節: <a href="docs/06.2">Go 如何使用 session</a></li>
+</ul>
+</article>
+
+      
+<div class="book-footer justify-between">
+  
+  <div>
+    
+    <a href="/commit/fda25aafea9413c8ec77f5df29d5f6bb5f7dc3a6" title='Last modified Sep 21, 2019 by Jiuxiao' target="_blank" rel="noopener">
+      <img src="/buildWebWithGolangTw/svg/calendar.svg" alt="Changed" /> Sep 21, 2019
+    </a>
+  </div>
+  
+  
+</div>
+
+
+      
+    </div>
+
+    
+  
+
+  <aside class="book-toc level-3 fixed">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#6-1-session-和-cookie">6.1 session 和 cookie</a>
+<ul>
+<li><a href="#cookie">cookie</a>
+<ul>
+<li><a href="#go-設定-cookie">Go 設定 cookie</a></li>
+<li><a href="#go-讀取-cookie">Go 讀取 cookie</a></li>
+</ul></li>
+<li><a href="#session">session</a></li>
+<li><a href="#小結">小結</a></li>
+<li><a href="#links">links</a></li>
+</ul></li>
+</ul>
+</nav>
+  </aside>
+
+
+
+  </main>
+
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-148025936-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+</body>
+
+</html>

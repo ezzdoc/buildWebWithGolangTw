@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>01.3 | 使用 Golang 打造 Web 應用程式</title>
+
+
+<link rel="stylesheet" href="/buildWebWithGolangTw/book.min.89885fa0429ec73067282f26fc0c6d38cfc617a443ec4e835d47b821c52c6e92.css" integrity="sha256-iYhfoEKexzBnKC8m/AxtOM/GF6RD7E6DXUe4IcUsbpI=">
+
+
+<script defer src="/buildWebWithGolangTw/search.min.4762838110f5450a8a33fcbe56c7ce734d09867f3e9ab5c1e6f7bbec99b65c68.js" integrity="sha256-R2KDgRD1RQqKM/y&#43;VsfOc00Jhn8&#43;mrXB5ve77Jm2XGg="></script>
+
+
+
+<link rel="icon" href="/buildWebWithGolangTw/favicon.png" type="image/x-icon">
+
+<base href="https://ezzdoc.com/buildWebWithGolangTw/">
+
+
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body>
+  <input type="checkbox" class="hidden" id="menu-control" />
+  <main class="flex container">
+
+    <aside class="book-menu fixed">
+      <nav>
+<h2 class="book-brand">
+  <a href="https://ezzdoc.com/buildWebWithGolangTw/"><span>使用 Golang 打造 Web 應用程式</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" placeholder="Search" id="book-search-input" maxlength="64" readonly />
+  <div class="book-search-spinner spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+    
+  
+  
+  
+
+  <style>
+  nav ul a[href$="\2f buildWebWithGolangTw\2f docs\2f 01.3\2f "] {
+      color: #004ed0;
+  }
+  </style>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/preface/">目錄</a></li>
+<li><a href="/buildWebWithGolangTw/docs/01.0/">1.Go 環境配置</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/01.1/">1.1 安裝 Go</a></li>
+<li><a href="/buildWebWithGolangTw/docs/01.2/">1.2 GOPATH 與工作空間</a></li>
+<li><a href="/buildWebWithGolangTw/docs/01.3/">1.3 Go 命令</a></li>
+<li><a href="/buildWebWithGolangTw/docs/01.4/">1.4 Go 開發工具</a></li>
+<li><a href="/buildWebWithGolangTw/docs/01.5/">1.5 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/02.0/">2.Go 語言基礎</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/02.1/">2.1 你好，Go</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.2/">2.2 Go 基礎</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.3/">2.3 流程和函式</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.4/">2.4 struct</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.5/">2.5 物件導向</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.6/">2.6 interface</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.7/">2.7 併發</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.8/">2.8 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/03.0/">3.Web 基礎</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/03.1/">3.1 web 工作方式</a></li>
+<li><a href="/buildWebWithGolangTw/docs/03.2/">3.2 Go 建立一個簡單的 web 服務</a></li>
+<li><a href="/buildWebWithGolangTw/docs/03.3/">3.3 Go 如何使得 web 工作</a></li>
+<li><a href="/buildWebWithGolangTw/docs/03.4/">3.4 Go 的 http 套件詳解</a></li>
+<li><a href="/buildWebWithGolangTw/docs/03.5/">3.5 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/04.0/">4.表單</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/04.1/">4.1 處理表單的輸入</a></li>
+<li><a href="/buildWebWithGolangTw/docs/04.2/">4.2 驗證表單的輸入</a></li>
+<li><a href="/buildWebWithGolangTw/docs/04.3/">4.3 預防跨站指令碼</a></li>
+<li><a href="/buildWebWithGolangTw/docs/04.4/">4.4 防止多次提交表單</a></li>
+<li><a href="/buildWebWithGolangTw/docs/04.5/">4.5 處理檔案上傳</a></li>
+<li><a href="/buildWebWithGolangTw/docs/04.6/">4.6 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/05.0/">5.訪問資料庫</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/05.1/">5.1 database/sql 介面</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.2/">5.2 使用 MySQL 資料庫</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.3/">5.3 使用 SQLite 資料庫</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.4/">5.4 使用 PostgreSQL 資料庫</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.5/">5.5 使用 Beego orm 函式庫進行 ORM 開發</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.6/">5.6 NOSQL 資料庫操作</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.7/">5.7 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/06.0/">6.session 和資料儲存</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/06.1/">6.1 session 和 cookie</a></li>
+<li><a href="/buildWebWithGolangTw/docs/06.2/">6.2 Go 如何使用 session</a></li>
+<li><a href="/buildWebWithGolangTw/docs/06.3/">6.3 session 儲存</a></li>
+<li><a href="/buildWebWithGolangTw/docs/06.4/">6.4 預防 session 劫持</a></li>
+<li><a href="/buildWebWithGolangTw/docs/06.5/">6.5 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/07.0/">7.文字檔案處理</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/07.1/">7.1 XML 處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.2/">7.2 JSON 處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.3/">7.3 正則處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.4/">7.4 範本處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.5/">7.5 檔案操作</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.6/">7.6 字串處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.7/">7.7 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/08.0/">8.Web 服務</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/08.1/">8.1 Socket 程式設計</a></li>
+<li><a href="/buildWebWithGolangTw/docs/08.2/">8.2 WebSocket</a></li>
+<li><a href="/buildWebWithGolangTw/docs/08.3/">8.3 REST</a></li>
+<li><a href="/buildWebWithGolangTw/docs/08.4/">8.4 RPC</a></li>
+<li><a href="/buildWebWithGolangTw/docs/08.5/">8.5 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/09.0/">9.安全與加密</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/09.1/">9.1 預防 CSRF 攻擊</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.2/">9.2 確保輸入過濾</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.3/">9.3 避免 XSS 攻擊</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.4/">9.4 避免 SQL 注入</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.5/">9.5 儲存密碼</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.6/">9.6 加密和解密資料</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.7/">9.7 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/10.0/">10.國際化和本地化</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/10.1/">10.1 設定預設地區</a></li>
+<li><a href="/buildWebWithGolangTw/docs/10.2/">10.2 本地化資源</a></li>
+<li><a href="/buildWebWithGolangTw/docs/10.3/">10.3 國際化站點</a></li>
+<li><a href="/buildWebWithGolangTw/docs/10.4/">10.4 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/11.0/">11.錯誤處理，除錯和測試</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/11.1/">11.1 錯誤處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/11.2/">11.2 使用 GDB 除錯</a></li>
+<li><a href="/buildWebWithGolangTw/docs/11.3/">11.3 Go 怎麼寫測試案例</a></li>
+<li><a href="/buildWebWithGolangTw/docs/11.4/">11.4 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/12.0/">12.部署與維護</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/12.1/">12.1 應用日誌</a></li>
+<li><a href="/buildWebWithGolangTw/docs/12.2/">12.2 網站錯誤處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/12.3/">12.3 應用部署</a></li>
+<li><a href="/buildWebWithGolangTw/docs/12.4/">12.4 備份和還原</a></li>
+<li><a href="/buildWebWithGolangTw/docs/12.5/">12.5 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/13.0/">13.如何設計一個 Web 框架</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/13.1/">13.1 專案規劃</a></li>
+<li><a href="/buildWebWithGolangTw/docs/13.2/">13.2 自訂路由器設計</a></li>
+<li><a href="/buildWebWithGolangTw/docs/13.3/">13.3 controller 設計</a></li>
+<li><a href="/buildWebWithGolangTw/docs/13.4/">13.4 日誌和配置設計</a></li>
+<li><a href="/buildWebWithGolangTw/docs/13.5/">13.5 實現部落格的增刪改</a></li>
+<li><a href="/buildWebWithGolangTw/docs/13.6/">13.6 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/14.0/">14.擴充套件 Web 框架</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/14.1/">14.1 靜態檔案支援</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.2/">14.2 Session 支援</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.3/">14.3 表單支援</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.4/">14.4 使用者認證</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.5/">14.5 多語言支援</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.6/">14.6 pprof 支援</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.7/">14.7 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/ref/">附錄 A 參考資料</a></li>
+</ul>
+
+
+
+
+
+
+
+</nav>
+
+
+<script>
+(function() {
+  var menu = document.querySelector("aside.book-menu nav");
+  addEventListener("beforeunload", function(event) {
+    localStorage.setItem("menu.scrollTop", menu.scrollTop);
+  });
+  menu.scrollTop = localStorage.getItem("menu.scrollTop");
+})();
+</script>
+
+    </aside>
+
+    <div class="book-page">
+      <header class="flex align-center justify-between book-header">
+  <label for="menu-control">
+    <img src="/buildWebWithGolangTw/svg/menu.svg" alt="Menu" />
+  </label>
+  <strong>01.3</strong>
+</header>
+
+      
+<article class="markdown">
+
+<h1 id="1-3-go-命令">1.3 Go 命令</h1>
+
+<h2 id="go-命令">Go 命令</h2>
+
+<p>Go 語言自帶有一套完整的命令列工具，你可以透過在命令列中執行 <code>go</code> 來檢視它們：</p>
+
+<p><img src="images/1.1.mac.png" alt="" /></p>
+
+<p>圖 1.3 Go 命令顯示詳細的資訊</p>
+
+<p>這些命令對於我們平時編寫的程式碼非常有用，接下來就讓我們了解一些常用的命令。</p>
+
+<h2 id="go-build">go build</h2>
+
+<p>這個命令主要用於編譯程式碼。在套件的編譯過程中，若有必要，會同時編譯與之相關聯的套件。</p>
+
+<ul>
+<li><p>如果是普通套件，就像我們在 1.2 節中編寫的 <code>mymath</code> 套件那樣，當你執行<code>go build</code>之後，它不會產生任何檔案。如果你需要在<code>$GOPATH/pkg</code>下產生相應的檔案，那就得執行<code>go install</code>。</p></li>
+
+<li><p>如果是 <code>main</code> 套件，當你執行<code>go build</code>之後，它就會在當前目錄下產生一個可執行檔案。如果你需要在<code>$GOPATH/bin</code>下產生相應的檔案，需要執行<code>go install</code>，或者使用<code>go build -o 路徑/a.exe</code>。</p></li>
+
+<li><p>如果某個專案資料夾下有多個檔案，而你只想編譯某個檔案，就可在<code>go build</code>之後加上檔名，例如<code>go build a.go</code>；<code>go build</code>命令預設會編譯當前目錄下的所有 go 檔案。</p></li>
+
+<li><p>你也可以指定編譯輸出的檔名。例如 1.2 節中的 <code>mathapp</code> 應用，我們可以指定<code>go build -o astaxie.exe</code>，預設情況是你的 package 名(非 main 套件)，或者是第一個原始檔的檔名(main 套件)。</p></li>
+</ul>
+
+<p>（注：實際上，package 名在 <a href="https://golang.org/ref/spec">Go 語言規範</a>中指程式碼中“package”後使用的名稱，此名稱可以與資料夾名不同。預設產生的可執行檔名是資料夾名。）</p>
+
+<ul>
+<li><p>go build 會忽略目錄下以“_”或“.”開頭的 go 檔案。</p></li>
+
+<li><p>如果你的原始碼針對不同的作業系統需要不同的處理，那麼你可以根據不同的作業系統字尾來命名檔案。例如有一個讀取陣列的程式，它對於不同的作業系統可能有如下幾個原始檔：</p>
+
+<p>array_linux.go
+array_darwin.go
+array_windows.go
+array_freebsd.go</p></li>
+</ul>
+
+<p><code>go build</code>的時候會選擇性地編譯以系統名結尾的檔案（Linux、Darwin、Windows、Freebsd）。例如 Linux 系統下面編譯只會選擇 array_linux.go 檔案，其它系統命名字尾檔案全部忽略。</p>
+
+<p>參數的介紹</p>
+
+<ul>
+<li><code>-o</code> 指定輸出的檔名，可以帶上路徑，例如 <code>go build -o a/b/c</code></li>
+<li><code>-i</code> 安裝相應的套件，編譯+<code>go install</code></li>
+<li><code>-a</code> 更新全部已經是最新的套件的，但是對標準套件不適用</li>
+<li><code>-n</code> 把需要執行的編譯命令顯示出來，但是不執行，這樣就可以很容易的知道底層是如何執行的</li>
+<li><code>-p n</code> 指定可以並行可執行的編譯數目，預設是 CPU 數目</li>
+<li><code>-race</code> 開啟編譯的時候自動檢測資料競爭的情況，目前只支援 64 位的機器</li>
+<li><code>-v</code> 顯示出來我們正在編譯的套件名</li>
+<li><code>-work</code> 顯示出來編譯時候的臨時資料夾名稱，並且如果已經存在的話就不要刪除</li>
+<li><code>-x</code> 顯示出來執行的命令，其實就是和<code>-n</code>的結果類似，只是這個會執行</li>
+<li><code>-ccflags 'arg list'</code> 傳遞參數給 5c, 6c, 8c 呼叫</li>
+
+<li><p><code>-compiler name</code> 指定相應的編譯器，gccgo 還是 gc</p></li>
+
+<li><p><code>-gccgoflags 'arg list'</code> 傳遞參數給 gccgo 編譯連線呼叫</p></li>
+
+<li><p><code>-gcflags 'arg list'</code> 傳遞參數給 5g, 6g, 8g 呼叫</p></li>
+
+<li><p><code>-installsuffix suffix</code> 為了和預設的安裝套件區別開來，採用這個字首來重新安裝那些依賴的套件，<code>-race</code>的時候預設已經是<code>-installsuffix race</code>，大家可以透過<code>-n</code>命令來驗證</p></li>
+
+<li><p><code>-ldflags 'flag list'</code> 傳遞參數給 5l, 6l, 8l 呼叫</p></li>
+
+<li><p><code>-tags 'tag list'</code> 設定在編譯的時候可以適配的那些 tag，詳細的 tag 限制參考裡面的 <a href="http://golang.org/pkg/go/build/">Build Constraints</a></p></li>
+</ul>
+
+<h2 id="go-clean">go clean</h2>
+
+<p>這個命令是用來移除當前原始碼套件和關聯原始碼套件裡面編譯產生的檔案。這些檔案包括</p>
+
+<pre><code>_obj/            舊的 object 目錄，由 Makefiles 遺留
+_test/           舊的 test 目錄，由 Makefiles 遺留
+_testmain.go     舊的 gotest 檔案，由 Makefiles 遺留
+test.out         舊的 test 記錄，由 Makefiles 遺留
+build.out        舊的 test 記錄，由 Makefiles 遺留
+*.[568ao]        object 檔案，由 Makefiles 遺留
+
+DIR(.exe)        由 go build 產生
+DIR.test(.exe)   由 go test -c 產生
+MAINFILE(.exe)   由 go build MAINFILE.go 產生
+*.so             由 SWIG 產生
+</code></pre>
+
+<p>我一般都是利用這個命令清除編譯檔案，然後 github 提交原始碼，在本機測試的時候這些編譯檔案都是和系統相關的，但是對於原始碼管理來說沒必要。</p>
+
+<pre><code>$ go clean -i -n
+cd /Users/astaxie/develop/gopath/src/mathapp
+rm -f mathapp mathapp.exe mathapp.test mathapp.test.exe app app.exe
+rm -f /Users/astaxie/develop/gopath/bin/mathapp
+</code></pre>
+
+<p>參數介紹</p>
+
+<ul>
+<li><code>-i</code> 清除關聯的安裝的套件和可執行檔案，也就是透過 go install 安裝的檔案</li>
+<li><code>-n</code> 把需要執行的清除命令顯示出來，但是不執行，這樣就可以很容易的知道底層是如何執行的</li>
+
+<li><p><code>-r</code> 迴圈的清除在 import 中引入的套件</p></li>
+
+<li><p><code>-x</code> 顯示出來執行的詳細命令，其實就是<code>-n</code>列印的執行版本</p></li>
+</ul>
+
+<h2 id="go-fmt">go fmt</h2>
+
+<p>有過 C/C++經驗的讀者會知道，一些人經常為程式碼採取 K&amp;R 風格還是 ANSI 風格而爭論不休。在 go 中，程式碼則有標準的風格。由於之前已經有的一些習慣或其它的原因我們常將程式碼寫成 ANSI 風格或者其它更合適自己的格式，這將為人們在閱讀別人的程式碼時新增不必要的負擔，所以 go 強制了程式碼格式（比如左大括號必須放在行尾），不按照此格式的程式碼將不能編譯透過，為了減少浪費在排版上的時間，go 工具集中提供了一個<code>go fmt</code>命令 它可以幫你格式化你寫好的程式碼檔案，使你寫程式碼的時候不需要關心格式，你只需要在寫完之後執行<code>go fmt &lt;檔名&gt;.go</code>，你的程式碼就被修改成了標準格式，但是我平常很少用到這個命令，因為開發工具裡面一般都帶了儲存時候自動格式化功能，這個功能其實在底層就是呼叫了<code>go fmt</code>。接下來的一節我將講述兩個工具，這兩個工具都自帶了儲存檔案時自動化<code>go fmt</code>功能。</p>
+
+<p>使用 go fmt 命令，其實是呼叫了 gofmt，而且需要參數-w，否則格式化結果不會寫入檔案。gofmt -w -l src，可以格式化整個專案。</p>
+
+<p>所以 go fmt 是 gofmt 的上層一個封裝命令，如果想要更多的自訂格式化，可以參考 <a href="http://golang.org/cmd/gofmt/">gofmt</a></p>
+
+<p>gofmt 的參數介紹</p>
+
+<ul>
+<li><code>-l</code> 顯示那些需要格式化的檔案</li>
+<li><code>-w</code> 把改寫後的內容直接寫入到檔案中，而不是作為結果列印到標準輸出。</li>
+<li><code>-r</code> 新增形如“a[b:len(a)] -&gt; a[b:]”的重寫規則，方便我們做批量替換</li>
+<li><code>-s</code> 簡化檔案中的程式碼</li>
+
+<li><p><code>-d</code> 顯示格式化前後的 diff 而不是寫入檔案，預設是 false</p></li>
+
+<li><p><code>-e</code> 列印所有的語法錯誤到標準輸出。如果不使用此標記，則只會列印不同行的前 10 個錯誤。</p></li>
+
+<li><p><code>-cpuprofile</code> 支援除錯模式，寫入相應的 cpufile 到指定的檔案</p></li>
+</ul>
+
+<h2 id="go-get">go get</h2>
+
+<p>這個命令是用來動態取得遠端程式碼套件的，目前支援的有 BitBucket、GitHub、Google Code 和 Launchpad。這個命令在內部實際上分成了兩步操作：第一步是下載原始碼套件，第二步是執行<code>go install</code>。下載原始碼套件的 go 工具會自動根據不同的域名呼叫不同的原始碼工具，對應關係如下：</p>
+
+<pre><code>BitBucket (Mercurial Git)
+GitHub (Git)
+Google Code Project Hosting (Git, Mercurial, Subversion)
+Launchpad (Bazaar)
+</code></pre>
+
+<p>所以為了<code>go get</code> 能正常工作，你必須確保安裝了合適的原始碼管理工具，並同時把這些命令加入你的 PATH 中。其實<code>go get</code>支援自訂域名的功能，具體參見<code>go help remote</code>。</p>
+
+<p>參數介紹：</p>
+
+<ul>
+<li><code>-d</code> 只下載不安裝</li>
+<li><code>-f</code> 只有在你包含了<code>-u</code>參數的時候才有效，不讓<code>-u</code>去驗證 import 中的每一個都已經取得了，這對於本地 fork 的套件特別有用</li>
+<li><code>-fix</code> 在取得原始碼之後先執行 fix，然後再去做其他的事情</li>
+
+<li><p><code>-t</code> 同時也下載需要為執行測試所需要的套件</p></li>
+
+<li><p><code>-u</code> 強制使用網路去更新套件和它的相依套件</p></li>
+
+<li><p><code>-v</code> 顯示執行的命令</p></li>
+</ul>
+
+<h2 id="go-install">go install</h2>
+
+<p>這個命令在內部實際上分成了兩步操作：第一步是產生結果檔案(可執行檔案或者.a 套件)，第二步會把編譯好的結果移到<code>$GOPATH/pkg</code>或者<code>$GOPATH/bin</code>。</p>
+
+<p>參數支援<code>go build</code>的編譯參數。大家只要記住一個參數<code>-v</code>就好了，這個隨時隨地的可以檢視底層的執行資訊。</p>
+
+<h2 id="go-test">go test</h2>
+
+<p>執行這個命令，會自動讀取原始碼目錄下面名為<code>*_test.go</code>的檔案，產生並執行測試用的可執行檔案。輸出的資訊類似</p>
+
+<pre><code>ok   archive/tar   0.011s
+FAIL archive/zip   0.022s
+ok   compress/gzip 0.033s
+...
+</code></pre>
+
+<p>預設的情況下，不需要任何的參數，它會自動把你原始碼套件下面所有 test 檔案測試完畢，當然你也可以帶上參數，詳情請參考<code>go help testflag</code></p>
+
+<p>這裡我介紹幾個我們常用的參數：</p>
+
+<ul>
+<li><code>-bench regexp</code> 執行相應的 benchmarks，例如 <code>-bench=.</code></li>
+<li><code>-cover</code> 開啟測試覆蓋率</li>
+<li><code>-run regexp</code> 只執行 regexp 匹配的函式，例如 <code>-run=Array</code> 那麼就執行包含有 Array 開頭的函式</li>
+<li><code>-v</code> 顯示測試的詳細命令</li>
+</ul>
+
+<h2 id="go-tool">go tool</h2>
+
+<p><code>go tool</code>下面下載聚集了很多命令，這裡我們只介紹兩個，fix 和 vet</p>
+
+<ul>
+<li><code>go tool fix .</code> 用來修復以前老版本的程式碼到新版本，例如 go1 之前老版本的程式碼轉化到 go1，例如 API 的變化</li>
+<li><code>go tool vet directory|files</code> 用來分析當前目錄的程式碼是否都是正確的程式碼，例如是不是呼叫 fmt.Printf 裡面的參數不正確，例如函式裡面提前 return 了然後出現了無用程式碼之類別的。</li>
+</ul>
+
+<h2 id="go-generate">go generate</h2>
+
+<p>這個命令是從 Go1.4 開始才設計的，用於在編譯前自動化產生某類別程式碼。<code>go generate</code>和<code>go build</code>是完全不一樣的命令，透過分析原始碼中特殊的註釋，然後執行相應的命令。這些命令都是很明確的，沒有任何的依賴在裡面。而且大家在用這個之前心裡面一定要有一個觀念，這個 <code>go generate</code> 是給你用的，不是給使用你這個套件的人用的，主要是方便你自動產生一些程式碼。</p>
+
+<p>這裡我們來舉一個簡單的例子，例如我們經常會使用 <code>yacc</code> 來產生程式碼，那麼我們常用這樣的命令：</p>
+
+<pre><code>go tool yacc -o gopher.go -p parser gopher.y
+</code></pre>
+
+<p>-o 指定了輸出的檔名， -p 指定了 package 的名稱，這是一個單獨的命令，如果我們想讓<code>go generate</code>來觸發這個命令，那麼就可以在當前目錄的任意一個<code>xxx.go</code>檔案裡面的任意位置增加一行如下的註釋：</p>
+
+<pre><code>//go:generate go tool yacc -o gopher.go -p parser gopher.y
+</code></pre>
+
+<p>這裡我們注意了，<code>//go:generate</code>是沒有任何空格的，這其實就是一個固定的格式，在掃描原始碼檔案的時候就是根據這個來判斷的。</p>
+
+<p>所以我們可以透過如下的命令來產生，編譯，測試。如果<code>gopher.y</code>檔案有修改，那麼就重新執行<code>go generate</code>重新產生檔案就好。</p>
+
+<pre><code>$ go generate
+$ go build
+$ go test
+</code></pre>
+
+<h2 id="godoc">godoc</h2>
+
+<p>在 Go1.2 版本之前還支援<code>go doc</code>命令，但是之後全部移到了 godoc 這個命令下，需要這樣安裝<code>go get golang.org/x/tools/cmd/godoc</code></p>
+
+<p>很多人說 go 不需要任何的第三方文件，例如 chm 手冊之類別的（其實我已經做了一個了，<a href="https://github.com/astaxie/godoc">chm 手冊</a>），因為它內部就有一個很強大的文件工具。</p>
+
+<p>如何檢視相應 package 的文件呢？
+  例如 builtin 套件，那麼執行<code>godoc builtin</code>
+  如果是 http 套件，那麼執行<code>godoc net/http</code>
+  檢視某一個套件裡面的函式，那麼執行<code>godoc fmt Printf</code>
+  也可以檢視相應的程式碼，執行<code>godoc -src fmt Printf</code></p>
+
+<p>透過命令在命令列執行 godoc -http=:埠號 比如<code>godoc -http=:8080</code>。然後在瀏覽器中開啟<code>127.0.0.1:8080</code>，你將會看到一個 golang.org 的本地 copy 版本，透過它你可以查詢 pkg 文件等其它內容。如果你設定了 GOPATH，在 pkg 分類下，不但會列出標準套件的文件，還會列出你本地 <code>GOPATH</code> 中所有專案的相關文件，這對於經常被牆的使用者來說是一個不錯的選擇。</p>
+
+<h2 id="其它命令">其它命令</h2>
+
+<p>go 還提供了其它很多的工具，例如下面的這些工具</p>
+
+<pre><code>go version 檢視 go 當前的版本
+go env 檢視當前 go 的環境變數
+go list 列出當前全部安裝的 package
+
+go run 編譯並執行 Go 程式
+</code></pre>
+
+<p>以上這些工具還有很多參數沒有一一介紹，使用者可以使用<code>go help 命令</code> 取得更詳細的幫助資訊。</p>
+
+<h2 id="links">links</h2>
+
+<ul>
+<li><a href="docs/preface">目錄</a></li>
+<li>上一節: <a href="docs/01.2">GOPATH 與工作空間</a></li>
+<li>下一節: <a href="docs/01.4">Go 開發工具</a></li>
+</ul>
+</article>
+
+      
+<div class="book-footer justify-between">
+  
+  <div>
+    
+    <a href="/commit/fda25aafea9413c8ec77f5df29d5f6bb5f7dc3a6" title='Last modified Sep 21, 2019 by Jiuxiao' target="_blank" rel="noopener">
+      <img src="/buildWebWithGolangTw/svg/calendar.svg" alt="Changed" /> Sep 21, 2019
+    </a>
+  </div>
+  
+  
+</div>
+
+
+      
+    </div>
+
+    
+  
+
+  <aside class="book-toc level-3 fixed">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#1-3-go-命令">1.3 Go 命令</a>
+<ul>
+<li><a href="#go-命令">Go 命令</a></li>
+<li><a href="#go-build">go build</a></li>
+<li><a href="#go-clean">go clean</a></li>
+<li><a href="#go-fmt">go fmt</a></li>
+<li><a href="#go-get">go get</a></li>
+<li><a href="#go-install">go install</a></li>
+<li><a href="#go-test">go test</a></li>
+<li><a href="#go-tool">go tool</a></li>
+<li><a href="#go-generate">go generate</a></li>
+<li><a href="#godoc">godoc</a></li>
+<li><a href="#其它命令">其它命令</a></li>
+<li><a href="#links">links</a></li>
+</ul></li>
+</ul>
+</nav>
+  </aside>
+
+
+
+  </main>
+
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-148025936-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+</body>
+
+</html>

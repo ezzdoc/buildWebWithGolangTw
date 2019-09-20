@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>06.2 | 使用 Golang 打造 Web 應用程式</title>
+
+
+<link rel="stylesheet" href="/buildWebWithGolangTw/book.min.89885fa0429ec73067282f26fc0c6d38cfc617a443ec4e835d47b821c52c6e92.css" integrity="sha256-iYhfoEKexzBnKC8m/AxtOM/GF6RD7E6DXUe4IcUsbpI=">
+
+
+<script defer src="/buildWebWithGolangTw/search.min.4762838110f5450a8a33fcbe56c7ce734d09867f3e9ab5c1e6f7bbec99b65c68.js" integrity="sha256-R2KDgRD1RQqKM/y&#43;VsfOc00Jhn8&#43;mrXB5ve77Jm2XGg="></script>
+
+
+
+<link rel="icon" href="/buildWebWithGolangTw/favicon.png" type="image/x-icon">
+
+<base href="https://ezzdoc.com/buildWebWithGolangTw/">
+
+
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body>
+  <input type="checkbox" class="hidden" id="menu-control" />
+  <main class="flex container">
+
+    <aside class="book-menu fixed">
+      <nav>
+<h2 class="book-brand">
+  <a href="https://ezzdoc.com/buildWebWithGolangTw/"><span>使用 Golang 打造 Web 應用程式</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" placeholder="Search" id="book-search-input" maxlength="64" readonly />
+  <div class="book-search-spinner spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+    
+  
+  
+  
+
+  <style>
+  nav ul a[href$="\2f buildWebWithGolangTw\2f docs\2f 06.2\2f "] {
+      color: #004ed0;
+  }
+  </style>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/preface/">目錄</a></li>
+<li><a href="/buildWebWithGolangTw/docs/01.0/">1.Go 環境配置</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/01.1/">1.1 安裝 Go</a></li>
+<li><a href="/buildWebWithGolangTw/docs/01.2/">1.2 GOPATH 與工作空間</a></li>
+<li><a href="/buildWebWithGolangTw/docs/01.3/">1.3 Go 命令</a></li>
+<li><a href="/buildWebWithGolangTw/docs/01.4/">1.4 Go 開發工具</a></li>
+<li><a href="/buildWebWithGolangTw/docs/01.5/">1.5 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/02.0/">2.Go 語言基礎</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/02.1/">2.1 你好，Go</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.2/">2.2 Go 基礎</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.3/">2.3 流程和函式</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.4/">2.4 struct</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.5/">2.5 物件導向</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.6/">2.6 interface</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.7/">2.7 併發</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.8/">2.8 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/03.0/">3.Web 基礎</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/03.1/">3.1 web 工作方式</a></li>
+<li><a href="/buildWebWithGolangTw/docs/03.2/">3.2 Go 建立一個簡單的 web 服務</a></li>
+<li><a href="/buildWebWithGolangTw/docs/03.3/">3.3 Go 如何使得 web 工作</a></li>
+<li><a href="/buildWebWithGolangTw/docs/03.4/">3.4 Go 的 http 套件詳解</a></li>
+<li><a href="/buildWebWithGolangTw/docs/03.5/">3.5 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/04.0/">4.表單</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/04.1/">4.1 處理表單的輸入</a></li>
+<li><a href="/buildWebWithGolangTw/docs/04.2/">4.2 驗證表單的輸入</a></li>
+<li><a href="/buildWebWithGolangTw/docs/04.3/">4.3 預防跨站指令碼</a></li>
+<li><a href="/buildWebWithGolangTw/docs/04.4/">4.4 防止多次提交表單</a></li>
+<li><a href="/buildWebWithGolangTw/docs/04.5/">4.5 處理檔案上傳</a></li>
+<li><a href="/buildWebWithGolangTw/docs/04.6/">4.6 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/05.0/">5.訪問資料庫</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/05.1/">5.1 database/sql 介面</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.2/">5.2 使用 MySQL 資料庫</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.3/">5.3 使用 SQLite 資料庫</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.4/">5.4 使用 PostgreSQL 資料庫</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.5/">5.5 使用 Beego orm 函式庫進行 ORM 開發</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.6/">5.6 NOSQL 資料庫操作</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.7/">5.7 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/06.0/">6.session 和資料儲存</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/06.1/">6.1 session 和 cookie</a></li>
+<li><a href="/buildWebWithGolangTw/docs/06.2/">6.2 Go 如何使用 session</a></li>
+<li><a href="/buildWebWithGolangTw/docs/06.3/">6.3 session 儲存</a></li>
+<li><a href="/buildWebWithGolangTw/docs/06.4/">6.4 預防 session 劫持</a></li>
+<li><a href="/buildWebWithGolangTw/docs/06.5/">6.5 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/07.0/">7.文字檔案處理</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/07.1/">7.1 XML 處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.2/">7.2 JSON 處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.3/">7.3 正則處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.4/">7.4 範本處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.5/">7.5 檔案操作</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.6/">7.6 字串處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.7/">7.7 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/08.0/">8.Web 服務</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/08.1/">8.1 Socket 程式設計</a></li>
+<li><a href="/buildWebWithGolangTw/docs/08.2/">8.2 WebSocket</a></li>
+<li><a href="/buildWebWithGolangTw/docs/08.3/">8.3 REST</a></li>
+<li><a href="/buildWebWithGolangTw/docs/08.4/">8.4 RPC</a></li>
+<li><a href="/buildWebWithGolangTw/docs/08.5/">8.5 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/09.0/">9.安全與加密</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/09.1/">9.1 預防 CSRF 攻擊</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.2/">9.2 確保輸入過濾</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.3/">9.3 避免 XSS 攻擊</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.4/">9.4 避免 SQL 注入</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.5/">9.5 儲存密碼</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.6/">9.6 加密和解密資料</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.7/">9.7 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/10.0/">10.國際化和本地化</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/10.1/">10.1 設定預設地區</a></li>
+<li><a href="/buildWebWithGolangTw/docs/10.2/">10.2 本地化資源</a></li>
+<li><a href="/buildWebWithGolangTw/docs/10.3/">10.3 國際化站點</a></li>
+<li><a href="/buildWebWithGolangTw/docs/10.4/">10.4 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/11.0/">11.錯誤處理，除錯和測試</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/11.1/">11.1 錯誤處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/11.2/">11.2 使用 GDB 除錯</a></li>
+<li><a href="/buildWebWithGolangTw/docs/11.3/">11.3 Go 怎麼寫測試案例</a></li>
+<li><a href="/buildWebWithGolangTw/docs/11.4/">11.4 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/12.0/">12.部署與維護</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/12.1/">12.1 應用日誌</a></li>
+<li><a href="/buildWebWithGolangTw/docs/12.2/">12.2 網站錯誤處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/12.3/">12.3 應用部署</a></li>
+<li><a href="/buildWebWithGolangTw/docs/12.4/">12.4 備份和還原</a></li>
+<li><a href="/buildWebWithGolangTw/docs/12.5/">12.5 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/13.0/">13.如何設計一個 Web 框架</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/13.1/">13.1 專案規劃</a></li>
+<li><a href="/buildWebWithGolangTw/docs/13.2/">13.2 自訂路由器設計</a></li>
+<li><a href="/buildWebWithGolangTw/docs/13.3/">13.3 controller 設計</a></li>
+<li><a href="/buildWebWithGolangTw/docs/13.4/">13.4 日誌和配置設計</a></li>
+<li><a href="/buildWebWithGolangTw/docs/13.5/">13.5 實現部落格的增刪改</a></li>
+<li><a href="/buildWebWithGolangTw/docs/13.6/">13.6 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/14.0/">14.擴充套件 Web 框架</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/14.1/">14.1 靜態檔案支援</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.2/">14.2 Session 支援</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.3/">14.3 表單支援</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.4/">14.4 使用者認證</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.5/">14.5 多語言支援</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.6/">14.6 pprof 支援</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.7/">14.7 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/ref/">附錄 A 參考資料</a></li>
+</ul>
+
+
+
+
+
+
+
+</nav>
+
+
+<script>
+(function() {
+  var menu = document.querySelector("aside.book-menu nav");
+  addEventListener("beforeunload", function(event) {
+    localStorage.setItem("menu.scrollTop", menu.scrollTop);
+  });
+  menu.scrollTop = localStorage.getItem("menu.scrollTop");
+})();
+</script>
+
+    </aside>
+
+    <div class="book-page">
+      <header class="flex align-center justify-between book-header">
+  <label for="menu-control">
+    <img src="/buildWebWithGolangTw/svg/menu.svg" alt="Menu" />
+  </label>
+  <strong>06.2</strong>
+</header>
+
+      
+<article class="markdown">
+
+<h1 id="6-2-go-如何使用-session">6.2 Go 如何使用 session</h1>
+
+<p>透過上一小節的介紹，我們知道 session 是在伺服器端實現的一種使用者和伺服器之間認證的解決方案，目前 Go 標準套件沒有為 session 提供任何支援，這小節我們將會自己動手來實現 go 版本的 session 管理和建立。</p>
+
+<h2 id="session-建立過程">session 建立過程</h2>
+
+<p>session 的基本原理是由伺服器為每個會話維護一份資訊資料，客戶端和伺服器端依靠一個全域性唯一的標識來訪問這份資料，以達到互動的目的。當用戶訪問 Web 應用時，伺服器端程式會隨需要建立 session，這個過程可以概括為三個步驟：</p>
+
+<ul>
+<li>產生全域性唯一識別符號（sessionid）；</li>
+<li>開闢資料儲存空間。一般會在記憶體中建立相應的資料結構，但這種情況下，系統一旦掉電，所有的會話資料就會丟失，如果是電子商務類別網站，這將造成嚴重的後果。所以為了解決這類別問題，你可以將會話資料寫到檔案裡或儲存在資料庫中，當然這樣會增加 I/O 開銷，但是它可以實現某種程度的 session 持久化，也更有利於 session 的共享；</li>
+<li>將 session 的全域性唯一標示符傳送給客戶端。</li>
+</ul>
+
+<p>以上三個步驟中，最關鍵的是如何傳送這個 session 的唯一標識這一步上。考慮到 HTTP 協議的定義，資料無非可以放到請求行、頭域或 Body 裡，所以一般來說會有兩種常用的方式：cookie 和 URL 重寫。</p>
+
+<ol>
+<li>Cookie
+伺服器端透過設定 Set-cookie 頭就可以將 session 的識別符號傳送到客戶端，而客戶端此後的每一次請求都會帶上這個識別符號，另外一般包含 session 資訊的 cookie 會將失效時間設定為 0(會話 cookie)，即瀏覽器程序有效時間。至於瀏覽器怎麼處理這個 0，每個瀏覽器都有自己的方案，但差別都不會太大(一般體現在建立瀏覽器視窗的時候)；</li>
+<li>URL 重寫
+所謂 URL 重寫，就是在回傳給使用者的頁面裡的所有的 URL 後面追加 session 識別符號，這樣使用者在收到回應之後，無論點選回應頁面裡的哪個連結或提交表單，都會自動帶上 session 識別符號，從而就實現了會話的保持。雖然這種做法比較麻煩，但是，如果客戶端禁用了 cookie 的話，此種方案將會是首選。</li>
+</ol>
+
+<h2 id="go-實現-session-管理">Go 實現 session 管理</h2>
+
+<p>透過上面 session 建立過程的講解，讀者應該對 session 有了一個大體的認識，但是具體到動態頁面技術裡面，又是怎麼實現 session 的呢？下面我們將結合 session 的生命週期（lifecycle），來實現 go 語言版本的 session 管理。</p>
+
+<h3 id="session-管理設計">session 管理設計</h3>
+
+<p>我們知道 session 管理涉及到如下幾個因素</p>
+
+<ul>
+<li>全域性 session 管理器</li>
+<li>保證 sessionid 的全域性唯一性</li>
+<li>為每個客戶關聯一個 session</li>
+<li>session 的儲存(可以儲存到記憶體、檔案、資料庫等)</li>
+<li>session 過期處理</li>
+</ul>
+
+<p>接下來我將講解一下我關於 session 管理的整個設計思路以及相應的 go 程式碼範例：</p>
+
+<h3 id="session-管理器">Session 管理器</h3>
+
+<p>定義一個全域性的 session 管理器</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Manager</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">cookieName</span>  <span style="color:#66d9ef">string</span>     <span style="color:#75715e">// private cookiename
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">lock</span>        <span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">Mutex</span> <span style="color:#75715e">// protects session
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">provider</span>    <span style="color:#a6e22e">Provider</span>
+	<span style="color:#a6e22e">maxLifeTime</span> <span style="color:#66d9ef">int64</span>
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">NewManager</span>(<span style="color:#a6e22e">provideName</span>, <span style="color:#a6e22e">cookieName</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">maxLifeTime</span> <span style="color:#66d9ef">int64</span>) (<span style="color:#f92672">*</span><span style="color:#a6e22e">Manager</span>, <span style="color:#66d9ef">error</span>) {
+	<span style="color:#a6e22e">provider</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">provides</span>[<span style="color:#a6e22e">provideName</span>]
+	<span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">ok</span> {
+		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;session: unknown provide %q (forgotten import?)&#34;</span>, <span style="color:#a6e22e">provideName</span>)
+	}
+	<span style="color:#66d9ef">return</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">Manager</span>{<span style="color:#a6e22e">provider</span>: <span style="color:#a6e22e">provider</span>, <span style="color:#a6e22e">cookieName</span>: <span style="color:#a6e22e">cookieName</span>, <span style="color:#a6e22e">maxLifeTime</span>: <span style="color:#a6e22e">maxLifeTime</span>}, <span style="color:#66d9ef">nil</span>
+}</code></pre></div>
+<p>Go 實現整個的流程應該也是這樣的，在 main 套件中建立一個全域性的 session 管理器</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">globalSessions</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">session</span>.<span style="color:#a6e22e">Manager</span>
+<span style="color:#75715e">//然後在 init 函式中初始化
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">init</span>() {
+	<span style="color:#a6e22e">globalSessions</span>, <span style="color:#a6e22e">_</span> = <span style="color:#a6e22e">NewManager</span>(<span style="color:#e6db74">&#34;memory&#34;</span>, <span style="color:#e6db74">&#34;gosessionid&#34;</span>, <span style="color:#ae81ff">3600</span>)
+}</code></pre></div>
+<p>我們知道 session 是儲存在伺服器端的資料，它可以以任何的方式儲存，比如儲存在記憶體、資料庫或者檔案中。因此我們抽象出一個 Provider 介面，用以表徵 session 管理器底層儲存結構。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Provider</span> <span style="color:#66d9ef">interface</span> {
+	<span style="color:#a6e22e">SessionInit</span>(<span style="color:#a6e22e">sid</span> <span style="color:#66d9ef">string</span>) (<span style="color:#a6e22e">Session</span>, <span style="color:#66d9ef">error</span>)
+	<span style="color:#a6e22e">SessionRead</span>(<span style="color:#a6e22e">sid</span> <span style="color:#66d9ef">string</span>) (<span style="color:#a6e22e">Session</span>, <span style="color:#66d9ef">error</span>)
+	<span style="color:#a6e22e">SessionDestroy</span>(<span style="color:#a6e22e">sid</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">error</span>
+	<span style="color:#a6e22e">SessionGC</span>(<span style="color:#a6e22e">maxLifeTime</span> <span style="color:#66d9ef">int64</span>)
+}</code></pre></div>
+<ul>
+<li>SessionInit 函式實現 Session 的初始化，操作成功則回傳此新的 Session 變數</li>
+<li>SessionRead 函式回傳 sid 所代表的 Session 變數，如果不存在，那麼將以 sid 為參數呼叫 SessionInit 函式建立並回傳一個新的 Session 變數</li>
+<li>SessionDestroy 函式用來刪除 sid 對應的 Session 變數</li>
+<li>SessionGC 根據 maxLifeTime 來刪除過期的資料</li>
+</ul>
+
+<p>那麼 Session 介面需要實現什麼樣的功能呢？有過 Web 開發經驗的讀者知道，對 Session 的處理基本就 設定值、讀取值、刪除值以及取得當前 sessionID 這四個操作，所以我們的 Session 介面也就實現這四個操作。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Session</span> <span style="color:#66d9ef">interface</span> {
+	<span style="color:#a6e22e">Set</span>(<span style="color:#a6e22e">key</span>, <span style="color:#a6e22e">value</span> <span style="color:#66d9ef">interface</span>{}) <span style="color:#66d9ef">error</span> <span style="color:#75715e">// set session value
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Get</span>(<span style="color:#a6e22e">key</span> <span style="color:#66d9ef">interface</span>{}) <span style="color:#66d9ef">interface</span>{}  <span style="color:#75715e">// get session value
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Delete</span>(<span style="color:#a6e22e">key</span> <span style="color:#66d9ef">interface</span>{}) <span style="color:#66d9ef">error</span>     <span style="color:#75715e">// delete session value
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">SessionID</span>() <span style="color:#66d9ef">string</span>                <span style="color:#75715e">// back current sessionID
+</span><span style="color:#75715e"></span>}</code></pre></div>
+<blockquote>
+<p>以上設計思路來源於 database/sql/driver，先定義好介面，然後具體的儲存 session 的結構實現相應的介面並註冊後，相應功能這樣就可以使用了，以下是用來隨需註冊儲存 session 的結構的 Register 函式的實現。</p>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">provides</span> = make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#a6e22e">Provider</span>)
+
+<span style="color:#75715e">// Register makes a session provide available by the provided name.
+</span><span style="color:#75715e">// If Register is called twice with the same name or if driver is nil,
+</span><span style="color:#75715e">// it panics.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Register</span>(<span style="color:#a6e22e">name</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">provider</span> <span style="color:#a6e22e">Provider</span>) {
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">provider</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+		panic(<span style="color:#e6db74">&#34;session: Register provider is nil&#34;</span>)
+	}
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">dup</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">provides</span>[<span style="color:#a6e22e">name</span>]; <span style="color:#a6e22e">dup</span> {
+		panic(<span style="color:#e6db74">&#34;session: Register called twice for provider &#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">name</span>)
+	}
+	<span style="color:#a6e22e">provides</span>[<span style="color:#a6e22e">name</span>] = <span style="color:#a6e22e">provider</span>
+}</code></pre></div>
+<h3 id="全域性唯一的-session-id">全域性唯一的 Session ID</h3>
+
+<p>Session ID 是用來識別訪問 Web 應用的每一個使用者，因此必須保證它是全域性唯一的（GUID），下面程式碼展示了如何滿足這一需求：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">manager</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Manager</span>) <span style="color:#a6e22e">sessionId</span>() <span style="color:#66d9ef">string</span> {
+	<span style="color:#a6e22e">b</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">byte</span>, <span style="color:#ae81ff">32</span>)
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">rand</span>.<span style="color:#a6e22e">Read</span>(<span style="color:#a6e22e">b</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;&#34;</span>
+	}
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">base64</span>.<span style="color:#a6e22e">URLEncoding</span>.<span style="color:#a6e22e">EncodeToString</span>(<span style="color:#a6e22e">b</span>)
+}</code></pre></div>
+<h3 id="session-建立">session 建立</h3>
+
+<p>我們需要為每個來訪使用者分配或取得與他相關連的 Session，以便後面根據 Session 資訊來驗證操作。SessionStart 這個函式就是用來檢測是否已經有某個 Session 與當前來訪使用者發生了關聯，如果沒有則建立之。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">manager</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Manager</span>) <span style="color:#a6e22e">SessionStart</span>(<span style="color:#a6e22e">w</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ResponseWriter</span>, <span style="color:#a6e22e">r</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Request</span>) (<span style="color:#a6e22e">session</span> <span style="color:#a6e22e">Session</span>) {
+	<span style="color:#a6e22e">manager</span>.<span style="color:#a6e22e">lock</span>.<span style="color:#a6e22e">Lock</span>()
+	<span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">manager</span>.<span style="color:#a6e22e">lock</span>.<span style="color:#a6e22e">Unlock</span>()
+	<span style="color:#a6e22e">cookie</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">Cookie</span>(<span style="color:#a6e22e">manager</span>.<span style="color:#a6e22e">cookieName</span>)
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">cookie</span>.<span style="color:#a6e22e">Value</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;&#34;</span> {
+		<span style="color:#a6e22e">sid</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">manager</span>.<span style="color:#a6e22e">sessionId</span>()
+		<span style="color:#a6e22e">session</span>, <span style="color:#a6e22e">_</span> = <span style="color:#a6e22e">manager</span>.<span style="color:#a6e22e">provider</span>.<span style="color:#a6e22e">SessionInit</span>(<span style="color:#a6e22e">sid</span>)
+		<span style="color:#a6e22e">cookie</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Cookie</span>{<span style="color:#a6e22e">Name</span>: <span style="color:#a6e22e">manager</span>.<span style="color:#a6e22e">cookieName</span>, <span style="color:#a6e22e">Value</span>: <span style="color:#a6e22e">url</span>.<span style="color:#a6e22e">QueryEscape</span>(<span style="color:#a6e22e">sid</span>), <span style="color:#a6e22e">Path</span>: <span style="color:#e6db74">&#34;/&#34;</span>, <span style="color:#a6e22e">HttpOnly</span>: <span style="color:#66d9ef">true</span>, <span style="color:#a6e22e">MaxAge</span>: int(<span style="color:#a6e22e">manager</span>.<span style="color:#a6e22e">maxLifeTime</span>)}
+		<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">SetCookie</span>(<span style="color:#a6e22e">w</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">cookie</span>)
+	} <span style="color:#66d9ef">else</span> {
+		<span style="color:#a6e22e">sid</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">url</span>.<span style="color:#a6e22e">QueryUnescape</span>(<span style="color:#a6e22e">cookie</span>.<span style="color:#a6e22e">Value</span>)
+		<span style="color:#a6e22e">session</span>, <span style="color:#a6e22e">_</span> = <span style="color:#a6e22e">manager</span>.<span style="color:#a6e22e">provider</span>.<span style="color:#a6e22e">SessionRead</span>(<span style="color:#a6e22e">sid</span>)
+	}
+	<span style="color:#66d9ef">return</span>
+}</code></pre></div>
+<p>我們用前面 login 操作來示範 session 的運用：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">login</span>(<span style="color:#a6e22e">w</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ResponseWriter</span>, <span style="color:#a6e22e">r</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Request</span>) {
+	<span style="color:#a6e22e">sess</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">globalSessions</span>.<span style="color:#a6e22e">SessionStart</span>(<span style="color:#a6e22e">w</span>, <span style="color:#a6e22e">r</span>)
+	<span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">ParseForm</span>()
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">Method</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;GET&#34;</span> {
+		<span style="color:#a6e22e">t</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">template</span>.<span style="color:#a6e22e">ParseFiles</span>(<span style="color:#e6db74">&#34;login.gtpl&#34;</span>)
+		<span style="color:#a6e22e">w</span>.<span style="color:#a6e22e">Header</span>().<span style="color:#a6e22e">Set</span>(<span style="color:#e6db74">&#34;Content-Type&#34;</span>, <span style="color:#e6db74">&#34;text/html&#34;</span>)
+		<span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Execute</span>(<span style="color:#a6e22e">w</span>, <span style="color:#a6e22e">sess</span>.<span style="color:#a6e22e">Get</span>(<span style="color:#e6db74">&#34;username&#34;</span>))
+	} <span style="color:#66d9ef">else</span> {
+		<span style="color:#a6e22e">sess</span>.<span style="color:#a6e22e">Set</span>(<span style="color:#e6db74">&#34;username&#34;</span>, <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">Form</span>[<span style="color:#e6db74">&#34;username&#34;</span>])
+		<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Redirect</span>(<span style="color:#a6e22e">w</span>, <span style="color:#a6e22e">r</span>, <span style="color:#e6db74">&#34;/&#34;</span>, <span style="color:#ae81ff">302</span>)
+	}
+}</code></pre></div>
+<h3 id="操作值-設定-讀取和刪除">操作值：設定、讀取和刪除</h3>
+
+<p>SessionStart 函式回傳的是一個滿足 Session 介面的變數，那麼我們該如何用他來對 session 資料進行操作呢？</p>
+
+<p>上面的例子中的程式碼<code>session.Get(&quot;uid&quot;)</code>已經展示了基本的讀取資料的操作，現在我們再來看一下詳細的操作:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">count</span>(<span style="color:#a6e22e">w</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ResponseWriter</span>, <span style="color:#a6e22e">r</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Request</span>) {
+	<span style="color:#a6e22e">sess</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">globalSessions</span>.<span style="color:#a6e22e">SessionStart</span>(<span style="color:#a6e22e">w</span>, <span style="color:#a6e22e">r</span>)
+	<span style="color:#a6e22e">createtime</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">sess</span>.<span style="color:#a6e22e">Get</span>(<span style="color:#e6db74">&#34;createtime&#34;</span>)
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">createtime</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#a6e22e">sess</span>.<span style="color:#a6e22e">Set</span>(<span style="color:#e6db74">&#34;createtime&#34;</span>, <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>().<span style="color:#a6e22e">Unix</span>())
+	} <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">createtime</span>.(<span style="color:#66d9ef">int64</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">360</span>) &lt; (<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>().<span style="color:#a6e22e">Unix</span>()) {
+		<span style="color:#a6e22e">globalSessions</span>.<span style="color:#a6e22e">SessionDestroy</span>(<span style="color:#a6e22e">w</span>, <span style="color:#a6e22e">r</span>)
+		<span style="color:#a6e22e">sess</span> = <span style="color:#a6e22e">globalSessions</span>.<span style="color:#a6e22e">SessionStart</span>(<span style="color:#a6e22e">w</span>, <span style="color:#a6e22e">r</span>)
+	}
+	<span style="color:#a6e22e">ct</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">sess</span>.<span style="color:#a6e22e">Get</span>(<span style="color:#e6db74">&#34;countnum&#34;</span>)
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">ct</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#a6e22e">sess</span>.<span style="color:#a6e22e">Set</span>(<span style="color:#e6db74">&#34;countnum&#34;</span>, <span style="color:#ae81ff">1</span>)
+	} <span style="color:#66d9ef">else</span> {
+		<span style="color:#a6e22e">sess</span>.<span style="color:#a6e22e">Set</span>(<span style="color:#e6db74">&#34;countnum&#34;</span>, (<span style="color:#a6e22e">ct</span>.(<span style="color:#66d9ef">int</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>))
+	}
+	<span style="color:#a6e22e">t</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">template</span>.<span style="color:#a6e22e">ParseFiles</span>(<span style="color:#e6db74">&#34;count.gtpl&#34;</span>)
+	<span style="color:#a6e22e">w</span>.<span style="color:#a6e22e">Header</span>().<span style="color:#a6e22e">Set</span>(<span style="color:#e6db74">&#34;Content-Type&#34;</span>, <span style="color:#e6db74">&#34;text/html&#34;</span>)
+	<span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Execute</span>(<span style="color:#a6e22e">w</span>, <span style="color:#a6e22e">sess</span>.<span style="color:#a6e22e">Get</span>(<span style="color:#e6db74">&#34;countnum&#34;</span>))
+}</code></pre></div>
+<p>透過上面的例子可以看到，Session 的操作和操作 key/value 資料庫類似:Set、Get、Delete 等操作</p>
+
+<p>因為 Session 有過期的概念，所以我們定義了 GC 操作，當訪問過期時間滿足 GC 的觸發條件後將會引起 GC，但是當我們進行了任意一個 session 操作，都會對 Session 實體進行更新，都會觸發對最後訪問時間的修改，這樣當 GC 的時候就不會誤刪除還在使用的 Session 實體。</p>
+
+<h3 id="session-重置">session 重置</h3>
+
+<p>我們知道，Web 應用中有使用者退出這個操作，那麼當用戶退出應用的時候，我們需要對該使用者的 session 資料進行刪除操作，上面的程式碼已經示範了如何使用 session 重置操作，下面這個函式就是實現了這個功能：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#75715e">//Destroy sessionid
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">manager</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Manager</span>) <span style="color:#a6e22e">SessionDestroy</span>(<span style="color:#a6e22e">w</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ResponseWriter</span>, <span style="color:#a6e22e">r</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Request</span>){
+	<span style="color:#a6e22e">cookie</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">Cookie</span>(<span style="color:#a6e22e">manager</span>.<span style="color:#a6e22e">cookieName</span>)
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">cookie</span>.<span style="color:#a6e22e">Value</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;&#34;</span> {
+		<span style="color:#66d9ef">return</span>
+	} <span style="color:#66d9ef">else</span> {
+		<span style="color:#a6e22e">manager</span>.<span style="color:#a6e22e">lock</span>.<span style="color:#a6e22e">Lock</span>()
+		<span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">manager</span>.<span style="color:#a6e22e">lock</span>.<span style="color:#a6e22e">Unlock</span>()
+		<span style="color:#a6e22e">manager</span>.<span style="color:#a6e22e">provider</span>.<span style="color:#a6e22e">SessionDestroy</span>(<span style="color:#a6e22e">cookie</span>.<span style="color:#a6e22e">Value</span>)
+		<span style="color:#a6e22e">expiration</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>()
+		<span style="color:#a6e22e">cookie</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Cookie</span>{<span style="color:#a6e22e">Name</span>: <span style="color:#a6e22e">manager</span>.<span style="color:#a6e22e">cookieName</span>, <span style="color:#a6e22e">Path</span>: <span style="color:#e6db74">&#34;/&#34;</span>, <span style="color:#a6e22e">HttpOnly</span>: <span style="color:#66d9ef">true</span>, <span style="color:#a6e22e">Expires</span>: <span style="color:#a6e22e">expiration</span>, <span style="color:#a6e22e">MaxAge</span>: <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>}
+		<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">SetCookie</span>(<span style="color:#a6e22e">w</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">cookie</span>)
+	}
+}</code></pre></div>
+<h3 id="session-刪除">session 刪除</h3>
+
+<p>我們來看一下 Session 管理器如何來管理刪除，只要我們在 Main 啟動的時候啟動：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">init</span>() {
+	<span style="color:#66d9ef">go</span> <span style="color:#a6e22e">globalSessions</span>.<span style="color:#a6e22e">GC</span>()
+}</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">manager</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Manager</span>) <span style="color:#a6e22e">GC</span>() {
+	<span style="color:#a6e22e">manager</span>.<span style="color:#a6e22e">lock</span>.<span style="color:#a6e22e">Lock</span>()
+	<span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">manager</span>.<span style="color:#a6e22e">lock</span>.<span style="color:#a6e22e">Unlock</span>()
+	<span style="color:#a6e22e">manager</span>.<span style="color:#a6e22e">provider</span>.<span style="color:#a6e22e">SessionGC</span>(<span style="color:#a6e22e">manager</span>.<span style="color:#a6e22e">maxLifeTime</span>)
+	<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">AfterFunc</span>(<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Duration</span>(<span style="color:#a6e22e">manager</span>.<span style="color:#a6e22e">maxLifeTime</span>), <span style="color:#66d9ef">func</span>() { <span style="color:#a6e22e">manager</span>.<span style="color:#a6e22e">GC</span>() })
+}</code></pre></div>
+<p>我們可以看到 GC 充分利用了 time 套件中的定時器功能，當超時 <code>maxLifeTime</code> 之後呼叫 GC 函式，這樣就可以保證 <code>maxLifeTime</code> 時間內的 session 都是可用的，類似的方案也可以用於統計線上使用者數之類別的。</p>
+
+<h2 id="總結">總結</h2>
+
+<p>至此 我們實現了一個用來在 Web 應用中全域性管理 Session 的 SessionManager，定義了用來提供 Session 儲存實現 Provider 的介面，下一小節，我們將會透過介面定義來實現一些 Provider，供大家參考學習。</p>
+
+<h2 id="links">links</h2>
+
+<ul>
+<li><a href="docs/preface">目錄</a></li>
+<li>上一節: <a href="docs/06.1">session 和 cookie</a></li>
+<li>下一節: <a href="docs/06.3">session 儲存</a></li>
+</ul>
+</article>
+
+      
+<div class="book-footer justify-between">
+  
+  <div>
+    
+    <a href="/commit/fda25aafea9413c8ec77f5df29d5f6bb5f7dc3a6" title='Last modified Sep 21, 2019 by Jiuxiao' target="_blank" rel="noopener">
+      <img src="/buildWebWithGolangTw/svg/calendar.svg" alt="Changed" /> Sep 21, 2019
+    </a>
+  </div>
+  
+  
+</div>
+
+
+      
+    </div>
+
+    
+  
+
+  <aside class="book-toc level-3 fixed">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#6-2-go-如何使用-session">6.2 Go 如何使用 session</a>
+<ul>
+<li><a href="#session-建立過程">session 建立過程</a></li>
+<li><a href="#go-實現-session-管理">Go 實現 session 管理</a>
+<ul>
+<li><a href="#session-管理設計">session 管理設計</a></li>
+<li><a href="#session-管理器">Session 管理器</a></li>
+<li><a href="#全域性唯一的-session-id">全域性唯一的 Session ID</a></li>
+<li><a href="#session-建立">session 建立</a></li>
+<li><a href="#操作值-設定-讀取和刪除">操作值：設定、讀取和刪除</a></li>
+<li><a href="#session-重置">session 重置</a></li>
+<li><a href="#session-刪除">session 刪除</a></li>
+</ul></li>
+<li><a href="#總結">總結</a></li>
+<li><a href="#links">links</a></li>
+</ul></li>
+</ul>
+</nav>
+  </aside>
+
+
+
+  </main>
+
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-148025936-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+</body>
+
+</html>

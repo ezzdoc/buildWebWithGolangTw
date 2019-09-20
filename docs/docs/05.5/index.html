@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>05.5 | 使用 Golang 打造 Web 應用程式</title>
+
+
+<link rel="stylesheet" href="/buildWebWithGolangTw/book.min.89885fa0429ec73067282f26fc0c6d38cfc617a443ec4e835d47b821c52c6e92.css" integrity="sha256-iYhfoEKexzBnKC8m/AxtOM/GF6RD7E6DXUe4IcUsbpI=">
+
+
+<script defer src="/buildWebWithGolangTw/search.min.4762838110f5450a8a33fcbe56c7ce734d09867f3e9ab5c1e6f7bbec99b65c68.js" integrity="sha256-R2KDgRD1RQqKM/y&#43;VsfOc00Jhn8&#43;mrXB5ve77Jm2XGg="></script>
+
+
+
+<link rel="icon" href="/buildWebWithGolangTw/favicon.png" type="image/x-icon">
+
+<base href="https://ezzdoc.com/buildWebWithGolangTw/">
+
+
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body>
+  <input type="checkbox" class="hidden" id="menu-control" />
+  <main class="flex container">
+
+    <aside class="book-menu fixed">
+      <nav>
+<h2 class="book-brand">
+  <a href="https://ezzdoc.com/buildWebWithGolangTw/"><span>使用 Golang 打造 Web 應用程式</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" placeholder="Search" id="book-search-input" maxlength="64" readonly />
+  <div class="book-search-spinner spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+    
+  
+  
+  
+
+  <style>
+  nav ul a[href$="\2f buildWebWithGolangTw\2f docs\2f 05.5\2f "] {
+      color: #004ed0;
+  }
+  </style>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/preface/">目錄</a></li>
+<li><a href="/buildWebWithGolangTw/docs/01.0/">1.Go 環境配置</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/01.1/">1.1 安裝 Go</a></li>
+<li><a href="/buildWebWithGolangTw/docs/01.2/">1.2 GOPATH 與工作空間</a></li>
+<li><a href="/buildWebWithGolangTw/docs/01.3/">1.3 Go 命令</a></li>
+<li><a href="/buildWebWithGolangTw/docs/01.4/">1.4 Go 開發工具</a></li>
+<li><a href="/buildWebWithGolangTw/docs/01.5/">1.5 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/02.0/">2.Go 語言基礎</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/02.1/">2.1 你好，Go</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.2/">2.2 Go 基礎</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.3/">2.3 流程和函式</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.4/">2.4 struct</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.5/">2.5 物件導向</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.6/">2.6 interface</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.7/">2.7 併發</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.8/">2.8 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/03.0/">3.Web 基礎</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/03.1/">3.1 web 工作方式</a></li>
+<li><a href="/buildWebWithGolangTw/docs/03.2/">3.2 Go 建立一個簡單的 web 服務</a></li>
+<li><a href="/buildWebWithGolangTw/docs/03.3/">3.3 Go 如何使得 web 工作</a></li>
+<li><a href="/buildWebWithGolangTw/docs/03.4/">3.4 Go 的 http 套件詳解</a></li>
+<li><a href="/buildWebWithGolangTw/docs/03.5/">3.5 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/04.0/">4.表單</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/04.1/">4.1 處理表單的輸入</a></li>
+<li><a href="/buildWebWithGolangTw/docs/04.2/">4.2 驗證表單的輸入</a></li>
+<li><a href="/buildWebWithGolangTw/docs/04.3/">4.3 預防跨站指令碼</a></li>
+<li><a href="/buildWebWithGolangTw/docs/04.4/">4.4 防止多次提交表單</a></li>
+<li><a href="/buildWebWithGolangTw/docs/04.5/">4.5 處理檔案上傳</a></li>
+<li><a href="/buildWebWithGolangTw/docs/04.6/">4.6 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/05.0/">5.訪問資料庫</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/05.1/">5.1 database/sql 介面</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.2/">5.2 使用 MySQL 資料庫</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.3/">5.3 使用 SQLite 資料庫</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.4/">5.4 使用 PostgreSQL 資料庫</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.5/">5.5 使用 Beego orm 函式庫進行 ORM 開發</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.6/">5.6 NOSQL 資料庫操作</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.7/">5.7 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/06.0/">6.session 和資料儲存</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/06.1/">6.1 session 和 cookie</a></li>
+<li><a href="/buildWebWithGolangTw/docs/06.2/">6.2 Go 如何使用 session</a></li>
+<li><a href="/buildWebWithGolangTw/docs/06.3/">6.3 session 儲存</a></li>
+<li><a href="/buildWebWithGolangTw/docs/06.4/">6.4 預防 session 劫持</a></li>
+<li><a href="/buildWebWithGolangTw/docs/06.5/">6.5 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/07.0/">7.文字檔案處理</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/07.1/">7.1 XML 處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.2/">7.2 JSON 處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.3/">7.3 正則處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.4/">7.4 範本處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.5/">7.5 檔案操作</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.6/">7.6 字串處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.7/">7.7 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/08.0/">8.Web 服務</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/08.1/">8.1 Socket 程式設計</a></li>
+<li><a href="/buildWebWithGolangTw/docs/08.2/">8.2 WebSocket</a></li>
+<li><a href="/buildWebWithGolangTw/docs/08.3/">8.3 REST</a></li>
+<li><a href="/buildWebWithGolangTw/docs/08.4/">8.4 RPC</a></li>
+<li><a href="/buildWebWithGolangTw/docs/08.5/">8.5 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/09.0/">9.安全與加密</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/09.1/">9.1 預防 CSRF 攻擊</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.2/">9.2 確保輸入過濾</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.3/">9.3 避免 XSS 攻擊</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.4/">9.4 避免 SQL 注入</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.5/">9.5 儲存密碼</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.6/">9.6 加密和解密資料</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.7/">9.7 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/10.0/">10.國際化和本地化</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/10.1/">10.1 設定預設地區</a></li>
+<li><a href="/buildWebWithGolangTw/docs/10.2/">10.2 本地化資源</a></li>
+<li><a href="/buildWebWithGolangTw/docs/10.3/">10.3 國際化站點</a></li>
+<li><a href="/buildWebWithGolangTw/docs/10.4/">10.4 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/11.0/">11.錯誤處理，除錯和測試</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/11.1/">11.1 錯誤處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/11.2/">11.2 使用 GDB 除錯</a></li>
+<li><a href="/buildWebWithGolangTw/docs/11.3/">11.3 Go 怎麼寫測試案例</a></li>
+<li><a href="/buildWebWithGolangTw/docs/11.4/">11.4 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/12.0/">12.部署與維護</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/12.1/">12.1 應用日誌</a></li>
+<li><a href="/buildWebWithGolangTw/docs/12.2/">12.2 網站錯誤處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/12.3/">12.3 應用部署</a></li>
+<li><a href="/buildWebWithGolangTw/docs/12.4/">12.4 備份和還原</a></li>
+<li><a href="/buildWebWithGolangTw/docs/12.5/">12.5 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/13.0/">13.如何設計一個 Web 框架</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/13.1/">13.1 專案規劃</a></li>
+<li><a href="/buildWebWithGolangTw/docs/13.2/">13.2 自訂路由器設計</a></li>
+<li><a href="/buildWebWithGolangTw/docs/13.3/">13.3 controller 設計</a></li>
+<li><a href="/buildWebWithGolangTw/docs/13.4/">13.4 日誌和配置設計</a></li>
+<li><a href="/buildWebWithGolangTw/docs/13.5/">13.5 實現部落格的增刪改</a></li>
+<li><a href="/buildWebWithGolangTw/docs/13.6/">13.6 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/14.0/">14.擴充套件 Web 框架</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/14.1/">14.1 靜態檔案支援</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.2/">14.2 Session 支援</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.3/">14.3 表單支援</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.4/">14.4 使用者認證</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.5/">14.5 多語言支援</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.6/">14.6 pprof 支援</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.7/">14.7 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/ref/">附錄 A 參考資料</a></li>
+</ul>
+
+
+
+
+
+
+
+</nav>
+
+
+<script>
+(function() {
+  var menu = document.querySelector("aside.book-menu nav");
+  addEventListener("beforeunload", function(event) {
+    localStorage.setItem("menu.scrollTop", menu.scrollTop);
+  });
+  menu.scrollTop = localStorage.getItem("menu.scrollTop");
+})();
+</script>
+
+    </aside>
+
+    <div class="book-page">
+      <header class="flex align-center justify-between book-header">
+  <label for="menu-control">
+    <img src="/buildWebWithGolangTw/svg/menu.svg" alt="Menu" />
+  </label>
+  <strong>05.5</strong>
+</header>
+
+      
+<article class="markdown">
+
+<h1 id="5-5-使用-beego-orm-函式庫進行-orm-開發">5.5 使用 Beego orm 函式庫進行 ORM 開發</h1>
+
+<p>beego orm 是我開發的一個 Go 進行 ORM 操作的函式庫，它採用了 Go style 方式對資料庫進行操作，實現了 struct 到資料表記錄的對映。beego orm 是一個十分輕量級的 Go ORM 框架，開發這個函式庫的本意降低複雜的 ORM 學習曲線，儘可能在 ORM 的執行效率和功能之間尋求一個平衡，beego orm 是目前開源的 Go ORM 框架中實現比較完整的一個函式庫，而且執行效率相當不錯，功能也基本能滿足需求。</p>
+
+<p>beego orm 是支援 database/sql 標準介面的 ORM 函式庫，所以理論上來說，只要資料庫驅動支援 database/sql 介面就可以無縫的接入 beego orm。目前我測試過的驅動包括下面幾個：</p>
+
+<p>Mysql: <a href="https://github.com/go-sql-driver/mysql">github/go-mysql-driver/mysql</a></p>
+
+<p>PostgreSQL: <a href="https://github.com/lib/pq">github.com/lib/pq</a></p>
+
+<p>SQLite: <a href="https://github.com/mattn/go-sqlite3">github.com/mattn/go-sqlite3</a></p>
+
+<p>Mysql: <a href="https://github.com/ziutek/mymysql">github.com/ziutek/mymysql/godrv</a></p>
+
+<p>暫未支援資料庫:</p>
+
+<p>MsSql: <a href="https://github.com/denisenkom/go-mssqldb">github.com/denisenkom/go-mssqldb</a></p>
+
+<p>MS ADODB: <a href="https://github.com/mattn/go-adodb">github.com/mattn/go-adodb</a></p>
+
+<p>Oracle: <a href="https://github.com/mattn/go-oci8">github.com/mattn/go-oci8</a></p>
+
+<p>ODBC: <a href="https://bitbucket.org/miquella/mgodbc">bitbucket.org/miquella/mgodbc</a></p>
+
+<h2 id="安裝">安裝</h2>
+
+<p>beego orm 支援 go get 方式安裝，是完全按照 Go Style 的方式來實現的。</p>
+
+<pre><code>go get github.com/astaxie/beego
+</code></pre>
+
+<h2 id="如何初始化">如何初始化</h2>
+
+<p>首先你需要 import 相應的資料庫驅動套件、database/sql 標準介面套件以及 beego orm 套件，如下所示：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#f92672">import</span> (
+	<span style="color:#e6db74">&#34;database/sql&#34;</span>
+	<span style="color:#e6db74">&#34;github.com/astaxie/beego/orm&#34;</span>
+	<span style="color:#a6e22e">_</span> <span style="color:#e6db74">&#34;github.com/go-sql-driver/mysql&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">init</span>() {
+	<span style="color:#75715e">//註冊驅動
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">orm</span>.<span style="color:#a6e22e">RegisterDriver</span>(<span style="color:#e6db74">&#34;mysql&#34;</span>, <span style="color:#a6e22e">orm</span>.<span style="color:#a6e22e">DR_MySQL</span>)
+	<span style="color:#75715e">//設定預設資料庫
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">orm</span>.<span style="color:#a6e22e">RegisterDataBase</span>(<span style="color:#e6db74">&#34;default&#34;</span>, <span style="color:#e6db74">&#34;mysql&#34;</span>, <span style="color:#e6db74">&#34;root:root@/my_db?charset=utf8&#34;</span>, <span style="color:#ae81ff">30</span>)
+	<span style="color:#75715e">//註冊定義的 model
+</span><span style="color:#75715e"></span>    	<span style="color:#a6e22e">orm</span>.<span style="color:#a6e22e">RegisterModel</span>(new(<span style="color:#a6e22e">User</span>))
+
+   	<span style="color:#75715e">// 建立 table
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">orm</span>.<span style="color:#a6e22e">RunSyncdb</span>(<span style="color:#e6db74">&#34;default&#34;</span>, <span style="color:#66d9ef">false</span>, <span style="color:#66d9ef">true</span>)
+}</code></pre></div>
+<p>PostgreSQL 配置:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#75715e">//匯入驅動
+</span><span style="color:#75715e">// _ &#34;github.com/lib/pq&#34;
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// 註冊驅動
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">orm</span>.<span style="color:#a6e22e">RegisterDriver</span>(<span style="color:#e6db74">&#34;postgres&#34;</span>, <span style="color:#a6e22e">orm</span>.<span style="color:#a6e22e">DR_Postgres</span>)
+
+<span style="color:#75715e">// 設定預設資料庫
+</span><span style="color:#75715e">//PostgresQL 使用者：postgres ，密碼：zxxx ， 資料庫名稱：test ， 資料庫別名：default
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">orm</span>.<span style="color:#a6e22e">RegisterDataBase</span>(<span style="color:#e6db74">&#34;default&#34;</span>, <span style="color:#e6db74">&#34;postgres&#34;</span>, <span style="color:#e6db74">&#34;user=postgres password=zxxx dbname=test host=127.0.0.1 port=5432 sslmode=disable&#34;</span>)</code></pre></div>
+<p>MySQL 配置:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#75715e">//匯入驅動
+</span><span style="color:#75715e">//_ &#34;github.com/go-sql-driver/mysql&#34;
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">//註冊驅動
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">orm</span>.<span style="color:#a6e22e">RegisterDriver</span>(<span style="color:#e6db74">&#34;mysql&#34;</span>, <span style="color:#a6e22e">orm</span>.<span style="color:#a6e22e">DR_MySQL</span>)
+
+<span style="color:#75715e">// 設定預設資料庫
+</span><span style="color:#75715e">//mysql 使用者：root ，密碼：zxxx ， 資料庫名稱：test ， 資料庫別名：default
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">orm</span>.<span style="color:#a6e22e">RegisterDataBase</span>(<span style="color:#e6db74">&#34;default&#34;</span>, <span style="color:#e6db74">&#34;mysql&#34;</span>, <span style="color:#e6db74">&#34;root:zxxx@/test?charset=utf8&#34;</span>)</code></pre></div>
+<p>Sqlite 配置:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#75715e">//匯入驅動
+</span><span style="color:#75715e">//_ &#34;github.com/mattn/go-sqlite3&#34;
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">//註冊驅動
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">orm</span>.<span style="color:#a6e22e">RegisterDriver</span>(<span style="color:#e6db74">&#34;sqlite&#34;</span>, <span style="color:#a6e22e">orm</span>.<span style="color:#a6e22e">DR_Sqlite</span>)
+
+<span style="color:#75715e">// 設定預設資料庫
+</span><span style="color:#75715e">//資料庫存放位置：./datas/test.db ， 資料庫別名：default
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">orm</span>.<span style="color:#a6e22e">RegisterDataBase</span>(<span style="color:#e6db74">&#34;default&#34;</span>, <span style="color:#e6db74">&#34;sqlite3&#34;</span>, <span style="color:#e6db74">&#34;./datas/test.db&#34;</span>)</code></pre></div>
+<p>匯入必須的 package 之後，我們需要開啟到資料庫的連結，然後建立一個 beego orm 物件（以 MySQL 為例)，如下所示
+beego orm:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+    	<span style="color:#a6e22e">o</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">orm</span>.<span style="color:#a6e22e">NewOrm</span>()
+}</code></pre></div>
+<p>簡單範例:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+    <span style="color:#e6db74">&#34;fmt&#34;</span>
+    <span style="color:#e6db74">&#34;github.com/astaxie/beego/orm&#34;</span>
+    <span style="color:#a6e22e">_</span> <span style="color:#e6db74">&#34;github.com/go-sql-driver/mysql&#34;</span> <span style="color:#75715e">// 匯入資料庫驅動
+</span><span style="color:#75715e"></span>)
+
+<span style="color:#75715e">// Model Struct
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">User</span> <span style="color:#66d9ef">struct</span> {
+    <span style="color:#a6e22e">Id</span>   <span style="color:#66d9ef">int</span>
+    <span style="color:#a6e22e">Name</span> <span style="color:#66d9ef">string</span> <span style="color:#e6db74">`orm:&#34;size(100)&#34;`</span>
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">init</span>() {
+    <span style="color:#75715e">// 設定預設資料庫
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">orm</span>.<span style="color:#a6e22e">RegisterDataBase</span>(<span style="color:#e6db74">&#34;default&#34;</span>, <span style="color:#e6db74">&#34;mysql&#34;</span>, <span style="color:#e6db74">&#34;root:root@/my_db?charset=utf8&#34;</span>, <span style="color:#ae81ff">30</span>)
+
+    <span style="color:#75715e">// 註冊定義的 model
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">orm</span>.<span style="color:#a6e22e">RegisterModel</span>(new(<span style="color:#a6e22e">User</span>))
+<span style="color:#75715e">//RegisterModel 也可以同時註冊多個 model
+</span><span style="color:#75715e">//orm.RegisterModel(new(User), new(Profile), new(Post))
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">// 建立 table
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">orm</span>.<span style="color:#a6e22e">RunSyncdb</span>(<span style="color:#e6db74">&#34;default&#34;</span>, <span style="color:#66d9ef">false</span>, <span style="color:#66d9ef">true</span>)
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#a6e22e">o</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">orm</span>.<span style="color:#a6e22e">NewOrm</span>()
+
+    <span style="color:#a6e22e">user</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">User</span>{<span style="color:#a6e22e">Name</span>: <span style="color:#e6db74">&#34;slene&#34;</span>}
+
+    <span style="color:#75715e">// 插入表
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">id</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">o</span>.<span style="color:#a6e22e">Insert</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">user</span>)
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;ID: %d, ERR: %v\n&#34;</span>, <span style="color:#a6e22e">id</span>, <span style="color:#a6e22e">err</span>)
+
+    <span style="color:#75715e">// 更新表
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">user</span>.<span style="color:#a6e22e">Name</span> = <span style="color:#e6db74">&#34;astaxie&#34;</span>
+    <span style="color:#a6e22e">num</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">o</span>.<span style="color:#a6e22e">Update</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">user</span>)
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;NUM: %d, ERR: %v\n&#34;</span>, <span style="color:#a6e22e">num</span>, <span style="color:#a6e22e">err</span>)
+
+    <span style="color:#75715e">// 讀取 one
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">u</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">User</span>{<span style="color:#a6e22e">Id</span>: <span style="color:#a6e22e">user</span>.<span style="color:#a6e22e">Id</span>}
+    <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">o</span>.<span style="color:#a6e22e">Read</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">u</span>)
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;ERR: %v\n&#34;</span>, <span style="color:#a6e22e">err</span>)
+
+    <span style="color:#75715e">// 刪除表
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">num</span>, <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">o</span>.<span style="color:#a6e22e">Delete</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">u</span>)
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;NUM: %d, ERR: %v\n&#34;</span>, <span style="color:#a6e22e">num</span>, <span style="color:#a6e22e">err</span>)
+}</code></pre></div>
+<p>SetMaxIdleConns</p>
+
+<p>根據資料庫的別名，設定資料庫的最大空閒連線</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">orm</span>.<span style="color:#a6e22e">SetMaxIdleConns</span>(<span style="color:#e6db74">&#34;default&#34;</span>, <span style="color:#ae81ff">30</span>)</code></pre></div>
+<p>SetMaxOpenConns</p>
+
+<p>根據資料庫的別名，設定資料庫的最大資料庫連線 (go &gt;= 1.2)</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">orm</span>.<span style="color:#a6e22e">SetMaxOpenConns</span>(<span style="color:#e6db74">&#34;default&#34;</span>, <span style="color:#ae81ff">30</span>)</code></pre></div>
+<p>目前 beego orm 支援列印除錯，你可以透過如下的程式碼實現除錯</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"> <span style="color:#a6e22e">orm</span>.<span style="color:#a6e22e">Debug</span> = <span style="color:#66d9ef">true</span></code></pre></div>
+<p>接下來我們的例子採用前面的資料庫表 User，現在我們建立相應的 struct</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Userinfo</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">Uid</span>     <span style="color:#66d9ef">int</span> <span style="color:#e6db74">`PK`</span> <span style="color:#75715e">//如果表的主鍵不是 id，那麼需要加上 pk 註釋，明確的說這個欄位是主鍵
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Username</span>    <span style="color:#66d9ef">string</span>
+	<span style="color:#a6e22e">Departname</span>  <span style="color:#66d9ef">string</span>
+	<span style="color:#a6e22e">Created</span>     <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Time</span>
+}
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">User</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">Uid</span>          <span style="color:#66d9ef">int</span> <span style="color:#e6db74">`PK`</span> <span style="color:#75715e">//如果表的主鍵不是 id，那麼需要加上 pk 註釋，明確的說這個欄位是主鍵
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Name</span>        <span style="color:#66d9ef">string</span>
+	<span style="color:#a6e22e">Profile</span>     <span style="color:#f92672">*</span><span style="color:#a6e22e">Profile</span>   <span style="color:#e6db74">`orm:&#34;rel(one)&#34;`</span> <span style="color:#75715e">// OneToOne relation
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Post</span>        []<span style="color:#f92672">*</span><span style="color:#a6e22e">Post</span> <span style="color:#e6db74">`orm:&#34;reverse(many)&#34;`</span> <span style="color:#75715e">// 設定一對多的反向關係
+</span><span style="color:#75715e"></span>}
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Profile</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">Id</span>          <span style="color:#66d9ef">int</span>
+	<span style="color:#a6e22e">Age</span>         <span style="color:#66d9ef">int16</span>
+	<span style="color:#a6e22e">User</span>        <span style="color:#f92672">*</span><span style="color:#a6e22e">User</span>   <span style="color:#e6db74">`orm:&#34;reverse(one)&#34;`</span> <span style="color:#75715e">// 設定一對一反向關係(可選)
+</span><span style="color:#75715e"></span>}
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Post</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">Id</span>    <span style="color:#66d9ef">int</span>
+	<span style="color:#a6e22e">Title</span> <span style="color:#66d9ef">string</span>
+	<span style="color:#a6e22e">User</span>  <span style="color:#f92672">*</span><span style="color:#a6e22e">User</span>  <span style="color:#e6db74">`orm:&#34;rel(fk)&#34;`</span>
+	<span style="color:#a6e22e">Tags</span>  []<span style="color:#f92672">*</span><span style="color:#a6e22e">Tag</span> <span style="color:#e6db74">`orm:&#34;rel(m2m)&#34;`</span>    <span style="color:#75715e">//設定一對多關係
+</span><span style="color:#75715e"></span>}
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Tag</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">Id</span>    <span style="color:#66d9ef">int</span>
+	<span style="color:#a6e22e">Name</span>  <span style="color:#66d9ef">string</span>
+	<span style="color:#a6e22e">Posts</span> []<span style="color:#f92672">*</span><span style="color:#a6e22e">Post</span> <span style="color:#e6db74">`orm:&#34;reverse(many)&#34;`</span>
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">init</span>() {
+	<span style="color:#75715e">// 需要在 init 中註冊定義的 model
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">orm</span>.<span style="color:#a6e22e">RegisterModel</span>(new(<span style="color:#a6e22e">Userinfo</span>),new(<span style="color:#a6e22e">User</span>), new(<span style="color:#a6e22e">Profile</span>), new(<span style="color:#a6e22e">Tag</span>))
+}</code></pre></div>
+<blockquote>
+<p>注意一點，beego orm 針對駝峰命名會自動幫你轉化成下劃線欄位，例如你定義了 Struct 名字為<code>UserInfo</code>，那麼轉化成底層實現的時候是<code>user_info</code>，欄位命名也遵循該規則。</p>
+</blockquote>
+
+<h2 id="插入資料">插入資料</h2>
+
+<p>下面的程式碼示範了如何插入一條記錄，可以看到我們操作的是 struct 物件，而不是原生的 sql 語句，最後透過呼叫 Insert 介面將資料儲存到資料庫。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">o</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">orm</span>.<span style="color:#a6e22e">NewOrm</span>()
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">user</span> <span style="color:#a6e22e">User</span>
+<span style="color:#a6e22e">user</span>.<span style="color:#a6e22e">Name</span> = <span style="color:#e6db74">&#34;zxxx&#34;</span>
+<span style="color:#a6e22e">user</span>.<span style="color:#a6e22e">Departname</span> = <span style="color:#e6db74">&#34;zxxx&#34;</span>
+
+<span style="color:#a6e22e">id</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">o</span>.<span style="color:#a6e22e">Insert</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">user</span>)
+<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">id</span>)
+}</code></pre></div>
+<p>我們看到插入之後<code>user.Uid</code>就是插入成功之後的自增 ID。</p>
+
+<p>同時插入多個物件:InsertMulti</p>
+
+<p>類似 sql 語句</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">insert</span> <span style="color:#a6e22e">into</span> <span style="color:#a6e22e">table</span> (<span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">age</span>) <span style="color:#a6e22e">values</span>(<span style="color:#e6db74">&#34;slene&#34;</span>, <span style="color:#ae81ff">28</span>),(<span style="color:#e6db74">&#34;astaxie&#34;</span>, <span style="color:#ae81ff">30</span>),(<span style="color:#e6db74">&#34;unknown&#34;</span>, <span style="color:#ae81ff">20</span>)</code></pre></div>
+<p>第一個參數 bulk 為並列插入的數量，第二個為物件的 slice</p>
+
+<p>回傳值為成功插入的數量</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">users</span> <span style="color:#f92672">:=</span> []<span style="color:#a6e22e">User</span>{
+    {<span style="color:#a6e22e">Name</span>: <span style="color:#e6db74">&#34;slene&#34;</span>},
+    {<span style="color:#a6e22e">Name</span>: <span style="color:#e6db74">&#34;astaxie&#34;</span>},
+    {<span style="color:#a6e22e">Name</span>: <span style="color:#e6db74">&#34;unknown&#34;</span>},
+    <span style="color:#f92672">...</span>
+}
+<span style="color:#a6e22e">successNums</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">o</span>.<span style="color:#a6e22e">InsertMulti</span>(<span style="color:#ae81ff">100</span>, <span style="color:#a6e22e">users</span>)</code></pre></div>
+<p>bulk 為 1 時，將會順序插入 slice 中的資料</p>
+
+<h2 id="更新資料">更新資料</h2>
+
+<p>繼續上面的例子來示範更新操作，現在 user 的主鍵已經有值了，此時呼叫 Insert 介面，beego orm 內部會自動呼叫 update 以進行資料的更新而非插入操作。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">o</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">orm</span>.<span style="color:#a6e22e">NewOrm</span>()
+<span style="color:#a6e22e">user</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">User</span>{<span style="color:#a6e22e">Uid</span>: <span style="color:#ae81ff">1</span>}
+<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">o</span>.<span style="color:#a6e22e">Read</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">user</span>) <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+	<span style="color:#a6e22e">user</span>.<span style="color:#a6e22e">Name</span> = <span style="color:#e6db74">&#34;MyName&#34;</span>
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">num</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">o</span>.<span style="color:#a6e22e">Update</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">user</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">num</span>)
+	}
+}</code></pre></div>
+<p>Update 預設更新所有的欄位，可以更新指定的欄位：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#75715e">// 只更新 Name
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">o</span>.<span style="color:#a6e22e">Update</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">user</span>, <span style="color:#e6db74">&#34;Name&#34;</span>)
+<span style="color:#75715e">// 指定多個欄位
+</span><span style="color:#75715e"></span><span style="color:#f92672">//</span> <span style="color:#a6e22e">o</span>.<span style="color:#a6e22e">Update</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">user</span>, <span style="color:#e6db74">&#34;Field1&#34;</span>, <span style="color:#e6db74">&#34;Field2&#34;</span>, <span style="color:#f92672">...</span>)</code></pre></div>
+<p>//Where:用來設定條件，支援多個參數，第一個參數如果為整數，相當於呼叫了 Where(&ldquo;主鍵=?&ldquo;，值)。</p>
+
+<h2 id="查詢資料">查詢資料</h2>
+
+<p>beego orm 的查詢介面比較靈活，具體使用請看下面的例子</p>
+
+<p>例子 1，根據主鍵取得資料：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">o</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">orm</span>.<span style="color:#a6e22e">NewOrm</span>()
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">user</span> <span style="color:#a6e22e">User</span>
+
+<span style="color:#a6e22e">user</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">User</span>{<span style="color:#a6e22e">Id</span>: <span style="color:#ae81ff">1</span>}
+
+<span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">o</span>.<span style="color:#a6e22e">Read</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">user</span>)
+
+<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">orm</span>.<span style="color:#a6e22e">ErrNoRows</span> {
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;查詢不到&#34;</span>)
+} <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">orm</span>.<span style="color:#a6e22e">ErrMissPK</span> {
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;找不到主鍵&#34;</span>)
+} <span style="color:#66d9ef">else</span> {
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">user</span>.<span style="color:#a6e22e">Id</span>, <span style="color:#a6e22e">user</span>.<span style="color:#a6e22e">Name</span>)
+}</code></pre></div>
+<p>例子 2：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">o</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">orm</span>.<span style="color:#a6e22e">NewOrm</span>()
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">user</span> <span style="color:#a6e22e">User</span>
+
+<span style="color:#a6e22e">qs</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">o</span>.<span style="color:#a6e22e">QueryTable</span>(<span style="color:#a6e22e">user</span>) <span style="color:#75715e">// 回傳 QuerySeter
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">qs</span>.<span style="color:#a6e22e">Filter</span>(<span style="color:#e6db74">&#34;id&#34;</span>, <span style="color:#ae81ff">1</span>) <span style="color:#75715e">// WHERE id = 1
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">qs</span>.<span style="color:#a6e22e">Filter</span>(<span style="color:#e6db74">&#34;profile__age&#34;</span>, <span style="color:#ae81ff">18</span>) <span style="color:#f92672">//</span> <span style="color:#a6e22e">WHERE</span> <span style="color:#a6e22e">profile</span>.<span style="color:#a6e22e">age</span> = <span style="color:#ae81ff">18</span></code></pre></div>
+<p>例子 3，WHERE IN 查詢條件：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">qs</span>.<span style="color:#a6e22e">Filter</span>(<span style="color:#e6db74">&#34;profile__age__in&#34;</span>, <span style="color:#ae81ff">18</span>, <span style="color:#ae81ff">20</span>)
+<span style="color:#f92672">//</span> <span style="color:#a6e22e">WHERE</span> <span style="color:#a6e22e">profile</span>.<span style="color:#a6e22e">age</span> <span style="color:#a6e22e">IN</span> (<span style="color:#ae81ff">18</span>, <span style="color:#ae81ff">20</span>)</code></pre></div>
+<p>例子 4，更加複雜的條件：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">qs</span>.<span style="color:#a6e22e">Filter</span>(<span style="color:#e6db74">&#34;profile__age__in&#34;</span>, <span style="color:#ae81ff">18</span>, <span style="color:#ae81ff">20</span>).<span style="color:#a6e22e">Exclude</span>(<span style="color:#e6db74">&#34;profile__lt&#34;</span>, <span style="color:#ae81ff">1000</span>)
+<span style="color:#f92672">//</span> <span style="color:#a6e22e">WHERE</span> <span style="color:#a6e22e">profile</span>.<span style="color:#a6e22e">age</span> <span style="color:#a6e22e">IN</span> (<span style="color:#ae81ff">18</span>, <span style="color:#ae81ff">20</span>) <span style="color:#a6e22e">AND</span> <span style="color:#a6e22e">NOT</span> <span style="color:#a6e22e">profile_id</span> &lt; <span style="color:#ae81ff">1000</span></code></pre></div>
+<p>可以透過如下介面取得多條資料，請看範例</p>
+
+<p>例子 1，根據條件 age&gt;17，取得 20 位置開始的 10 條資料的資料</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">allusers</span> []<span style="color:#a6e22e">User</span>
+<span style="color:#a6e22e">qs</span>.<span style="color:#a6e22e">Filter</span>(<span style="color:#e6db74">&#34;profile__age__gt&#34;</span>, <span style="color:#ae81ff">17</span>)
+<span style="color:#f92672">//</span> <span style="color:#a6e22e">WHERE</span> <span style="color:#a6e22e">profile</span>.<span style="color:#a6e22e">age</span> &gt; <span style="color:#ae81ff">17</span></code></pre></div>
+<p>例子 2，limit 預設從 10 開始，取得 10 條資料</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">qs</span>.<span style="color:#a6e22e">Limit</span>(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">20</span>)
+<span style="color:#f92672">//</span> <span style="color:#a6e22e">LIMIT</span> <span style="color:#ae81ff">10</span> <span style="color:#a6e22e">OFFSET</span> <span style="color:#ae81ff">20</span> <span style="color:#a6e22e">注意跟</span> <span style="color:#a6e22e">SQL</span> <span style="color:#a6e22e">反過來的</span></code></pre></div>
+<h2 id="刪除資料">刪除資料</h2>
+
+<p>beedb 提供了豐富的刪除資料介面，請看下面的例子</p>
+
+<p>例子 1，刪除一筆資料</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">o</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">orm</span>.<span style="color:#a6e22e">NewOrm</span>()
+<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">num</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">o</span>.<span style="color:#a6e22e">Delete</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">User</span>{<span style="color:#a6e22e">Id</span>: <span style="color:#ae81ff">1</span>}); <span style="color:#a6e22e">err</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">num</span>)
+}</code></pre></div>
+<p>Delete 操作會對反向關係進行操作，此例中 Post 擁有一個到 User 的外來鍵。刪除 User 的時候。如果 on_delete 設定為預設的級聯操作，將刪除對應的 Post</p>
+
+<h2 id="關聯查詢">關聯查詢</h2>
+
+<p>有些應用卻需要用到連線查詢，所以現在 beego orm 提供了一個簡陋的實現方案：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Post</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">Id</span>    <span style="color:#66d9ef">int</span>    <span style="color:#e6db74">`orm:&#34;auto&#34;`</span>
+	<span style="color:#a6e22e">Title</span> <span style="color:#66d9ef">string</span> <span style="color:#e6db74">`orm:&#34;size(100)&#34;`</span>
+	<span style="color:#a6e22e">User</span>  <span style="color:#f92672">*</span><span style="color:#a6e22e">User</span>  <span style="color:#e6db74">`orm:&#34;rel(fk)&#34;`</span>
+}
+
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">posts</span> []<span style="color:#f92672">*</span><span style="color:#a6e22e">Post</span>
+<span style="color:#a6e22e">qs</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">o</span>.<span style="color:#a6e22e">QueryTable</span>(<span style="color:#e6db74">&#34;post&#34;</span>)
+<span style="color:#a6e22e">num</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">qs</span>.<span style="color:#a6e22e">Filter</span>(<span style="color:#e6db74">&#34;User__Name&#34;</span>, <span style="color:#e6db74">&#34;slene&#34;</span>).<span style="color:#a6e22e">All</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">posts</span>)</code></pre></div>
+<p>上面程式碼中我們看到了一個 struct 關聯查詢</p>
+
+<h2 id="group-by-和-having">Group By 和 Having</h2>
+
+<p>針對有些應用需要用到 group by 的功能，beego orm 也提供了一個簡陋的實現</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">qs</span>.<span style="color:#a6e22e">OrderBy</span>(<span style="color:#e6db74">&#34;id&#34;</span>, <span style="color:#e6db74">&#34;-profile__age&#34;</span>)
+<span style="color:#75715e">// ORDER BY id ASC, profile.age DESC
+</span><span style="color:#75715e"></span>
+<span style="color:#a6e22e">qs</span>.<span style="color:#a6e22e">OrderBy</span>(<span style="color:#e6db74">&#34;-profile__age&#34;</span>, <span style="color:#e6db74">&#34;profile&#34;</span>)
+<span style="color:#f92672">//</span> <span style="color:#a6e22e">ORDER</span> <span style="color:#a6e22e">BY</span> <span style="color:#a6e22e">profile</span>.<span style="color:#a6e22e">age</span> <span style="color:#a6e22e">DESC</span>, <span style="color:#a6e22e">profile_id</span> <span style="color:#a6e22e">ASC</span></code></pre></div>
+<p>上面的程式碼中出現了兩個新介面函式</p>
+
+<p>GroupBy:用來指定進行 groupby 的欄位</p>
+
+<p>Having:用來指定 having 執行的時候的條件</p>
+
+<h2 id="使用原生-sql">使用原生 sql</h2>
+
+<p>簡單範例:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">o</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">orm</span>.<span style="color:#a6e22e">NewOrm</span>()
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">r</span> <span style="color:#a6e22e">orm</span>.<span style="color:#a6e22e">RawSeter</span>
+<span style="color:#a6e22e">r</span> = <span style="color:#a6e22e">o</span>.<span style="color:#a6e22e">Raw</span>(<span style="color:#e6db74">&#34;UPDATE user SET name = ? WHERE name = ?&#34;</span>, <span style="color:#e6db74">&#34;testing&#34;</span>, <span style="color:#e6db74">&#34;slene&#34;</span>)</code></pre></div>
+<p>複雜原生 sql 使用:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">m</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">User</span>) <span style="color:#a6e22e">Query</span>(<span style="color:#a6e22e">name</span> <span style="color:#66d9ef">string</span>) <span style="color:#a6e22e">user</span> []<span style="color:#a6e22e">User</span> {
+	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">o</span> <span style="color:#a6e22e">orm</span>.<span style="color:#a6e22e">Ormer</span>
+	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">rs</span> <span style="color:#a6e22e">orm</span>.<span style="color:#a6e22e">RawSeter</span>
+	<span style="color:#a6e22e">o</span> = <span style="color:#a6e22e">orm</span>.<span style="color:#a6e22e">NewOrm</span>()
+	<span style="color:#a6e22e">rs</span> = <span style="color:#a6e22e">o</span>.<span style="color:#a6e22e">Raw</span>(<span style="color:#e6db74">&#34;SELECT * FROM user &#34;</span><span style="color:#f92672">+</span>
+		<span style="color:#e6db74">&#34;WHERE name=? AND uid&gt;10 &#34;</span><span style="color:#f92672">+</span>
+		<span style="color:#e6db74">&#34;ORDER BY uid DESC &#34;</span><span style="color:#f92672">+</span>
+		<span style="color:#e6db74">&#34;LIMIT 100&#34;</span>, <span style="color:#a6e22e">name</span>)
+	<span style="color:#75715e">//var user []User
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">num</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">rs</span>.<span style="color:#a6e22e">QueryRows</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">user</span>)
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">err</span>)
+	} <span style="color:#66d9ef">else</span> {
+		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">num</span>)
+		<span style="color:#75715e">//return user
+</span><span style="color:#75715e"></span>	}
+	<span style="color:#66d9ef">return</span>
+}</code></pre></div>
+<p>更多說明，請到<a href="https://beego.me">beego.me</a></p>
+
+<h2 id="進一步的發展">進一步的發展</h2>
+
+<p>目前 beego orm 已經獲得了很多來自國內外使用者的反饋，我目前也正在考慮支援更多資料庫，接下來會在更多方面進行改進</p>
+
+<h2 id="links">links</h2>
+
+<ul>
+<li><a href="docs/preface">目錄</a></li>
+<li>上一節: <a href="docs/05.4">使用 PostgreSQL 資料庫</a></li>
+<li>下一節: <a href="docs/05.6">NOSQL 資料庫操作</a></li>
+</ul>
+</article>
+
+      
+<div class="book-footer justify-between">
+  
+  <div>
+    
+    <a href="/commit/fda25aafea9413c8ec77f5df29d5f6bb5f7dc3a6" title='Last modified Sep 21, 2019 by Jiuxiao' target="_blank" rel="noopener">
+      <img src="/buildWebWithGolangTw/svg/calendar.svg" alt="Changed" /> Sep 21, 2019
+    </a>
+  </div>
+  
+  
+</div>
+
+
+      
+    </div>
+
+    
+  
+
+  <aside class="book-toc level-3 fixed">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#5-5-使用-beego-orm-函式庫進行-orm-開發">5.5 使用 Beego orm 函式庫進行 ORM 開發</a>
+<ul>
+<li><a href="#安裝">安裝</a></li>
+<li><a href="#如何初始化">如何初始化</a></li>
+<li><a href="#插入資料">插入資料</a></li>
+<li><a href="#更新資料">更新資料</a></li>
+<li><a href="#查詢資料">查詢資料</a></li>
+<li><a href="#刪除資料">刪除資料</a></li>
+<li><a href="#關聯查詢">關聯查詢</a></li>
+<li><a href="#group-by-和-having">Group By 和 Having</a></li>
+<li><a href="#使用原生-sql">使用原生 sql</a></li>
+<li><a href="#進一步的發展">進一步的發展</a></li>
+<li><a href="#links">links</a></li>
+</ul></li>
+</ul>
+</nav>
+  </aside>
+
+
+
+  </main>
+
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-148025936-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+</body>
+
+</html>

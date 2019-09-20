@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>01.1 | 使用 Golang 打造 Web 應用程式</title>
+
+
+<link rel="stylesheet" href="/buildWebWithGolangTw/book.min.89885fa0429ec73067282f26fc0c6d38cfc617a443ec4e835d47b821c52c6e92.css" integrity="sha256-iYhfoEKexzBnKC8m/AxtOM/GF6RD7E6DXUe4IcUsbpI=">
+
+
+<script defer src="/buildWebWithGolangTw/search.min.4762838110f5450a8a33fcbe56c7ce734d09867f3e9ab5c1e6f7bbec99b65c68.js" integrity="sha256-R2KDgRD1RQqKM/y&#43;VsfOc00Jhn8&#43;mrXB5ve77Jm2XGg="></script>
+
+
+
+<link rel="icon" href="/buildWebWithGolangTw/favicon.png" type="image/x-icon">
+
+<base href="https://ezzdoc.com/buildWebWithGolangTw/">
+
+
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body>
+  <input type="checkbox" class="hidden" id="menu-control" />
+  <main class="flex container">
+
+    <aside class="book-menu fixed">
+      <nav>
+<h2 class="book-brand">
+  <a href="https://ezzdoc.com/buildWebWithGolangTw/"><span>使用 Golang 打造 Web 應用程式</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" placeholder="Search" id="book-search-input" maxlength="64" readonly />
+  <div class="book-search-spinner spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+    
+  
+  
+  
+
+  <style>
+  nav ul a[href$="\2f buildWebWithGolangTw\2f docs\2f 01.1\2f "] {
+      color: #004ed0;
+  }
+  </style>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/preface/">目錄</a></li>
+<li><a href="/buildWebWithGolangTw/docs/01.0/">1.Go 環境配置</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/01.1/">1.1 安裝 Go</a></li>
+<li><a href="/buildWebWithGolangTw/docs/01.2/">1.2 GOPATH 與工作空間</a></li>
+<li><a href="/buildWebWithGolangTw/docs/01.3/">1.3 Go 命令</a></li>
+<li><a href="/buildWebWithGolangTw/docs/01.4/">1.4 Go 開發工具</a></li>
+<li><a href="/buildWebWithGolangTw/docs/01.5/">1.5 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/02.0/">2.Go 語言基礎</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/02.1/">2.1 你好，Go</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.2/">2.2 Go 基礎</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.3/">2.3 流程和函式</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.4/">2.4 struct</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.5/">2.5 物件導向</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.6/">2.6 interface</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.7/">2.7 併發</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.8/">2.8 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/03.0/">3.Web 基礎</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/03.1/">3.1 web 工作方式</a></li>
+<li><a href="/buildWebWithGolangTw/docs/03.2/">3.2 Go 建立一個簡單的 web 服務</a></li>
+<li><a href="/buildWebWithGolangTw/docs/03.3/">3.3 Go 如何使得 web 工作</a></li>
+<li><a href="/buildWebWithGolangTw/docs/03.4/">3.4 Go 的 http 套件詳解</a></li>
+<li><a href="/buildWebWithGolangTw/docs/03.5/">3.5 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/04.0/">4.表單</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/04.1/">4.1 處理表單的輸入</a></li>
+<li><a href="/buildWebWithGolangTw/docs/04.2/">4.2 驗證表單的輸入</a></li>
+<li><a href="/buildWebWithGolangTw/docs/04.3/">4.3 預防跨站指令碼</a></li>
+<li><a href="/buildWebWithGolangTw/docs/04.4/">4.4 防止多次提交表單</a></li>
+<li><a href="/buildWebWithGolangTw/docs/04.5/">4.5 處理檔案上傳</a></li>
+<li><a href="/buildWebWithGolangTw/docs/04.6/">4.6 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/05.0/">5.訪問資料庫</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/05.1/">5.1 database/sql 介面</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.2/">5.2 使用 MySQL 資料庫</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.3/">5.3 使用 SQLite 資料庫</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.4/">5.4 使用 PostgreSQL 資料庫</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.5/">5.5 使用 Beego orm 函式庫進行 ORM 開發</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.6/">5.6 NOSQL 資料庫操作</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.7/">5.7 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/06.0/">6.session 和資料儲存</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/06.1/">6.1 session 和 cookie</a></li>
+<li><a href="/buildWebWithGolangTw/docs/06.2/">6.2 Go 如何使用 session</a></li>
+<li><a href="/buildWebWithGolangTw/docs/06.3/">6.3 session 儲存</a></li>
+<li><a href="/buildWebWithGolangTw/docs/06.4/">6.4 預防 session 劫持</a></li>
+<li><a href="/buildWebWithGolangTw/docs/06.5/">6.5 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/07.0/">7.文字檔案處理</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/07.1/">7.1 XML 處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.2/">7.2 JSON 處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.3/">7.3 正則處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.4/">7.4 範本處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.5/">7.5 檔案操作</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.6/">7.6 字串處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.7/">7.7 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/08.0/">8.Web 服務</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/08.1/">8.1 Socket 程式設計</a></li>
+<li><a href="/buildWebWithGolangTw/docs/08.2/">8.2 WebSocket</a></li>
+<li><a href="/buildWebWithGolangTw/docs/08.3/">8.3 REST</a></li>
+<li><a href="/buildWebWithGolangTw/docs/08.4/">8.4 RPC</a></li>
+<li><a href="/buildWebWithGolangTw/docs/08.5/">8.5 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/09.0/">9.安全與加密</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/09.1/">9.1 預防 CSRF 攻擊</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.2/">9.2 確保輸入過濾</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.3/">9.3 避免 XSS 攻擊</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.4/">9.4 避免 SQL 注入</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.5/">9.5 儲存密碼</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.6/">9.6 加密和解密資料</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.7/">9.7 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/10.0/">10.國際化和本地化</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/10.1/">10.1 設定預設地區</a></li>
+<li><a href="/buildWebWithGolangTw/docs/10.2/">10.2 本地化資源</a></li>
+<li><a href="/buildWebWithGolangTw/docs/10.3/">10.3 國際化站點</a></li>
+<li><a href="/buildWebWithGolangTw/docs/10.4/">10.4 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/11.0/">11.錯誤處理，除錯和測試</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/11.1/">11.1 錯誤處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/11.2/">11.2 使用 GDB 除錯</a></li>
+<li><a href="/buildWebWithGolangTw/docs/11.3/">11.3 Go 怎麼寫測試案例</a></li>
+<li><a href="/buildWebWithGolangTw/docs/11.4/">11.4 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/12.0/">12.部署與維護</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/12.1/">12.1 應用日誌</a></li>
+<li><a href="/buildWebWithGolangTw/docs/12.2/">12.2 網站錯誤處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/12.3/">12.3 應用部署</a></li>
+<li><a href="/buildWebWithGolangTw/docs/12.4/">12.4 備份和還原</a></li>
+<li><a href="/buildWebWithGolangTw/docs/12.5/">12.5 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/13.0/">13.如何設計一個 Web 框架</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/13.1/">13.1 專案規劃</a></li>
+<li><a href="/buildWebWithGolangTw/docs/13.2/">13.2 自訂路由器設計</a></li>
+<li><a href="/buildWebWithGolangTw/docs/13.3/">13.3 controller 設計</a></li>
+<li><a href="/buildWebWithGolangTw/docs/13.4/">13.4 日誌和配置設計</a></li>
+<li><a href="/buildWebWithGolangTw/docs/13.5/">13.5 實現部落格的增刪改</a></li>
+<li><a href="/buildWebWithGolangTw/docs/13.6/">13.6 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/14.0/">14.擴充套件 Web 框架</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/14.1/">14.1 靜態檔案支援</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.2/">14.2 Session 支援</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.3/">14.3 表單支援</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.4/">14.4 使用者認證</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.5/">14.5 多語言支援</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.6/">14.6 pprof 支援</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.7/">14.7 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/ref/">附錄 A 參考資料</a></li>
+</ul>
+
+
+
+
+
+
+
+</nav>
+
+
+<script>
+(function() {
+  var menu = document.querySelector("aside.book-menu nav");
+  addEventListener("beforeunload", function(event) {
+    localStorage.setItem("menu.scrollTop", menu.scrollTop);
+  });
+  menu.scrollTop = localStorage.getItem("menu.scrollTop");
+})();
+</script>
+
+    </aside>
+
+    <div class="book-page">
+      <header class="flex align-center justify-between book-header">
+  <label for="menu-control">
+    <img src="/buildWebWithGolangTw/svg/menu.svg" alt="Menu" />
+  </label>
+  <strong>01.1</strong>
+</header>
+
+      
+<article class="markdown">
+
+<h1 id="1-1-安裝-go">1.1 安裝 Go</h1>
+
+<h2 id="go-的三種安裝方式">Go 的三種安裝方式</h2>
+
+<p>Go 有多種安裝方式，你可以選擇自己喜歡的。這裡我們介紹三種最常見的安裝方式：</p>
+
+<ul>
+<li>Go 原始碼安裝：這是一種標準的軟體安裝方式。對於經常使用 Unix 類別系統的使用者，尤其對於開發者來說，從原始碼安裝可以自己訂製。</li>
+<li>Go 標準套件安裝：Go 提供了方便的安裝套件，支援 Windows、Linux、Mac 等系統。這種方式適合快速安裝，可根據自己的系統位數下載好相應的安裝套件，一路 next 就可以輕鬆安裝了。<strong>推薦這種方式</strong></li>
+<li>第三方工具安裝：目前有很多方便的第三方軟體套件工具，例如 Ubuntu 的 apt-get 和 wget、Mac 的 homebrew 等。這種安裝方式適合那些熟悉相應系統的使用者。</li>
+</ul>
+
+<p>最後，如果你想在同一個系統中安裝多個版本的 Go，你可以參考第三方工具<a href="https://github.com/moovweb/gvm">GVM</a>，這是目前在這方面做得最好的工具，除非你知道怎麼處理。</p>
+
+<h2 id="go-原始碼安裝">Go 原始碼安裝</h2>
+
+<p>Go 1.5 徹底移除 C 程式碼，Runtime、Compiler、Linker 均由 Go 編寫，實現自舉。只需要安裝了上一個版本，即可從原始碼安裝。</p>
+
+<p>在 Go 1.5 前,Go 的原始碼中，有些部分是用 Plan 9 C 和 AT&amp;T 彙編寫的，因此假如你要想從原始碼安裝，就必須安裝 C 的編譯工具。</p>
+
+<p>在 Mac 系統中，只要你安裝了 Xcode，就已經包含了相應的編譯工具。</p>
+
+<p>在類別 Unix 系統中，需要安裝 gcc 等工具。例如 Ubuntu 系統可透過在終端中執行<code>sudo apt-get install gcc libc6-dev</code>來安裝編譯工具。</p>
+
+<p>在 Windows 系統中，你需要安裝 MinGW，然後透過 MinGW 安裝 gcc，並設定相應的環境變數。</p>
+
+<p>你可以直接去官網 <a href="http://golang.org/dl/"> 下載原始碼</a>，找相應的<code>goVERSION.src.tar.gz</code>的檔案下載，下載之後解壓縮到<code>$HOME</code>目錄，執行如下程式碼：</p>
+
+<pre><code>cd go/src
+./all.bash
+</code></pre>
+
+<p>執行 all.bash 後出現&rdquo;ALL TESTS PASSED&rdquo;字樣時才算安裝成功。</p>
+
+<p>上面是 Unix 風格的命令，Windows 下的安裝方式類似，只不過是執行<code>all.bat</code>，呼叫的編譯器是 MinGW 的 gcc。</p>
+
+<p>如果是 Mac 或者 Unix 使用者需要設定幾個環境變數，如果想重啟之後也能生效的話把下面的命令寫到<code>.bashrc</code>或者<code>.zshrc</code>裡面，</p>
+
+<pre><code>export GOPATH=$HOME/gopath
+export PATH=$PATH:$HOME/go/bin:$GOPATH/bin
+</code></pre>
+
+<p>如果你是寫入檔案的，記得執行<code>bash .bashrc</code>或者<code>bash .zshrc</code>使得設定立馬生效。</p>
+
+<p>如果是 window 系統，就需要設定環境變數，在 path 裡面增加相應的 go 所在的目錄，設定 gopath 變數。</p>
+
+<p>當你設定完畢之後在命令列裡面輸入<code>go</code>，看到如下圖片即說明你已經安裝成功</p>
+
+<p><img src="images/1.1.mac.png" alt="" /></p>
+
+<p>圖 1.1 原始碼安裝之後執行 Go 命令的圖</p>
+
+<p>如果出現 Go 的 Usage 資訊，那麼說明 Go 已經安裝成功了；如果出現該命令不存在，那麼可以檢查一下自己的 PATH 環境變中是否包含了 Go 的安裝目錄。</p>
+
+<p>從 go 1.8 開始，GOPATH 環境變數現在有一個預設值，如果它沒有被設定。 它在 Unix 上預設為$HOME/go，在 Windows 上預設為%USERPROFILE%/go。
+&gt; 關於上面的 GOPATH 將在下面小節詳細講解</p>
+
+<h2 id="go-標準套件安裝">Go 標準套件安裝</h2>
+
+<p>Go 提供了每個平臺一鍵安裝的選項，這些套件預設會安裝到如下目錄：/usr/local/go (Windows 系統：c:\Go)，當然你可以改變他們的安裝位置，但是改變之後你必須在你的環境變數中設定如下資訊：</p>
+
+<pre><code>export GOROOT=$HOME/go
+export GOPATH=$HOME/gopath
+export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+</code></pre>
+
+<p>上面這些命令對於 Mac 和 Unix 使用者來說最好是寫入<code>.bashrc</code>或者<code>.zshrc</code>檔案，對於 windows 使用者來說當然是寫入環境變數。</p>
+
+<h3 id="如何判斷自己的作業系統是-32-位還是-64-位">如何判斷自己的作業系統是 32 位還是 64 位？</h3>
+
+<p>我們接下來的 Go 安裝需要判斷作業系統的位數，所以這小節我們先確定自己的系統型別。</p>
+
+<p>Windows 系統使用者請按 Win+R 執行 cmd，輸入 <code>systeminfo</code> 後 Enter，稍等片刻，會出現一些系統資訊。在“系統型別”一行中，若顯示“x64-based PC”，即為 64 位系統；若顯示“X86-based PC”，則為 32 位系統。</p>
+
+<p>Mac 系統使用者建議直接使用 64 位的，因為 Go 所支援的 Mac OS X 版本已經不支援純 32 位處理器了。</p>
+
+<p>Linux 系統使用者可透過在 Terminal 中執行命令<code>arch</code>(即<code>uname -m</code>)來檢視系統資訊：</p>
+
+<p>64 位系統顯示</p>
+
+<pre><code>x86_64
+</code></pre>
+
+<p>32 位系統顯示</p>
+
+<pre><code>i386
+</code></pre>
+
+<h3 id="mac-安裝">Mac 安裝</h3>
+
+<p>訪問 <a href="https://golang.org/dl/">Golang 下載地址</a>，32 位系統下載 go1.4.2.darwin-386-osx10.8.pkg(更新的版本已無 32 位下載)，64 位系統下載 go1.8.3.darwin-amd64.pkg，雙擊下載檔案，一路預設安裝點選下一步，這個時候 go 已經安裝到你的系統中，預設已經在 PATH 中增加了相應的<code>~/go/bin</code>，這個時候開啟終端，輸入<code>go</code></p>
+
+<p>看到類似上面原始碼安裝成功的圖片說明已經安裝成功</p>
+
+<p>如果出現 go 的 Usage 資訊，那麼說明 go 已經安裝成功了；如果出現該命令不存在，那麼可以檢查一下自己的 PATH 環境變中是否包含了 go 的安裝目錄。</p>
+
+<h3 id="linux-安裝">Linux 安裝</h3>
+
+<p>訪問 <a href="https://golang.org/dl/">Golang 下載地址</a>，32 位系統下載 go1.8.3.linux-386.tar.gz，64 位系統下載 go1.8.3.linux-amd64.tar.gz，</p>
+
+<p>假定你想要安裝 Go 的目錄為 <code>$GO_INSTALL_DIR</code>，後面替換為相應的目錄路徑。</p>
+
+<p>解壓縮<code>tar.gz</code>到安裝目錄下：<code>tar zxvf go1.8.3.linux-amd64.tar.gz -C $GO_INSTALL_DIR</code>。</p>
+
+<p>設定 PATH，<code>export PATH=$PATH:$GO_INSTALL_DIR/go/bin</code></p>
+
+<p>然後執行<code>go</code></p>
+
+<p><img src="images/1.1.linux.png" alt="" /></p>
+
+<p>圖 1.2 Linux 系統下安裝成功之後執行 go 顯示的資訊</p>
+
+<p>如果出現 go 的 Usage 資訊，那麼說明 go 已經安裝成功了；如果出現該命令不存在，那麼可以檢查一下自己的 PATH 環境變中是否包含了 go 的安裝目錄。</p>
+
+<h3 id="windows-安裝">Windows 安裝</h3>
+
+<p>訪問<a href="https://golang.org/dl/">Golang 下載頁</a>，32 位請選擇名稱中包含 windows-386 的 msi 安裝套件，64 位請選擇名稱中包含 windows-amd64 的。下載好後執行，不要修改預設安裝目錄 C:\Go\，若安裝到其他位置會導致不能執行自己所編寫的 Go 程式碼。安裝完成後預設會在環境變數 Path 後新增 Go 安裝目錄下的 bin 目錄 <code>C:\Go\bin\</code>，並新增環境變數 GOROOT，值為 Go 安裝根目錄 <code>C:\Go\</code> 。</p>
+
+<p><strong>驗證是否安裝成功</strong></p>
+
+<p>在執行中輸入 <code>cmd</code> 開啟命令列工具，在提示符下輸入 <code>go</code>，檢查是否能看到 Usage 資訊。輸入 <code>cd %GOROOT%</code>，看是否能進入 Go 安裝目錄。若都成功，說明安裝成功。</p>
+
+<p>不能的話請檢查上述環境變數 Path 和 GOROOT 的值。若不存在請解除安裝後重新安裝，存在請重啟計算機後重試以上步驟。</p>
+
+<h2 id="第三方工具安裝">第三方工具安裝</h2>
+
+<h3 id="gvm">GVM</h3>
+
+<p>gvm 是第三方開發的 Go 多版本管理工具，類似 ruby 裡面的 rvm 工具。使用起來相當的方便，安裝 gvm 使用如下命令：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">bash &lt; &lt;<span style="color:#f92672">(</span>curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer<span style="color:#f92672">)</span></code></pre></div>
+<p>安裝完成後我們就可以安裝 go 了：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">gvm install go1.8.3
+gvm use go1.8.3</code></pre></div>
+<p>也可以使用下面的命令，省去每次呼叫 gvm use 的麻煩：
+        gvm use go1.8.3 &ndash;default</p>
+
+<p>執行完上面的命令之後 GOPATH、GOROOT 等環境變數會自動設定好，這樣就可以直接使用了。</p>
+
+<h3 id="apt-get">apt-get</h3>
+
+<p>Ubuntu 是目前使用最多的 Linux 桌面系統，使用<code>apt-get</code>命令來管理軟體套件，我們可以透過下面的命令來安裝 Go，為了以後方便，應該把 <code>git</code> <code>mercurial</code> 也安裝上：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo apt-get install python-software-properties
+sudo add-apt-repository ppa:gophers/go
+sudo apt-get update
+sudo apt-get install golang-stable git-core mercurial</code></pre></div>
+<h3 id="wget">wget</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">wget https://storage.googleapis.com/golang/go1.8.3.linux-amd64.tar.gz
+sudo tar -xzf go1.8.3.linux-amd64.tar.gz -C /usr/local</code></pre></div>
+<p>配置環境變數:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">export GOROOT<span style="color:#f92672">=</span>/usr/local/go
+export GOBIN<span style="color:#f92672">=</span>$GOROOT/bin
+export PATH<span style="color:#f92672">=</span>$PATH:$GOBIN
+export GOPATH<span style="color:#f92672">=</span>$HOME/gopath <span style="color:#f92672">(</span>可選設定<span style="color:#f92672">)</span></code></pre></div>
+<p>或者使用:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo vim /etc/profile</code></pre></div>
+<p>並新增下面的內容：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">export GOROOT<span style="color:#f92672">=</span>/usr/local/go
+export GOBIN<span style="color:#f92672">=</span>$GOROOT/bin
+export PATH<span style="color:#f92672">=</span>$PATH:$GOBIN
+export GOPATH<span style="color:#f92672">=</span>$HOME/gopath <span style="color:#f92672">(</span>可選設定<span style="color:#f92672">)</span></code></pre></div>
+<p>重新載入 profile 檔案</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">source /etc/profile</code></pre></div>
+<h3 id="homebrew">homebrew</h3>
+
+<p>homebrew 是 Mac 系統下面目前使用最多的管理軟體的工具，目前已支援 Go，可以透過命令直接安裝 Go，為了以後方便，應該把 <code>git</code> <code>mercurial</code> 也安裝上：</p>
+
+<p>1.安裝 homebrew</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">/usr/bin/ruby -e <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span></code></pre></div>
+<p>2.安裝 go</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">brew update <span style="color:#f92672">&amp;&amp;</span> brew upgrade
+brew install go
+brew install git
+brew install mercurial //可選安裝</code></pre></div>
+<h2 id="links">links</h2>
+
+<ul>
+<li><a href="docs/preface">目錄</a></li>
+<li>上一節: <a href="docs/01.0">Go 環境配置</a></li>
+<li>下一節: <a href="docs/01.2">GOPATH 與工作空間</a></li>
+</ul>
+</article>
+
+      
+<div class="book-footer justify-between">
+  
+  <div>
+    
+    <a href="/commit/fda25aafea9413c8ec77f5df29d5f6bb5f7dc3a6" title='Last modified Sep 21, 2019 by Jiuxiao' target="_blank" rel="noopener">
+      <img src="/buildWebWithGolangTw/svg/calendar.svg" alt="Changed" /> Sep 21, 2019
+    </a>
+  </div>
+  
+  
+</div>
+
+
+      
+    </div>
+
+    
+  
+
+  <aside class="book-toc level-3 fixed">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#1-1-安裝-go">1.1 安裝 Go</a>
+<ul>
+<li><a href="#go-的三種安裝方式">Go 的三種安裝方式</a></li>
+<li><a href="#go-原始碼安裝">Go 原始碼安裝</a></li>
+<li><a href="#go-標準套件安裝">Go 標準套件安裝</a>
+<ul>
+<li><a href="#如何判斷自己的作業系統是-32-位還是-64-位">如何判斷自己的作業系統是 32 位還是 64 位？</a></li>
+<li><a href="#mac-安裝">Mac 安裝</a></li>
+<li><a href="#linux-安裝">Linux 安裝</a></li>
+<li><a href="#windows-安裝">Windows 安裝</a></li>
+</ul></li>
+<li><a href="#第三方工具安裝">第三方工具安裝</a>
+<ul>
+<li><a href="#gvm">GVM</a></li>
+<li><a href="#apt-get">apt-get</a></li>
+<li><a href="#wget">wget</a></li>
+<li><a href="#homebrew">homebrew</a></li>
+</ul></li>
+<li><a href="#links">links</a></li>
+</ul></li>
+</ul>
+</nav>
+  </aside>
+
+
+
+  </main>
+
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-148025936-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+</body>
+
+</html>

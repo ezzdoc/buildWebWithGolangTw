@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>13.2 | 使用 Golang 打造 Web 應用程式</title>
+
+
+<link rel="stylesheet" href="/buildWebWithGolangTw/book.min.89885fa0429ec73067282f26fc0c6d38cfc617a443ec4e835d47b821c52c6e92.css" integrity="sha256-iYhfoEKexzBnKC8m/AxtOM/GF6RD7E6DXUe4IcUsbpI=">
+
+
+<script defer src="/buildWebWithGolangTw/search.min.4762838110f5450a8a33fcbe56c7ce734d09867f3e9ab5c1e6f7bbec99b65c68.js" integrity="sha256-R2KDgRD1RQqKM/y&#43;VsfOc00Jhn8&#43;mrXB5ve77Jm2XGg="></script>
+
+
+
+<link rel="icon" href="/buildWebWithGolangTw/favicon.png" type="image/x-icon">
+
+<base href="https://ezzdoc.com/buildWebWithGolangTw/">
+
+
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body>
+  <input type="checkbox" class="hidden" id="menu-control" />
+  <main class="flex container">
+
+    <aside class="book-menu fixed">
+      <nav>
+<h2 class="book-brand">
+  <a href="https://ezzdoc.com/buildWebWithGolangTw/"><span>使用 Golang 打造 Web 應用程式</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" placeholder="Search" id="book-search-input" maxlength="64" readonly />
+  <div class="book-search-spinner spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+    
+  
+  
+  
+
+  <style>
+  nav ul a[href$="\2f buildWebWithGolangTw\2f docs\2f 13.2\2f "] {
+      color: #004ed0;
+  }
+  </style>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/preface/">目錄</a></li>
+<li><a href="/buildWebWithGolangTw/docs/01.0/">1.Go 環境配置</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/01.1/">1.1 安裝 Go</a></li>
+<li><a href="/buildWebWithGolangTw/docs/01.2/">1.2 GOPATH 與工作空間</a></li>
+<li><a href="/buildWebWithGolangTw/docs/01.3/">1.3 Go 命令</a></li>
+<li><a href="/buildWebWithGolangTw/docs/01.4/">1.4 Go 開發工具</a></li>
+<li><a href="/buildWebWithGolangTw/docs/01.5/">1.5 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/02.0/">2.Go 語言基礎</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/02.1/">2.1 你好，Go</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.2/">2.2 Go 基礎</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.3/">2.3 流程和函式</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.4/">2.4 struct</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.5/">2.5 物件導向</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.6/">2.6 interface</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.7/">2.7 併發</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.8/">2.8 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/03.0/">3.Web 基礎</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/03.1/">3.1 web 工作方式</a></li>
+<li><a href="/buildWebWithGolangTw/docs/03.2/">3.2 Go 建立一個簡單的 web 服務</a></li>
+<li><a href="/buildWebWithGolangTw/docs/03.3/">3.3 Go 如何使得 web 工作</a></li>
+<li><a href="/buildWebWithGolangTw/docs/03.4/">3.4 Go 的 http 套件詳解</a></li>
+<li><a href="/buildWebWithGolangTw/docs/03.5/">3.5 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/04.0/">4.表單</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/04.1/">4.1 處理表單的輸入</a></li>
+<li><a href="/buildWebWithGolangTw/docs/04.2/">4.2 驗證表單的輸入</a></li>
+<li><a href="/buildWebWithGolangTw/docs/04.3/">4.3 預防跨站指令碼</a></li>
+<li><a href="/buildWebWithGolangTw/docs/04.4/">4.4 防止多次提交表單</a></li>
+<li><a href="/buildWebWithGolangTw/docs/04.5/">4.5 處理檔案上傳</a></li>
+<li><a href="/buildWebWithGolangTw/docs/04.6/">4.6 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/05.0/">5.訪問資料庫</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/05.1/">5.1 database/sql 介面</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.2/">5.2 使用 MySQL 資料庫</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.3/">5.3 使用 SQLite 資料庫</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.4/">5.4 使用 PostgreSQL 資料庫</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.5/">5.5 使用 Beego orm 函式庫進行 ORM 開發</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.6/">5.6 NOSQL 資料庫操作</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.7/">5.7 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/06.0/">6.session 和資料儲存</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/06.1/">6.1 session 和 cookie</a></li>
+<li><a href="/buildWebWithGolangTw/docs/06.2/">6.2 Go 如何使用 session</a></li>
+<li><a href="/buildWebWithGolangTw/docs/06.3/">6.3 session 儲存</a></li>
+<li><a href="/buildWebWithGolangTw/docs/06.4/">6.4 預防 session 劫持</a></li>
+<li><a href="/buildWebWithGolangTw/docs/06.5/">6.5 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/07.0/">7.文字檔案處理</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/07.1/">7.1 XML 處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.2/">7.2 JSON 處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.3/">7.3 正則處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.4/">7.4 範本處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.5/">7.5 檔案操作</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.6/">7.6 字串處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.7/">7.7 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/08.0/">8.Web 服務</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/08.1/">8.1 Socket 程式設計</a></li>
+<li><a href="/buildWebWithGolangTw/docs/08.2/">8.2 WebSocket</a></li>
+<li><a href="/buildWebWithGolangTw/docs/08.3/">8.3 REST</a></li>
+<li><a href="/buildWebWithGolangTw/docs/08.4/">8.4 RPC</a></li>
+<li><a href="/buildWebWithGolangTw/docs/08.5/">8.5 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/09.0/">9.安全與加密</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/09.1/">9.1 預防 CSRF 攻擊</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.2/">9.2 確保輸入過濾</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.3/">9.3 避免 XSS 攻擊</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.4/">9.4 避免 SQL 注入</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.5/">9.5 儲存密碼</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.6/">9.6 加密和解密資料</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.7/">9.7 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/10.0/">10.國際化和本地化</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/10.1/">10.1 設定預設地區</a></li>
+<li><a href="/buildWebWithGolangTw/docs/10.2/">10.2 本地化資源</a></li>
+<li><a href="/buildWebWithGolangTw/docs/10.3/">10.3 國際化站點</a></li>
+<li><a href="/buildWebWithGolangTw/docs/10.4/">10.4 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/11.0/">11.錯誤處理，除錯和測試</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/11.1/">11.1 錯誤處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/11.2/">11.2 使用 GDB 除錯</a></li>
+<li><a href="/buildWebWithGolangTw/docs/11.3/">11.3 Go 怎麼寫測試案例</a></li>
+<li><a href="/buildWebWithGolangTw/docs/11.4/">11.4 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/12.0/">12.部署與維護</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/12.1/">12.1 應用日誌</a></li>
+<li><a href="/buildWebWithGolangTw/docs/12.2/">12.2 網站錯誤處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/12.3/">12.3 應用部署</a></li>
+<li><a href="/buildWebWithGolangTw/docs/12.4/">12.4 備份和還原</a></li>
+<li><a href="/buildWebWithGolangTw/docs/12.5/">12.5 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/13.0/">13.如何設計一個 Web 框架</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/13.1/">13.1 專案規劃</a></li>
+<li><a href="/buildWebWithGolangTw/docs/13.2/">13.2 自訂路由器設計</a></li>
+<li><a href="/buildWebWithGolangTw/docs/13.3/">13.3 controller 設計</a></li>
+<li><a href="/buildWebWithGolangTw/docs/13.4/">13.4 日誌和配置設計</a></li>
+<li><a href="/buildWebWithGolangTw/docs/13.5/">13.5 實現部落格的增刪改</a></li>
+<li><a href="/buildWebWithGolangTw/docs/13.6/">13.6 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/14.0/">14.擴充套件 Web 框架</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/14.1/">14.1 靜態檔案支援</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.2/">14.2 Session 支援</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.3/">14.3 表單支援</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.4/">14.4 使用者認證</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.5/">14.5 多語言支援</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.6/">14.6 pprof 支援</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.7/">14.7 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/ref/">附錄 A 參考資料</a></li>
+</ul>
+
+
+
+
+
+
+
+</nav>
+
+
+<script>
+(function() {
+  var menu = document.querySelector("aside.book-menu nav");
+  addEventListener("beforeunload", function(event) {
+    localStorage.setItem("menu.scrollTop", menu.scrollTop);
+  });
+  menu.scrollTop = localStorage.getItem("menu.scrollTop");
+})();
+</script>
+
+    </aside>
+
+    <div class="book-page">
+      <header class="flex align-center justify-between book-header">
+  <label for="menu-control">
+    <img src="/buildWebWithGolangTw/svg/menu.svg" alt="Menu" />
+  </label>
+  <strong>13.2</strong>
+</header>
+
+      
+<article class="markdown">
+
+<h1 id="13-2-自訂路由器設計">13.2 自訂路由器設計</h1>
+
+<h2 id="http-路由">HTTP 路由</h2>
+
+<p>HTTP 路由元件負責將 HTTP 請求交到對應的函式處理(或者是一個 struct 的方法)，如前面小節所描述的結構圖，路由在框架中相當於一個事件處理器，而這個事件包括：</p>
+
+<ul>
+<li>使用者請求的路徑(path)(例如:/user/123,/article/123)，當然還有查詢串資訊(例如?id=11)</li>
+<li>HTTP 的請求方法(method)(GET、POST、PUT、DELETE、PATCH 等)</li>
+</ul>
+
+<p>路由器就是根據使用者請求的事件資訊轉發到相應的處理函式(控制層)。</p>
+
+<h2 id="預設的路由實現">預設的路由實現</h2>
+
+<p>在 3.4 小節有過介紹 Go 的 http 套件的詳解，裡面介紹了 Go 的 http 套件如何設計和實現路由，這裡繼續以一個例子來說明：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">fooHandler</span>(<span style="color:#a6e22e">w</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ResponseWriter</span>, <span style="color:#a6e22e">r</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Request</span>) {
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Fprintf</span>(<span style="color:#a6e22e">w</span>, <span style="color:#e6db74">&#34;Hello, %q&#34;</span>, <span style="color:#a6e22e">html</span>.<span style="color:#a6e22e">EscapeString</span>(<span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">URL</span>.<span style="color:#a6e22e">Path</span>))
+}
+
+<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">HandleFunc</span>(<span style="color:#e6db74">&#34;/foo&#34;</span>, <span style="color:#a6e22e">fooHandler</span>)
+
+<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">HandleFunc</span>(<span style="color:#e6db74">&#34;/bar&#34;</span>, <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">w</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ResponseWriter</span>, <span style="color:#a6e22e">r</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Request</span>) {
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Fprintf</span>(<span style="color:#a6e22e">w</span>, <span style="color:#e6db74">&#34;Hello, %q&#34;</span>, <span style="color:#a6e22e">html</span>.<span style="color:#a6e22e">EscapeString</span>(<span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">URL</span>.<span style="color:#a6e22e">Path</span>))
+})
+
+<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ListenAndServe</span>(<span style="color:#e6db74">&#34;:8080&#34;</span>, <span style="color:#66d9ef">nil</span>))</code></pre></div>
+<p>上面的例子呼叫了 http 預設的 DefaultServeMux 來新增路由，需要提供兩個參數，第一個參數是希望使用者訪問此資源的 URL 路徑(儲存在 r.URL.Path)，第二參數是即將要執行的函式，以提供使用者訪問的資源。路由的思路主要集中在兩點：</p>
+
+<ul>
+<li>新增路由資訊</li>
+<li>根據使用者請求轉發到要執行的函式</li>
+</ul>
+
+<p>Go 預設的路由新增是透過函式<code>http.Handle</code>和<code>http.HandleFunc</code>等來新增，底層都是呼叫了<code>DefaultServeMux.Handle(pattern string, handler Handler)</code>，這個函式會把路由資訊儲存在一個 map 資訊中<code>map[string]muxEntry</code>，這就解決了上面說的第一點。</p>
+
+<p>Go 監聽埠，然後接收到 tcp 連線會扔給 Handler 來處理，上面的例子預設 nil 即為<code>http.DefaultServeMux</code>，透過<code>DefaultServeMux.ServeHTTP</code>函式來進行排程，遍歷之前儲存的 map 路由資訊，和使用者訪問的 URL 進行匹配，以查詢對應註冊的處理函式，這樣就實現了上面所說的第二點。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">for</span> <span style="color:#a6e22e">k</span>, <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">mux</span>.<span style="color:#a6e22e">m</span> {
+	<span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">pathMatch</span>(<span style="color:#a6e22e">k</span>, <span style="color:#a6e22e">path</span>) {
+		<span style="color:#66d9ef">continue</span>
+	}
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">h</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> <span style="color:#f92672">||</span> len(<span style="color:#a6e22e">k</span>) &gt; <span style="color:#a6e22e">n</span> {
+		<span style="color:#a6e22e">n</span> = len(<span style="color:#a6e22e">k</span>)
+		<span style="color:#a6e22e">h</span> = <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">h</span>
+	}
+}</code></pre></div>
+<h2 id="beego-框架路由實現">beego 框架路由實現</h2>
+
+<p>目前幾乎所有的 Web 應用路由實現都是基於 http 預設的路由器，但是 Go 自帶的路由器有幾個限制：</p>
+
+<ul>
+<li>不支援參數設定，例如/user/:uid 這種泛型別匹配</li>
+<li>無法很好的支援 REST 模式，無法限制訪問的方法，例如上面的例子中，使用者訪問/foo，可以用 GET、POST、DELETE、HEAD 等方式訪問</li>
+<li>一般網站的路由規則太多了，編寫繁瑣。我前面自己開發了一個 API 應用，路由規則有三十幾條，這種路由多了之後其實可以進一步簡化，透過 struct 的方法進行一種簡化</li>
+</ul>
+
+<p>beego 框架的路由器基於上面的幾點限制考慮設計了一種 REST 方式的路由實現，路由設計也是基於上面 Go 預設設計的兩點來考慮：儲存路由和轉向路由</p>
+
+<h3 id="儲存路由">儲存路由</h3>
+
+<p>針對前面所說的限制點，我們首先要解決參數支援就需要用到正則，第二和第三點我們透過一種變通的方法來解決，REST 的方法對應到 struct 的方法中去，然後路由到 struct 而不是函式，這樣在轉向路由的時候就可以根據 method 來執行不同的方法。</p>
+
+<p>根據上面的思路，我們設計了兩個資料型別 controllerInfo(儲存路徑和對應的 struct，這裡是一個 reflect.Type 型別)和 ControllerRegistor(routers 是一個 slice 用來儲存使用者新增的路由資訊，以及 beego 框架的應用資訊)</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">controllerInfo</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">regex</span>          <span style="color:#f92672">*</span><span style="color:#a6e22e">regexp</span>.<span style="color:#a6e22e">Regexp</span>
+	<span style="color:#a6e22e">params</span>         <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">int</span>]<span style="color:#66d9ef">string</span>
+	<span style="color:#a6e22e">controllerType</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Type</span>
+}
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">ControllerRegistor</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">routers</span>     []<span style="color:#f92672">*</span><span style="color:#a6e22e">controllerInfo</span>
+	<span style="color:#a6e22e">Application</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">App</span>
+}</code></pre></div>
+<p>ControllerRegistor 對外的介面函式有</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">p</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">ControllerRegistor</span>) <span style="color:#a6e22e">Add</span>(<span style="color:#a6e22e">pattern</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">c</span> <span style="color:#a6e22e">ControllerInterface</span>)</code></pre></div>
+<p>詳細的實現如下所示：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">p</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">ControllerRegistor</span>) <span style="color:#a6e22e">Add</span>(<span style="color:#a6e22e">pattern</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">c</span> <span style="color:#a6e22e">ControllerInterface</span>) {
+	<span style="color:#a6e22e">parts</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">Split</span>(<span style="color:#a6e22e">pattern</span>, <span style="color:#e6db74">&#34;/&#34;</span>)
+
+	<span style="color:#a6e22e">j</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>
+	<span style="color:#a6e22e">params</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">int</span>]<span style="color:#66d9ef">string</span>)
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">part</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">parts</span> {
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">HasPrefix</span>(<span style="color:#a6e22e">part</span>, <span style="color:#e6db74">&#34;:&#34;</span>) {
+			<span style="color:#a6e22e">expr</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;([^/]+)&#34;</span>
+
+			<span style="color:#75715e">//a user may choose to override the defult expression
+</span><span style="color:#75715e"></span>			<span style="color:#75715e">// similar to expressjs: ‘/user/:id([0-9]+)’
+</span><span style="color:#75715e"></span>
+			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">index</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">Index</span>(<span style="color:#a6e22e">part</span>, <span style="color:#e6db74">&#34;(&#34;</span>); <span style="color:#a6e22e">index</span> <span style="color:#f92672">!=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> {
+				<span style="color:#a6e22e">expr</span> = <span style="color:#a6e22e">part</span>[<span style="color:#a6e22e">index</span>:]
+				<span style="color:#a6e22e">part</span> = <span style="color:#a6e22e">part</span>[:<span style="color:#a6e22e">index</span>]
+			}
+			<span style="color:#a6e22e">params</span>[<span style="color:#a6e22e">j</span>] = <span style="color:#a6e22e">part</span>
+			<span style="color:#a6e22e">parts</span>[<span style="color:#a6e22e">i</span>] = <span style="color:#a6e22e">expr</span>
+			<span style="color:#a6e22e">j</span><span style="color:#f92672">++</span>
+		}
+	}
+
+	<span style="color:#75715e">//recreate the url pattern, with parameters replaced
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">//by regular expressions. then compile the regex
+</span><span style="color:#75715e"></span>
+	<span style="color:#a6e22e">pattern</span> = <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">Join</span>(<span style="color:#a6e22e">parts</span>, <span style="color:#e6db74">&#34;/&#34;</span>)
+	<span style="color:#a6e22e">regex</span>, <span style="color:#a6e22e">regexErr</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">regexp</span>.<span style="color:#a6e22e">Compile</span>(<span style="color:#a6e22e">pattern</span>)
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">regexErr</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+
+		<span style="color:#75715e">//TODO add error handling here to avoid panic
+</span><span style="color:#75715e"></span>		panic(<span style="color:#a6e22e">regexErr</span>)
+		<span style="color:#66d9ef">return</span>
+	}
+
+	<span style="color:#75715e">//now create the Route
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">t</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Indirect</span>(<span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">ValueOf</span>(<span style="color:#a6e22e">c</span>)).<span style="color:#a6e22e">Type</span>()
+	<span style="color:#a6e22e">route</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">controllerInfo</span>{}
+	<span style="color:#a6e22e">route</span>.<span style="color:#a6e22e">regex</span> = <span style="color:#a6e22e">regex</span>
+	<span style="color:#a6e22e">route</span>.<span style="color:#a6e22e">params</span> = <span style="color:#a6e22e">params</span>
+	<span style="color:#a6e22e">route</span>.<span style="color:#a6e22e">controllerType</span> = <span style="color:#a6e22e">t</span>
+
+	<span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">routers</span> = append(<span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">routers</span>, <span style="color:#a6e22e">route</span>)
+
+}</code></pre></div>
+<h3 id="靜態路由實現">靜態路由實現</h3>
+
+<p>上面我們實現的動態路由的實現，Go 的 http 套件預設支援靜態檔案處理 FileServer，由於我們實現了自訂的路由器，那麼靜態檔案也需要自己設定，beego 的靜態資料夾路徑儲存在全域性變數 StaticDir 中，StaticDir 是一個 map 型別，實現如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">app</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">App</span>) <span style="color:#a6e22e">SetStaticPath</span>(<span style="color:#a6e22e">url</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">path</span> <span style="color:#66d9ef">string</span>) <span style="color:#f92672">*</span><span style="color:#a6e22e">App</span> {
+	<span style="color:#a6e22e">StaticDir</span>[<span style="color:#a6e22e">url</span>] = <span style="color:#a6e22e">path</span>
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">app</span>
+}</code></pre></div>
+<p>應用中設定靜態路徑可以使用如下方式實現：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">beego</span>.<span style="color:#a6e22e">SetStaticPath</span>(<span style="color:#e6db74">&#34;/img&#34;</span>,<span style="color:#e6db74">&#34;/static/img&#34;</span>)</code></pre></div>
+<h3 id="轉向路由">轉向路由</h3>
+
+<p>轉向路由是基於 ControllerRegistor 裡的路由資訊來進行轉發的，詳細的實現如下程式碼所示：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#75715e">// AutoRoute
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">p</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">ControllerRegistor</span>) <span style="color:#a6e22e">ServeHTTP</span>(<span style="color:#a6e22e">w</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ResponseWriter</span>, <span style="color:#a6e22e">r</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Request</span>) {
+	<span style="color:#66d9ef">defer</span> <span style="color:#66d9ef">func</span>() {
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> recover(); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+			<span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">RecoverPanic</span> {
+				<span style="color:#75715e">// go back to panic
+</span><span style="color:#75715e"></span>				panic(<span style="color:#a6e22e">err</span>)
+			} <span style="color:#66d9ef">else</span> {
+				<span style="color:#a6e22e">Critical</span>(<span style="color:#e6db74">&#34;Handler crashed with error&#34;</span>, <span style="color:#a6e22e">err</span>)
+				<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">1</span>; ; <span style="color:#a6e22e">i</span> <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span> {
+					<span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">file</span>, <span style="color:#a6e22e">line</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">runtime</span>.<span style="color:#a6e22e">Caller</span>(<span style="color:#a6e22e">i</span>)
+					<span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">ok</span> {
+						<span style="color:#66d9ef">break</span>
+					}
+					<span style="color:#a6e22e">Critical</span>(<span style="color:#a6e22e">file</span>, <span style="color:#a6e22e">line</span>)
+				}
+			}
+		}
+	}()
+	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">started</span> <span style="color:#66d9ef">bool</span>
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">prefix</span>, <span style="color:#a6e22e">staticDir</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">StaticDir</span> {
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">HasPrefix</span>(<span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">URL</span>.<span style="color:#a6e22e">Path</span>, <span style="color:#a6e22e">prefix</span>) {
+			<span style="color:#a6e22e">file</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">staticDir</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">URL</span>.<span style="color:#a6e22e">Path</span>[len(<span style="color:#a6e22e">prefix</span>):]
+			<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ServeFile</span>(<span style="color:#a6e22e">w</span>, <span style="color:#a6e22e">r</span>, <span style="color:#a6e22e">file</span>)
+			<span style="color:#a6e22e">started</span> = <span style="color:#66d9ef">true</span>
+			<span style="color:#66d9ef">return</span>
+		}
+	}
+	<span style="color:#a6e22e">requestPath</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">URL</span>.<span style="color:#a6e22e">Path</span>
+
+	<span style="color:#75715e">//find a matching Route
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">route</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">routers</span> {
+
+		<span style="color:#75715e">//check if Route pattern matches url
+</span><span style="color:#75715e"></span>		<span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">route</span>.<span style="color:#a6e22e">regex</span>.<span style="color:#a6e22e">MatchString</span>(<span style="color:#a6e22e">requestPath</span>) {
+			<span style="color:#66d9ef">continue</span>
+		}
+
+		<span style="color:#75715e">//get submatches (params)
+</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">matches</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">route</span>.<span style="color:#a6e22e">regex</span>.<span style="color:#a6e22e">FindStringSubmatch</span>(<span style="color:#a6e22e">requestPath</span>)
+
+		<span style="color:#75715e">//double check that the Route matches the URL pattern.
+</span><span style="color:#75715e"></span>		<span style="color:#66d9ef">if</span> len(<span style="color:#a6e22e">matches</span>[<span style="color:#ae81ff">0</span>]) <span style="color:#f92672">!=</span> len(<span style="color:#a6e22e">requestPath</span>) {
+			<span style="color:#66d9ef">continue</span>
+		}
+
+		<span style="color:#a6e22e">params</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">string</span>)
+		<span style="color:#66d9ef">if</span> len(<span style="color:#a6e22e">route</span>.<span style="color:#a6e22e">params</span>) &gt; <span style="color:#ae81ff">0</span> {
+			<span style="color:#75715e">//add url parameters to the query param map
+</span><span style="color:#75715e"></span>			<span style="color:#a6e22e">values</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">URL</span>.<span style="color:#a6e22e">Query</span>()
+			<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">match</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">matches</span>[<span style="color:#ae81ff">1</span>:] {
+				<span style="color:#a6e22e">values</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#a6e22e">route</span>.<span style="color:#a6e22e">params</span>[<span style="color:#a6e22e">i</span>], <span style="color:#a6e22e">match</span>)
+				<span style="color:#a6e22e">params</span>[<span style="color:#a6e22e">route</span>.<span style="color:#a6e22e">params</span>[<span style="color:#a6e22e">i</span>]] = <span style="color:#a6e22e">match</span>
+			}
+
+			<span style="color:#75715e">//reassemble query params and add to RawQuery
+</span><span style="color:#75715e"></span>			<span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">URL</span>.<span style="color:#a6e22e">RawQuery</span> = <span style="color:#a6e22e">url</span>.<span style="color:#a6e22e">Values</span>(<span style="color:#a6e22e">values</span>).<span style="color:#a6e22e">Encode</span>() <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;&amp;&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">URL</span>.<span style="color:#a6e22e">RawQuery</span>
+			<span style="color:#75715e">//r.URL.RawQuery = url.Values(values).Encode()
+</span><span style="color:#75715e"></span>		}
+		<span style="color:#75715e">//Invoke the request handler
+</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">vc</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">New</span>(<span style="color:#a6e22e">route</span>.<span style="color:#a6e22e">controllerType</span>)
+		<span style="color:#a6e22e">init</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">vc</span>.<span style="color:#a6e22e">MethodByName</span>(<span style="color:#e6db74">&#34;Init&#34;</span>)
+		<span style="color:#a6e22e">in</span> <span style="color:#f92672">:=</span> make([]<span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Value</span>, <span style="color:#ae81ff">2</span>)
+		<span style="color:#a6e22e">ct</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">Context</span>{<span style="color:#a6e22e">ResponseWriter</span>: <span style="color:#a6e22e">w</span>, <span style="color:#a6e22e">Request</span>: <span style="color:#a6e22e">r</span>, <span style="color:#a6e22e">Params</span>: <span style="color:#a6e22e">params</span>}
+		<span style="color:#a6e22e">in</span>[<span style="color:#ae81ff">0</span>] = <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">ValueOf</span>(<span style="color:#a6e22e">ct</span>)
+		<span style="color:#a6e22e">in</span>[<span style="color:#ae81ff">1</span>] = <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">ValueOf</span>(<span style="color:#a6e22e">route</span>.<span style="color:#a6e22e">controllerType</span>.<span style="color:#a6e22e">Name</span>())
+		<span style="color:#a6e22e">init</span>.<span style="color:#a6e22e">Call</span>(<span style="color:#a6e22e">in</span>)
+		<span style="color:#a6e22e">in</span> = make([]<span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Value</span>, <span style="color:#ae81ff">0</span>)
+		<span style="color:#a6e22e">method</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">vc</span>.<span style="color:#a6e22e">MethodByName</span>(<span style="color:#e6db74">&#34;Prepare&#34;</span>)
+		<span style="color:#a6e22e">method</span>.<span style="color:#a6e22e">Call</span>(<span style="color:#a6e22e">in</span>)
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">Method</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;GET&#34;</span> {
+			<span style="color:#a6e22e">method</span> = <span style="color:#a6e22e">vc</span>.<span style="color:#a6e22e">MethodByName</span>(<span style="color:#e6db74">&#34;Get&#34;</span>)
+			<span style="color:#a6e22e">method</span>.<span style="color:#a6e22e">Call</span>(<span style="color:#a6e22e">in</span>)
+		} <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">Method</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;POST&#34;</span> {
+			<span style="color:#a6e22e">method</span> = <span style="color:#a6e22e">vc</span>.<span style="color:#a6e22e">MethodByName</span>(<span style="color:#e6db74">&#34;Post&#34;</span>)
+			<span style="color:#a6e22e">method</span>.<span style="color:#a6e22e">Call</span>(<span style="color:#a6e22e">in</span>)
+		} <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">Method</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;HEAD&#34;</span> {
+			<span style="color:#a6e22e">method</span> = <span style="color:#a6e22e">vc</span>.<span style="color:#a6e22e">MethodByName</span>(<span style="color:#e6db74">&#34;Head&#34;</span>)
+			<span style="color:#a6e22e">method</span>.<span style="color:#a6e22e">Call</span>(<span style="color:#a6e22e">in</span>)
+		} <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">Method</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;DELETE&#34;</span> {
+			<span style="color:#a6e22e">method</span> = <span style="color:#a6e22e">vc</span>.<span style="color:#a6e22e">MethodByName</span>(<span style="color:#e6db74">&#34;Delete&#34;</span>)
+			<span style="color:#a6e22e">method</span>.<span style="color:#a6e22e">Call</span>(<span style="color:#a6e22e">in</span>)
+		} <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">Method</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;PUT&#34;</span> {
+			<span style="color:#a6e22e">method</span> = <span style="color:#a6e22e">vc</span>.<span style="color:#a6e22e">MethodByName</span>(<span style="color:#e6db74">&#34;Put&#34;</span>)
+			<span style="color:#a6e22e">method</span>.<span style="color:#a6e22e">Call</span>(<span style="color:#a6e22e">in</span>)
+		} <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">Method</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;PATCH&#34;</span> {
+			<span style="color:#a6e22e">method</span> = <span style="color:#a6e22e">vc</span>.<span style="color:#a6e22e">MethodByName</span>(<span style="color:#e6db74">&#34;Patch&#34;</span>)
+			<span style="color:#a6e22e">method</span>.<span style="color:#a6e22e">Call</span>(<span style="color:#a6e22e">in</span>)
+		} <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">Method</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;OPTIONS&#34;</span> {
+			<span style="color:#a6e22e">method</span> = <span style="color:#a6e22e">vc</span>.<span style="color:#a6e22e">MethodByName</span>(<span style="color:#e6db74">&#34;Options&#34;</span>)
+			<span style="color:#a6e22e">method</span>.<span style="color:#a6e22e">Call</span>(<span style="color:#a6e22e">in</span>)
+		}
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">AutoRender</span> {
+			<span style="color:#a6e22e">method</span> = <span style="color:#a6e22e">vc</span>.<span style="color:#a6e22e">MethodByName</span>(<span style="color:#e6db74">&#34;Render&#34;</span>)
+			<span style="color:#a6e22e">method</span>.<span style="color:#a6e22e">Call</span>(<span style="color:#a6e22e">in</span>)
+		}
+		<span style="color:#a6e22e">method</span> = <span style="color:#a6e22e">vc</span>.<span style="color:#a6e22e">MethodByName</span>(<span style="color:#e6db74">&#34;Finish&#34;</span>)
+		<span style="color:#a6e22e">method</span>.<span style="color:#a6e22e">Call</span>(<span style="color:#a6e22e">in</span>)
+		<span style="color:#a6e22e">started</span> = <span style="color:#66d9ef">true</span>
+		<span style="color:#66d9ef">break</span>
+	}
+
+	<span style="color:#75715e">//if no matches to url, throw a not found exception
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">started</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">false</span> {
+		<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">NotFound</span>(<span style="color:#a6e22e">w</span>, <span style="color:#a6e22e">r</span>)
+	}
+}</code></pre></div>
+<h3 id="使用入門">使用入門</h3>
+
+<p>基於這樣的路由設計之後就可以解決前面所說的三個限制點，使用的方式如下所示：</p>
+
+<p>基本的使用註冊路由：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">beego</span>.<span style="color:#a6e22e">BeeApp</span>.<span style="color:#a6e22e">RegisterController</span>(<span style="color:#e6db74">&#34;/&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">controllers</span>.<span style="color:#a6e22e">MainController</span>{})</code></pre></div>
+<p>參數註冊：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">beego</span>.<span style="color:#a6e22e">BeeApp</span>.<span style="color:#a6e22e">RegisterController</span>(<span style="color:#e6db74">&#34;/:param&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">controllers</span>.<span style="color:#a6e22e">UserController</span>{})</code></pre></div>
+<p>正則匹配：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">beego</span>.<span style="color:#a6e22e">BeeApp</span>.<span style="color:#a6e22e">RegisterController</span>(<span style="color:#e6db74">&#34;/users/:uid([0-9]+)&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">controllers</span>.<span style="color:#a6e22e">UserController</span>{})</code></pre></div>
+<h2 id="links">links</h2>
+
+<ul>
+<li><a href="docs/preface">目錄</a></li>
+<li>上一章: <a href="docs/13.1">專案規劃</a></li>
+<li>下一節: <a href="docs/13.3">controller 設計</a></li>
+</ul>
+</article>
+
+      
+<div class="book-footer justify-between">
+  
+  <div>
+    
+    <a href="/commit/fda25aafea9413c8ec77f5df29d5f6bb5f7dc3a6" title='Last modified Sep 21, 2019 by Jiuxiao' target="_blank" rel="noopener">
+      <img src="/buildWebWithGolangTw/svg/calendar.svg" alt="Changed" /> Sep 21, 2019
+    </a>
+  </div>
+  
+  
+</div>
+
+
+      
+    </div>
+
+    
+  
+
+  <aside class="book-toc level-3 fixed">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#13-2-自訂路由器設計">13.2 自訂路由器設計</a>
+<ul>
+<li><a href="#http-路由">HTTP 路由</a></li>
+<li><a href="#預設的路由實現">預設的路由實現</a></li>
+<li><a href="#beego-框架路由實現">beego 框架路由實現</a>
+<ul>
+<li><a href="#儲存路由">儲存路由</a></li>
+<li><a href="#靜態路由實現">靜態路由實現</a></li>
+<li><a href="#轉向路由">轉向路由</a></li>
+<li><a href="#使用入門">使用入門</a></li>
+</ul></li>
+<li><a href="#links">links</a></li>
+</ul></li>
+</ul>
+</nav>
+  </aside>
+
+
+
+  </main>
+
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-148025936-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+</body>
+
+</html>

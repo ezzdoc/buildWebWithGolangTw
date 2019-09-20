@@ -1,0 +1,1329 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Introduction on 使用 Golang 打造 Web 應用程式</title>
+    <link>https://ezzdoc.com/buildWebWithGolangTw/</link>
+    <description>Recent content in Introduction on 使用 Golang 打造 Web 應用程式</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    
+	<atom:link href="https://ezzdoc.com/buildWebWithGolangTw/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/000/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/000/</guid>
+      <description> 1 GO 環境配置 歡迎來到 Go 的世界，讓我們開始探索吧！
+Go 是一種新的語言，一種併發的、帶垃圾回收的、快速編譯的語言。它具有以下特點：
+ 它可以在一臺計算機上用幾秒鐘的時間編譯一個大型的 Go 程式。 Go 為軟體構造提供了一種模型，它使依賴分析更加容易，且避免了大部分 C 風格 include 檔案與函式庫的開頭。 Go 是靜態型別的語言，它的型別系統沒有層級。因此使用者不需要在定義型別之間的關係上花費時間，這樣感覺起來比典型的面嚮物件語言更輕量級。 Go 完全是垃圾回收型的語言，併為併發執行與通訊提供了基本的支援。 按照其設計，Go 打算為多核機器上系統軟體的構造提供一種方法。  Go 是一種編譯型語言，它結合了解釋型語言的遊刃有餘，動態型別語言的開發效率，以及靜態型別的安全性。它也打算成為現代的，支援網路與多核計算的語言。要滿足這些目標，需要解決一些語言上的問題：一個富有表達能力但輕量級的型別系統，併發與垃圾回收機制，嚴格的依賴規範等等。這些無法透過函式庫或工具解決好，因此 Go 也就應運而生了。
+在本章中，我們將講述 Go 的安裝方法，以及如何配置專案資訊。
+目錄 links  目錄 下一節: 安裝 Go  </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/01.0/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/01.0/</guid>
+      <description> 1 GO 環境配置 歡迎來到 Go 的世界，讓我們開始探索吧！
+Go 是一種新的語言，一種併發的、帶垃圾回收的、快速編譯的語言。它具有以下特點：
+ 它可以在一臺計算機上用幾秒鐘的時間編譯一個大型的 Go 程式。 Go 為軟體構造提供了一種模型，它使依賴分析更加容易，且避免了大部分 C 風格 include 檔案與函式庫的開頭。 Go 是靜態型別的語言，它的型別系統沒有層級。因此使用者不需要在定義型別之間的關係上花費時間，這樣感覺起來比典型的面嚮物件語言更輕量級。 Go 完全是垃圾回收型的語言，併為併發執行與通訊提供了基本的支援。 按照其設計，Go 打算為多核機器上系統軟體的構造提供一種方法。  Go 是一種編譯型語言，它結合了解釋型語言的遊刃有餘，動態型別語言的開發效率，以及靜態型別的安全性。它也打算成為現代的，支援網路與多核計算的語言。要滿足這些目標，需要解決一些語言上的問題：一個富有表達能力但輕量級的型別系統，併發與垃圾回收機制，嚴格的依賴規範等等。這些無法透過函式庫或工具解決好，因此 Go 也就應運而生了。
+在本章中，我們將講述 Go 的安裝方法，以及如何配置專案資訊。
+目錄 links  目錄 下一節: 安裝 Go  </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/01.1/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/01.1/</guid>
+      <description>1.1 安裝 Go Go 的三種安裝方式 Go 有多種安裝方式，你可以選擇自己喜歡的。這裡我們介紹三種最常見的安裝方式：
+ Go 原始碼安裝：這是一種標準的軟體安裝方式。對於經常使用 Unix 類別系統的使用者，尤其對於開發者來說，從原始碼安裝可以自己訂製。 Go 標準套件安裝：Go 提供了方便的安裝套件，支援 Windows、Linux、Mac 等系統。這種方式適合快速安裝，可根據自己的系統位數下載好相應的安裝套件，一路 next 就可以輕鬆安裝了。推薦這種方式 第三方工具安裝：目前有很多方便的第三方軟體套件工具，例如 Ubuntu 的 apt-get 和 wget、Mac 的 homebrew 等。這種安裝方式適合那些熟悉相應系統的使用者。  最後，如果你想在同一個系統中安裝多個版本的 Go，你可以參考第三方工具GVM，這是目前在這方面做得最好的工具，除非你知道怎麼處理。
+Go 原始碼安裝 Go 1.5 徹底移除 C 程式碼，Runtime、Compiler、Linker 均由 Go 編寫，實現自舉。只需要安裝了上一個版本，即可從原始碼安裝。
+在 Go 1.5 前,Go 的原始碼中，有些部分是用 Plan 9 C 和 AT&amp;amp;T 彙編寫的，因此假如你要想從原始碼安裝，就必須安裝 C 的編譯工具。
+在 Mac 系統中，只要你安裝了 Xcode，就已經包含了相應的編譯工具。
+在類別 Unix 系統中，需要安裝 gcc 等工具。例如 Ubuntu 系統可透過在終端中執行sudo apt-get install gcc libc6-dev來安裝編譯工具。</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/01.2/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/01.2/</guid>
+      <description>1.2 GOPATH 與工作空間 前面我們在安裝 Go 的時候看到需要設定 GOPATH 變數，Go 從 1.1 版本到 1.7 必須設定這個變數，而且不能和 Go 的安裝目錄一樣，這個目錄用來存放 Go 原始碼，Go 的可執行檔案，以及相應的編譯之後的套件檔案。所以這個目錄下面有三個子目錄：src、bin、pkg
+從 go 1.8 開始，GOPATH 環境變數現在有一個預設值，如果它沒有被設定。 它在 Unix 上預設為$HOME/go，在 Windows 上預設為%USERPROFILE%/go。
+GOPATH 設定 go 命令依賴一個重要的環境變數：$GOPATH
+Windows 系統中環境變數的形式為%GOPATH%，本書主要使用 Unix 形式，Windows 使用者請自行替換。
+（注：這個不是 Go 安裝目錄。下面以筆者的工作目錄為範例，如果你想不一樣請把 GOPATH 替換成你的工作目錄。）
+在類別 Unix 環境下大概這樣設定：
+export GOPATH=/home/apple/mygo 為了方便，應該建立以上資料夾，並且上一行加入到 .bashrc 或者 .zshrc 或者自己的 sh 的配置檔案中。
+Windows 設定如下，建立一個環境變數名稱叫做 GOPATH：
+GOPATH=c:\mygo GOPATH 允許多個目錄，當有多個目錄時，請注意分隔符，多個目錄的時候 Windows 是分號，Linux 系統是冒號，當有多個 GOPATH 時，預設會將 go get 的內容放在第一個目錄下。
+以上 $GOPATH 目錄約定有三個子目錄：</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/01.3/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/01.3/</guid>
+      <description>1.3 Go 命令 Go 命令 Go 語言自帶有一套完整的命令列工具，你可以透過在命令列中執行 go 來檢視它們：
+圖 1.3 Go 命令顯示詳細的資訊
+這些命令對於我們平時編寫的程式碼非常有用，接下來就讓我們了解一些常用的命令。
+go build 這個命令主要用於編譯程式碼。在套件的編譯過程中，若有必要，會同時編譯與之相關聯的套件。
+ 如果是普通套件，就像我們在 1.2 節中編寫的 mymath 套件那樣，當你執行go build之後，它不會產生任何檔案。如果你需要在$GOPATH/pkg下產生相應的檔案，那就得執行go install。
+ 如果是 main 套件，當你執行go build之後，它就會在當前目錄下產生一個可執行檔案。如果你需要在$GOPATH/bin下產生相應的檔案，需要執行go install，或者使用go build -o 路徑/a.exe。
+ 如果某個專案資料夾下有多個檔案，而你只想編譯某個檔案，就可在go build之後加上檔名，例如go build a.go；go build命令預設會編譯當前目錄下的所有 go 檔案。
+ 你也可以指定編譯輸出的檔名。例如 1.2 節中的 mathapp 應用，我們可以指定go build -o astaxie.exe，預設情況是你的 package 名(非 main 套件)，或者是第一個原始檔的檔名(main 套件)。
+  （注：實際上，package 名在 Go 語言規範中指程式碼中“package”後使用的名稱，此名稱可以與資料夾名不同。預設產生的可執行檔名是資料夾名。）
+ go build 會忽略目錄下以“_”或“.”開頭的 go 檔案。
+ 如果你的原始碼針對不同的作業系統需要不同的處理，那麼你可以根據不同的作業系統字尾來命名檔案。例如有一個讀取陣列的程式，它對於不同的作業系統可能有如下幾個原始檔：</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/01.4/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/01.4/</guid>
+      <description>1.4 Go 開發工具 本節我將介紹幾個開發工具，它們都具有自動化提示，自動化 fmt 功能。因為它們都是跨平臺的，所以安裝步驟之類別的都是通用的。
+LiteIDE LiteIDE 是一款專門為 Go 語言開發的跨平臺輕量級整合開發環境（IDE），由 visualfc 編寫。
+圖 1.4 LiteIDE 主介面
+LiteIDE 主要特點：
+ 支援主流作業系統  Windows Linux MacOS X  Go 編譯環境管理和切換  管理和切換多個 Go 編譯環境 支援 Go 語言交叉編譯  與 Go 標準一致的專案管理方式  基於 GOPATH 的套件瀏覽器 基於 GOPATH 的編譯系統 基於 GOPATH 的 Api 文件檢索  Go 語言的編輯支援  類別瀏覽器和大綱顯示 Gocode(程式碼自動完成工具)的完美支援 Go 語言文件檢視和 Api 快速檢索 程式碼表達式資訊顯示F1 原始碼定義跳轉支援F2 Gdb 斷點和除錯支援 gofmt 自動格式化支援  其他特徵  支援多國語言介面顯示 完全外掛體系結構 支援編輯器配色方案 基於 Kate 的語法顯示支援 基於全文的單詞自動完成 支援鍵盤快捷鍵繫結方案 Markdown 文件編輯支援  即時預覽和同步顯示 自訂 CSS 顯示 可匯出 HTML 和 PDF 文件 批量轉換/合併為 HTML/PDF 文件    LiteIDE 安裝配置</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/01.5/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/01.5/</guid>
+      <description> 1.5 總結 這一章中我們主要介紹了如何安裝 Go，Go 可以透過三種方式安裝：原始碼安裝、標準套件安裝、第三方工具安裝，安裝之後我們需要配置我們的開發環境，然後介紹了如何配置本地的$GOPATH，透過設定$GOPATH之後讀者就可以建立專案，接著介紹了如何來進行專案編譯、應用安裝等問題，這些需要用到很多 Go 命令，所以接著就介紹了一些 Go 的常用命令工具，包括編譯、安裝、格式化、測試等命令，最後介紹了 Go 的開發工具，目前有很多 Go 的開發工具：LiteIDE、Sublime、VSCode、Atom、Goland、VIM、Emacs、Eclipse、Idea 等工具，讀者可以根據自己熟悉的工具進行配置，希望能夠透過方便的工具快速的開發 Go 應用。
+links  目錄 上一節: Go 開發工具 下一章: Go 語言基礎  </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/02.0/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/02.0/</guid>
+      <description> 2 Go 語言基礎 Go 是一門類似 C 的編譯型語言，但是它的編譯速度非常快。這門語言的關鍵字總共也就二十五個，比英文字母還少一個，這對於我們的學習來說就簡單了很多。先讓我們看一眼這些關鍵字都長什麼樣：
+break default func interface select case defer go map struct chan else goto package switch const fallthrough if range type continue for import return var  在接下來的這一章中，我將帶領你去學習這門語言的基礎。透過每一小節的介紹，你將發現，Go 的世界是那麼地簡潔，設計是如此地美妙，編寫 Go 將會是一件愉快的事情。等回過頭來，你就會發現這二十五個關鍵字是多麼地親切。
+目錄 links  目錄 上一章: 第一章總結 下一節: 你好，Go  </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/02.1/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/02.1/</guid>
+      <description>2.1 你好，Go 在開始編寫應用之前，我們先從最基本的程式開始。就像你造房子之前不知道什麼是地基一樣，編寫程式也不知道如何開始。因此，在本節中，我們要學習用最基本的語法讓 Go 程式執行起來。
+程式 這就像一個傳統，在學習大部分語言之前，你先學會如何編寫一個可以輸出hello world的程式。
+準備好了嗎？Let&amp;rsquo;s Go!
+package main import &amp;#34;fmt&amp;#34; func main() { fmt.Printf(&amp;#34;Hello, world or 你好，世界 or καλημ ́ρα κóσμ or こんにちはせかい\n&amp;#34;) } 輸出如下：
+Hello, world or 你好，世界 or καλημ ́ρα κóσμ or こんにちはせかい  詳解 首先我們要了解一個概念，Go 程式是透過 package 來組織的
+package &amp;lt;pkgName&amp;gt;（在我們的例子中是package main）這一行告訴我們當前檔案屬於哪個套件，而套件名 main 則告訴我們它是一個可獨立執行的套件，它在編譯後會產生可執行檔案。除了 main 套件之外，其它的套件最後都會產生*.a檔案（也就是套件檔案）並放置在$GOPATH/pkg/$GOOS_$GOARCH中（以 Mac 為例就是$GOPATH/pkg/darwin_amd64）。
+ 每一個可獨立執行的 Go 程式，必定包含一個package main，在這個 main 套件中必定包含一個入口函式main，而這個函式既沒有參數，也沒有回傳值。
+ 為了列印Hello, world...，我們呼叫了一個函式Printf，這個函式來自於 fmt 套件，所以我們在第三行中匯入了系統級別的 fmt 套件：import &amp;quot;fmt&amp;quot;。</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/02.2/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/02.2/</guid>
+      <description>2.2 Go 基礎 這小節我們將要介紹如何定義變數、常數、Go 內建型別以及 Go 程式設計中的一些技巧。
+定義變數 Go 語言裡面定義變數有多種方式。
+使用 var 關鍵字是 Go 最基本的定義變數方式，與 C 語言不同的是 Go 把變數型別放在變數名後面：
+//定義一個名稱為“variableName”，型別為&amp;#34;type&amp;#34;的變數 var variableName type 定義多個變數
+//定義三個型別都是“type”的變數 var vname1, vname2, vname3 type 定義變數並初始化值
+//初始化“variableName”的變數為“value”值，型別是“type” var variableName type = value 同時初始化多個變數
+/* 定義三個型別都是&amp;#34;type&amp;#34;的變數，並且分別初始化為相應的值 vname1 為 v1，vname2 為 v2，vname3 為 v3 */ var vname1, vname2, vname3 type= v1, v2, v3 你是不是覺得上面這樣的定義有點繁瑣？沒關係，因為 Go 語言的設計者也發現了，有一種寫法可以讓它變得簡單一點。我們可以直接忽略型別宣告，那麼上面的程式碼變成這樣了：
+/* 定義三個變數，它們分別初始化為相應的值 vname1 為 v1，vname2 為 v2，vname3 為 v3 然後 Go 會根據其相應值的型別來幫你初始化它們 */ var vname1, vname2, vname3 = v1, v2, v3 你覺得上面的還是有些繁瑣？好吧，我也覺得。讓我們繼續簡化：</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/02.3/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/02.3/</guid>
+      <description>2.3 流程和函式 這小節我們要介紹 Go 裡面的流程控制以及函式操作。
+流程控制 流程控制在程式語言中是最偉大的發明了，因為有了它，你可以透過很簡單的流程描述來表達很複雜的邏輯。Go 中流程控制分三大類別：條件判斷，迴圈控制和無條件跳轉。
+if if也許是各種程式語言中最常見的了，它的語法概括起來就是：如果滿足條件就做某事，否則做另一件事。
+Go 裡面 if 條件判斷語句中不需要括號，如下程式碼所示
+if x &amp;gt; 10 { fmt.Println(&amp;#34;x is greater than 10&amp;#34;) } else { fmt.Println(&amp;#34;x is less than 10&amp;#34;) } Go 的 if 還有一個強大的地方就是條件判斷語句裡面允許宣告一個變數，這個變數的作用域只能在該條件邏輯區塊內，其他地方就無法使用，如下所示
+// 計算取得值 x，然後根據 x 回傳的大小，判斷是否大於 10。 if x := computedValue(); x &amp;gt; 10 { fmt.Println(&amp;#34;x is greater than 10&amp;#34;) } else { fmt.Println(&amp;#34;x is less than 10&amp;#34;) } //這個地方如果這樣呼叫就編譯出錯了，因為 x 是條件裡面的變數 fmt.Println(x) 多個條件的時候如下所示：</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/02.4/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/02.4/</guid>
+      <description>2.4 struct 型別 struct Go 語言中，也和 C 或者其他語言一樣，我們可以宣告新的型別，作為其它型別的屬性或欄位的容器。例如，我們可以建立一個自訂型別 person 代表一個人的實體。這個實體擁有屬性：姓名和年齡。這樣的型別我們稱之struct。如下程式碼所示:
+type person struct { name string age int } 看到了嗎？宣告一個 struct 如此簡單，上面的型別包含有兩個欄位 - 一個 string 型別的欄位 name，用來儲存使用者名稱稱這個屬性 - 一個 int 型別的欄位 age，用來儲存使用者年齡這個屬性
+如何使用 struct 呢？請看下面的程式碼
+type person struct { name string age int } var P person // P 現在就是 person 型別的變量了  P.name = &amp;#34;Astaxie&amp;#34; // 賦值&amp;#34;Astaxie&amp;#34;給 P 的 name 屬性. P.age = 25 // 賦值&amp;#34;25&amp;#34;給變數 P 的 age 屬性 fmt.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/02.5/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/02.5/</guid>
+      <description>2.5 物件導向 前面兩章我們介紹了函式和 struct，那你是否想過函式當作 struct 的欄位一樣來處理呢？今天我們就講解一下函式的另一種形態，帶有接收者的函式，我們稱為method
+method 現在假設有這麼一個場景，你定義了一個 struct 叫做長方形，你現在想要計算他的面積，那麼按照我們一般的思路應該會用下面的方式來實現
+package main import &amp;#34;fmt&amp;#34; type Rectangle struct { width, height float64 } func area(r Rectangle) float64 { return r.width*r.height } func main() { r1 := Rectangle{12, 2} r2 := Rectangle{9, 4} fmt.Println(&amp;#34;Area of r1 is: &amp;#34;, area(r1)) fmt.Println(&amp;#34;Area of r2 is: &amp;#34;, area(r2)) } 這段程式碼可以計算出來長方形的面積，但是 area()不是作為 Rectangle 的方法實現的（類似物件導向裡面的方法），而是將 Rectangle 的物件（如 r1,r2）作為參數傳入函式計算面積的。
+這樣實現當然沒有問題囉，但是當需要增加圓形、正方形、五邊形甚至其它多邊形的時候，你想計算他們的面積的時候怎麼辦啊？那就只能增加新的函式囉，但是函式名你就必須要跟著換了，變成area_rectangle, area_circle, area_triangle...
+像下圖所表示的那樣， 橢圓代表函式, 而這些函式並不從屬於 struct(或者以物件導向的術語來說，並不屬於 class)，他們是單獨存在於 struct 外圍，而非在概念上屬於某個 struct 的。</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/02.6/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/02.6/</guid>
+      <description>2.6 interface interface Go 語言裡面設計最精妙的應該算 interface，它讓物件導向，內容組織實現非常的方便，當你看完這一章，你就會被 interface 的巧妙設計所折服。
+什麼是 interface 簡單的說，interface 是一組 method 簽名的組合，我們透過 interface 來定義物件的一組行為。
+我們前面一章最後一個例子中 Student 和 Employee 都能 SayHi，雖然他們的內部實現不一樣，但是那不重要，重要的是他們都能say hi
+讓我們來繼續做更多的擴充套件，Student 和 Employee 實現另一個方法Sing，然後 Student 實現方法 BorrowMoney 而 Employee 實現 SpendSalary。
+這樣 Student 實現了三個方法：SayHi、Sing、BorrowMoney；而 Employee 實現了 SayHi、Sing、SpendSalary。
+上面這些方法的組合稱為 interface(被物件 Student 和 Employee 實現)。例如 Student 和 Employee 都實現了 interface：SayHi 和 Sing，也就是這兩個物件是該 interface 型別。而 Employee 沒有實現這個 interface：SayHi、Sing 和 BorrowMoney，因為 Employee 沒有實現 BorrowMoney 這個方法。
+interface 型別 interface 型別定義了一組方法，如果某個物件實現了某個介面的所有方法，則此物件就實現了此介面。詳細的語法參考下面這個例子
+type Human struct { name string age int phone string } type Student struct { Human //匿名欄位 Human  school string loan float32 } type Employee struct { Human //匿名欄位 Human  company string money float32 } //Human 物件實現 Sayhi 方法 func (h *Human) SayHi() { fmt.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/02.7/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/02.7/</guid>
+      <description>2.7 併發 有人把 Go 比作 21 世紀的 C 語言，第一是因為 Go 語言設計簡單，第二，21 世紀最重要的就是並行程式設計，而 Go 從語言層面就支援了並行。
+goroutine goroutine 是 Go 並行設計的核心。goroutine 說到底其實就是協程 (Coroutine)，但是它比執行緒更小，十幾個 goroutine 可能體現在底層就是五六個執行緒，Go 語言內部幫你實現了這些 goroutine 之間的記憶體共享。執行 goroutine 只需極少的棧記憶體(大概是 4~5KB)，當然會根據相應的資料伸縮。也正因為如此，可同時執行成千上萬個併發任務。goroutine 比 thread 更易用、更高效、更輕便。
+goroutine 是透過 Go 的 runtime 管理的一個執行緒管理器。goroutine 透過 go 關鍵字實現了，其實就是一個普通的函式。
+go hello(a, b, c) 透過關鍵字 go 就啟動了一個 goroutine。我們來看一個例子
+package main import ( &amp;#34;fmt&amp;#34; &amp;#34;runtime&amp;#34; ) func say(s string) { for i := 0; i &amp;lt; 5; i++ { runtime.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/02.8/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/02.8/</guid>
+      <description>2.8 總結 這一章我們主要介紹了 Go 語言的一些語法，透過語法我們可以發現 Go 是多麼的簡單，只有二十五個關鍵字。讓我們再來回顧一下這些關鍵字都是用來幹什麼的。
+break default func interface select case defer go map struct chan else goto package switch const fallthrough if range type continue for import return var  var 和 const 參考 2.2Go 語言基礎裡面的變數和常數宣告 package 和 import 已經有過短暫的接觸 func 用於定義函式和方法 return 用於從函式回傳 defer 用於類似解構函式 go 用於併發 select 用於選擇不同型別的通訊 interface 用於定義介面，參考 2.6 小節 struct 用於定義抽象資料型別，參考 2.5 小節 break、case、continue、for、fallthrough、else、if、switch、goto、default 這些參考 2.3 流程介紹裡面 chan 用於 channel 通訊 type 用於宣告自訂型別 map 用於宣告 map 型別資料 range 用於讀取 slice、map、channel 資料  上面這二十五個關鍵字記住了，那麼 Go 你也已經差不多學會了。</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/03.0/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/03.0/</guid>
+      <description> 3 Web 基礎 學習基於 Web 的程式設計可能正是你讀本書的原因。事實上，如何透過 Go 來編寫 Web 應用也是我編寫這本書的初衷。前面已經介紹過，Go 目前已經擁有了成熟的 HTTP 處理套件，這使得編寫能做任何事情的動態 Web 程式易如反掌。在接下來的各章中將要介紹的內容，都是屬於 Web 程式設計的範疇。本章則集中討論一些與 Web 相關的概念和 Go 如何執行 Web 程式的話題。
+目錄 links  目錄 上一章: 第二章總結 下一節: Web 工作方式  </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/03.1/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/03.1/</guid>
+      <description>3.1 Web 工作方式 我們平時瀏覽網頁的時候，會開啟瀏覽器，輸入網址後按下回車鍵，然後就會顯示出你想要瀏覽的內容。在這個看似簡單的使用者行為背後，到底隱藏了些什麼呢？
+對於普通的上網過程，系統其實是這樣做的：瀏覽器本身是一個客戶端，當你輸入 URL 的時候，首先瀏覽器會去請求 DNS 伺服器，透過 DNS 取得相應的域名對應的 IP，然後透過 IP 地址找到 IP 對應的伺服器後，要求建立 TCP 連線，等瀏覽器傳送完 HTTP Request（請求）封包後，伺服器接收到請求封包之後才開始處理請求封包，伺服器呼叫自身服務，回傳 HTTP Response 內容；客戶端收到來自伺服器的回應後開始渲染這個 Response 套件裡的主體（body），等收到全部的內容隨後斷開與該伺服器之間的 TCP 連線。
+圖 3.1 使用者訪問一個 Web 站點的過程
+一個 Web 伺服器也被稱為 HTTP 伺服器，它透過 HTTP 協議與客戶端通訊。這個客戶端通常指的是 Web 瀏覽器(其實手機端客戶端內部也是瀏覽器實現的)。
+Web 伺服器的工作原理可以簡單地歸納為：
+ 客戶端透過 TCP/IP 協議建立到伺服器的 TCP 連線 客戶端向伺服器傳送 HTTP 協議請求封包，請求伺服器裡的資源文件 伺服器向客戶端發送 HTTP 協議回應封包，如果請求的資源包含有動態語言的內容，那麼伺服器會呼叫動態語言的解釋引擎負責處理“動態內容”，並將處理得到的資料回傳給客戶端 客戶端與伺服器斷開。由客戶端解釋 HTML 文件，在客戶端螢幕上渲染圖形結果  一個簡單的 HTTP 事務就是這樣實現的，看起來很複雜，原理其實是挺簡單的。需要注意的是客戶端與伺服器之間的通訊是非持久連線的，也就是當伺服器傳送了回應後就與客戶端斷開連線，等待下一次請求。
+URL 和 DNS 解析 我們瀏覽網頁都是透過 URL 訪問的，那麼 URL 到底是怎麼樣的呢？</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/03.2/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/03.2/</guid>
+      <description>3.2 Go 建立一個 Web 伺服器 前面小節已經介紹了 Web 是基於 http 協議的一個服務，Go 語言裡面提供了一個完善的 net/http 套件，透過 http 套件可以很方便的建立起來一個可以執行的 Web 服務。同時使用這個套件能很簡單地對 Web 的路由，靜態檔案，模版，cookie 等資料進行設定和操作。
+http 套件建立 Web 伺服器 package main import ( &amp;#34;fmt&amp;#34; &amp;#34;net/http&amp;#34; &amp;#34;strings&amp;#34; &amp;#34;log&amp;#34; ) func sayhelloName(w http.ResponseWriter, r *http.Request) { r.ParseForm() //解析參數，預設是不會解析的 	fmt.Println(r.Form) //這些資訊是輸出到伺服器端的列印資訊 	fmt.Println(&amp;#34;path&amp;#34;, r.URL.Path) fmt.Println(&amp;#34;scheme&amp;#34;, r.URL.Scheme) fmt.Println(r.Form[&amp;#34;url_long&amp;#34;]) for k, v := range r.Form { fmt.Println(&amp;#34;key:&amp;#34;, k) fmt.Println(&amp;#34;val:&amp;#34;, strings.Join(v, &amp;#34;&amp;#34;)) } fmt.Fprintf(w, &amp;#34;Hello astaxie!&amp;#34;) //這個寫入到 w 的是輸出到客戶端的 } func main() { http.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/03.3/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/03.3/</guid>
+      <description>3.3 Go 如何使得 Web 工作 前面小節介紹了如何透過 Go 建立一個 Web 服務，我們可以看到簡單應用一個 net/http 套件就方便的建立起來了。那麼 Go 在底層到底是怎麼做的呢？萬變不離其宗，Go 的 Web 服務工作也離不開我們第一小節介紹的 Web 工作方式。
+web 工作方式的幾個概念 以下均是伺服器端的幾個概念
+Request：使用者請求的資訊，用來解析使用者的請求資訊，包括 post、get、cookie、url 等資訊
+Response：伺服器需要反饋給客戶端的資訊
+Conn：使用者的每次請求連結
+Handler：處理請求和產生回傳資訊的處理邏輯
+分析 http 套件執行機制 下圖是 Go 實現 Web 服務的工作模式的流程圖
+圖 3.9 http 套件執行流程
+ 建立 Listen Socket, 監聽指定的埠, 等待客戶端請求到來。
+ Listen Socket 接受客戶端的請求, 得到 Client Socket, 接下來透過 Client Socket 與客戶端通訊。
+ 處理客戶端的請求, 首先從 Client Socket 讀取 HTTP 請求的協議頭, 如果是 POST 方法, 還可能要讀取客戶端提交的資料, 然後交給相應的 handler 處理請求, handler 處理完畢準備好客戶端需要的資料, 透過 Client Socket 寫給客戶端。</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/03.4/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/03.4/</guid>
+      <description>3.4 Go 的 http 套件詳解 前面小節介紹了 Go 怎麼樣實現了 Web 工作模式的一個流程，這一小節，我們將詳細地解剖一下 http 套件，看它到底是怎樣實現整個過程的。
+Go 的 http 有兩個核心功能：Conn、ServeMux
+Conn 的 goroutine 與我們一般編寫的 http 伺服器不同, Go 為了實現高併發和高效能, 使用了 goroutines 來處理 Conn 的讀寫事件, 這樣每個請求都能保持獨立，相互不會阻塞，可以高效的回應網路事件。這是 Go 高效的保證。
+Go 在等待客戶端請求裡面是這樣寫的：
+c, err := srv.newConn(rw) if err != nil { continue } go c.serve() 這裡我們可以看到客戶端的每次請求都會建立一個 Conn，這個 Conn 裡面儲存了該次請求的資訊，然後再傳遞到對應的 handler，該 handler 中便可以讀取到相應的 header 資訊，這樣保證了每個請求的獨立性。
+ServeMux 的自訂 我們前面小節講述 conn.server 的時候，其實內部是呼叫了 http 套件預設的路由器，透過路由器把本次請求的資訊傳遞到了後端的處理函式。那麼這個路由器是怎麼實現的呢？
+它的結構如下：
+type ServeMux struct { mu sync.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/03.5/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/03.5/</guid>
+      <description> 3.5 小結 這一章我們介紹了 HTTP 協議, DNS 解析的過程, 如何用 go 實現一個簡陋的 web server。並深入到 net/http 套件的原始碼中為大家揭開實現此 server 的祕密。
+希望透過這一章的學習，你能夠對 Go 開發 Web 有了初步的了解，我們也看到相應的程式碼了，Go 開發 Web 應用是很方便的，同時又是相當的靈活。
+links  目錄 上一節: Go 的 http 套件詳解 下一章: 表單  </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/04.0/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/04.0/</guid>
+      <description> 4 表單 表單是我們平常編寫 Web 應用常用的工具，透過表單我們可以方便的讓客戶端和伺服器進行資料的互動。對於以前開發過 Web 的使用者來說表單都非常熟悉，但是對於 C/C++程式設計師來說，這可能是一個有些陌生的東西，那麼什麼是表單呢？
+表單是一個包含表單元素的區域。表單元素（比如：文字域、下拉列表、單選框、複選框等等）是允許使用者在表單中輸入資訊的元素。表單使用表單標籤（&amp;lt;form&amp;gt;）定義。
+&amp;lt;form&amp;gt; ... input 元素 ... &amp;lt;/form&amp;gt;  Go 裡面對於 form 處理已經有很方便的方法了，在 Request 裡面有專門的 form 處理，可以很方便的整合到 Web 開發裡面來，4.1 小節裡面將講解 Go 如何處理表單的輸入。由於不能信任任何使用者的輸入，所以我們需要對這些輸入進行有效性驗證，4.2 小節將就如何進行一些普通的驗證進行詳細的示範。
+HTTP 協議是一種無狀態的協議，那麼如何才能辨別是否是同一個使用者呢？同時又如何保證一個表單不出現多次提交的情況呢？4.3 和 4.4 小節裡面將對 cookie(cookie 是儲存在客戶端的資訊，能夠每次透過 header 和伺服器進行互動的資料)等進行詳細講解。
+表單還有一個很大的功能就是能夠上傳檔案，那麼 Go 是如何處理檔案上傳的呢？針對大檔案上傳我們如何有效的處理呢？4.5 小節我們將一起學習 Go 處理檔案上傳的知識。
+目錄 links  目錄 上一章: 第三章總結 下一節: 處理表單的輸入  </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/04.1/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/04.1/</guid>
+      <description>4.1 處理表單的輸入 先來看一個表單提交的例子，我們有如下的表單內容，命名成檔案 login.gtpl(放入當前建立專案的目錄裡面)
+&amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;form action=&amp;#34;/login&amp;#34; method=&amp;#34;post&amp;#34;&amp;gt; 使用者名稱:&amp;lt;input type=&amp;#34;text&amp;#34; name=&amp;#34;username&amp;#34;&amp;gt; 密碼:&amp;lt;input type=&amp;#34;password&amp;#34; name=&amp;#34;password&amp;#34;&amp;gt; &amp;lt;input type=&amp;#34;submit&amp;#34; value=&amp;#34;登入&amp;#34;&amp;gt; &amp;lt;/form&amp;gt; &amp;lt;/body&amp;gt; &amp;lt;/html&amp;gt; 上面提交表單到伺服器的/login，當用戶輸入資訊點選登入之後，會跳轉到伺服器的路由 login 裡面，我們首先要判斷這個是什麼方式傳遞過來，POST 還是 GET 呢？
+http 套件裡面有一個很簡單的方式就可以取得，我們在前面 web 的例子的基礎上來看看怎麼處理 login 頁面的 form 資料
+package main import ( &amp;#34;fmt&amp;#34; &amp;#34;html/template&amp;#34; &amp;#34;log&amp;#34; &amp;#34;net/http&amp;#34; &amp;#34;strings&amp;#34; ) func sayhelloName(w http.ResponseWriter, r *http.Request) { r.ParseForm() //解析 url 傳遞的參數，對於 POST 則解析 HTTP 回應內容的主體（request body） 	//注意 : 如果沒有呼叫 ParseForm 方法，下面無法取得表單的資料 	fmt.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/04.2/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/04.2/</guid>
+      <description>4.2 驗證表單的輸入 開發 Web 的一個原則就是，不能信任使用者輸入的任何資訊，所以驗證和過濾使用者的輸入資訊就變得非常重要，我們經常會在微博、新聞中聽到某某網站被入侵了，存在什麼漏洞，這些大多是因為網站對於使用者輸入的資訊沒有做嚴格的驗證引起的，所以為了編寫出安全可靠的 Web 程式，驗證表單輸入的意義重大。
+我們平常編寫 Web 應用主要有兩方面的資料驗證，一個是在頁面端的 js 驗證(目前在這方面有很多的外掛函式庫，比如 ValidationJS 外掛)，一個是在伺服器端的驗證，我們這小節講解的是如何在伺服器端驗證。
+必填欄位 你想要確保從一個表單元素中得到一個值，例如前面小節裡面的使用者名稱，我們如何處理呢？Go 有一個內建函式 len 可以取得字串的長度，這樣我們就可以透過 len 來取得資料的長度，例如：
+if len(r.Form[&amp;#34;username&amp;#34;][0])==0{ //為空的處理 } r.Form對不同型別的表單元素的留空有不同的處理， 對於空文字框、空文字區域以及檔案上傳，元素的值為空值，而如果是未選中的複選框和單選按鈕，則根本不會在 r.Form 中產生相應條目，如果我們用上面例子中的方式去取得資料時程式就會報錯。所以我們需要透過r.Form.Get()來取得值，因為如果欄位不存在，透過該方式取得的是空值。但是透過r.Form.Get()只能取得單個的值，如果是 map 的值，必須透過上面的方式來取得。
+數字 你想要確保一個表單輸入框中取得的只能是數字，例如，你想透過表單取得某個人的具體年齡是 50 歲還是 10 歲，而不是像“一把年紀了”或“年輕著呢”這種描述
+如果我們是判斷正整數，那麼我們先轉化成 int 型別，然後進行處理
+getint,err:=strconv.Atoi(r.Form.Get(&amp;#34;age&amp;#34;)) if err!=nil{ //數字轉化出錯了，那麼可能就不是數字 } //接下來就可以判斷這個數字的大小範圍了 if getint &amp;gt;100 { //太大了 } 還有一種方式就是正則匹配的方式
+if m, _ := regexp.MatchString(&amp;#34;^[0-9]+$&amp;#34;, r.Form.Get(&amp;#34;age&amp;#34;)); !m { return false } 對於效能要求很高的使用者來說，這是一個老生常談的問題了，他們認為應該儘量避免使用正則表示式，因為使用正則表示式的速度會比較慢。但是在目前機器效能那麼強勁的情況下，對於這種簡單的正則表示式效率和型別轉換函式是沒有什麼差別的。如果你對正則表示式很熟悉，而且你在其它語言中也在使用它，那麼在 Go 裡面使用正則表示式將是一個便利的方式。
+ Go 實現的正則是RE2，所有的字元都是 UTF-8 編碼的。</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/04.3/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/04.3/</guid>
+      <description>4.3 預防跨站指令碼 現在的網站包含大量的動態內容以提高使用者體驗，比過去要複雜得多。所謂動態內容，就是根據使用者環境和需要，Web 應用程式能夠輸出相應的內容。動態站點會受到一種名為“跨站指令碼攻擊”（Cross Site Scripting, 安全專家們通常將其縮寫成 XSS）的威脅，而靜態站點則完全不受其影響。
+攻擊者通常會在有漏洞的程式中插入 JavaScript、VBScript、 ActiveX 或 Flash 以欺騙使用者。一旦得手，他們可以盜取使用者帳戶資訊，修改使用者設定，盜取/汙染 cookie 和植入惡意廣告等。
+對 XSS 最佳的防護應該結合以下兩種方法：一是驗證所有輸入資料，有效檢測攻擊(這個我們前面小節已經有過介紹);另一個是對所有輸出資料進行適當的處理，以防止任何已成功注入的指令碼在瀏覽器端執行。
+那麼 Go 裡面是怎麼做這個有效防護的呢？Go 的 html/template 裡面帶有下面幾個函式可以幫你轉義
+ func HTMLEscape(w io.Writer, b []byte) //把 b 進行轉義之後寫到 w func HTMLEscapeString(s string) string //轉義 s 之後回傳結果字串 func HTMLEscaper(args &amp;hellip;interface{}) string //支援多個參數一起轉義，回傳結果字串  我們看 4.1 小節的例子
+fmt.Println(&amp;#34;username:&amp;#34;, template.HTMLEscapeString(r.Form.Get(&amp;#34;username&amp;#34;))) //輸出到伺服器端 fmt.Println(&amp;#34;password:&amp;#34;, template.HTMLEscapeString(r.Form.Get(&amp;#34;password&amp;#34;))) template.HTMLEscape(w, []byte(r.Form.Get(&amp;#34;username&amp;#34;))) //輸出到客戶端 如果我們輸入的 username 是&amp;lt;script&amp;gt;alert()&amp;lt;/script&amp;gt;，那麼我們可以在瀏覽器上面看到輸出如下所示：
+圖 4.3 Javascript 過濾之後的輸出
+Go 的 html/template 套件預設幫你過濾了 html 標籤，但是有時候你只想要輸出這個&amp;lt;script&amp;gt;alert()&amp;lt;/script&amp;gt;看起來正常的資訊，該怎麼處理？請使用 text/template。請看下面的例子：</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/04.4/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/04.4/</guid>
+      <description>4.4 防止多次提交表單 不知道你是否曾經看到過一個論壇或者部落格，在一個帖子或者文章後面出現多條重複的記錄，這些大多數是因為使用者重複提交了留言的表單引起的。由於種種原因，使用者經常會重複提交表單。通常這只是滑鼠的誤操作，如雙擊了提交按鈕，也可能是為了編輯或者再次核對填寫過的資訊，點選了瀏覽器的後退按鈕，然後又再次點選了提交按鈕而不是瀏覽器的前進按鈕。當然，也可能是故意的——比如，在某項線上調查或者博彩活動中重複投票。那我們如何有效的防止使用者多次提交相同的表單呢？
+解決方案是在表單中新增一個帶有唯一值的隱藏欄位。在驗證表單時，先檢查帶有該唯一值的表單是否已經提交過了。如果是，拒絕再次提交；如果不是，則處理表單進行邏輯處理。另外，如果是採用了 Ajax 模式提交表單的話，當表單提交後，透過 javascript 來禁用表單的提交按鈕。
+我繼續拿 4.2 小節的例子優化：
+&amp;lt;input type=&amp;#34;checkbox&amp;#34; name=&amp;#34;interest&amp;#34; value=&amp;#34;football&amp;#34;&amp;gt;足球 &amp;lt;input type=&amp;#34;checkbox&amp;#34; name=&amp;#34;interest&amp;#34; value=&amp;#34;basketball&amp;#34;&amp;gt;籃球 &amp;lt;input type=&amp;#34;checkbox&amp;#34; name=&amp;#34;interest&amp;#34; value=&amp;#34;tennis&amp;#34;&amp;gt;網球 使用者名稱:&amp;lt;input type=&amp;#34;text&amp;#34; name=&amp;#34;username&amp;#34;&amp;gt; 密碼:&amp;lt;input type=&amp;#34;password&amp;#34; name=&amp;#34;password&amp;#34;&amp;gt; &amp;lt;input type=&amp;#34;hidden&amp;#34; name=&amp;#34;token&amp;#34; value=&amp;#34;{{.}}&amp;#34;&amp;gt; &amp;lt;input type=&amp;#34;submit&amp;#34; value=&amp;#34;登陸&amp;#34;&amp;gt; 我們在模版裡面增加了一個隱藏欄位token，這個值我們透過 MD5(時戳) 來取得唯一值，然後我們把這個值儲存到伺服器端(session 來控制，我們將在第六章講解如何儲存)，以方便表單提交時比對判定。
+func login(w http.ResponseWriter, r *http.Request) { fmt.Println(&amp;#34;method:&amp;#34;, r.Method) //取得請求的方法 	if r.Method == &amp;#34;GET&amp;#34; { crutime := time.Now().Unix() h := md5.New() io.WriteString(h, strconv.FormatInt(crutime, 10)) token := fmt.Sprintf(&amp;#34;%x&amp;#34;, h.Sum(nil)) t, _ := template.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/04.5/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/04.5/</guid>
+      <description>4.5 處理檔案上傳 你想處理一個由使用者上傳的檔案，比如你正在建設一個類似 Instagram 的網站，你需要儲存使用者拍攝的照片。這種需求該如何實現呢？
+要使表單能夠上傳檔案，首先第一步就是要新增 form 的enctype屬性，enctype屬性有如下三種情況:
+ application/x-www-form-urlencoded 表示在傳送前編碼所有字元（預設） multipart/form-data	不對字元編碼。在使用包含檔案上傳控制元件的表單時，必須使用該值。 text/plain	空格轉換為 &amp;quot;+&amp;quot; 加號，但不對特殊字元編碼。  所以，建立新的表單 html 檔案, 命名為 upload.gtpl, html 程式碼應該類似於:
+&amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;title&amp;gt;上傳檔案&amp;lt;/title&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;form enctype=&amp;#34;multipart/form-data&amp;#34; action=&amp;#34;/upload&amp;#34; method=&amp;#34;post&amp;#34;&amp;gt; &amp;lt;input type=&amp;#34;file&amp;#34; name=&amp;#34;uploadfile&amp;#34; /&amp;gt; &amp;lt;input type=&amp;#34;hidden&amp;#34; name=&amp;#34;token&amp;#34; value=&amp;#34;{{.}}&amp;#34;/&amp;gt; &amp;lt;input type=&amp;#34;submit&amp;#34; value=&amp;#34;upload&amp;#34; /&amp;gt; &amp;lt;/form&amp;gt; &amp;lt;/body&amp;gt; &amp;lt;/html&amp;gt; 在伺服器端，我們增加一個 handlerFunc:
+http.HandleFunc(&amp;#34;/upload&amp;#34;, upload) // 處理/upload 邏輯 func upload(w http.ResponseWriter, r *http.Request) { fmt.Println(&amp;#34;method:&amp;#34;, r.Method) //取得請求的方法 	if r.Method == &amp;#34;GET&amp;#34; { crutime := time.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/04.6/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/04.6/</guid>
+      <description> 4.6 小結 這一章裡面我們學習了 Go 如何處理表單資訊，我們透過使用者登入、上傳檔案的例子展示了 Go 處理 form 表單資訊及上傳檔案的手段。但是在處理表單過程中我們需要驗證使用者輸入的資訊，考慮到網站安全的重要性，資料過濾就顯得相當重要了，因此後面的章節中專門寫了一個小節來講解了不同方面的資料過濾，順帶講一下 Go 對字串的正則處理。
+透過這一章能夠讓你了解客戶端和伺服器端是如何進行資料上的互動，客戶端將資料傳遞給伺服器系統，伺服器接受資料又把處理結果反饋給客戶端。
+links  目錄 上一節: 處理檔案上傳 下一章: 訪問資料庫  </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/05.0/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/05.0/</guid>
+      <description> 5 訪問資料庫 對許多 Web 應用程式而言，資料庫都是其核心所在。資料庫幾乎可以用來儲存你想查詢和修改的任何資訊，比如使用者資訊、產品目錄或者新聞列表等。
+Go 沒有內建的驅動支援任何的資料庫，但是 Go 定義了 database/sql 介面，使用者可以基於驅動介面開發相應資料庫的驅動，5.1 小節裡面介紹 Go 設計的一些驅動，介紹 Go 是如何設計資料庫驅動介面的。5.2 至 5.4 小節介紹目前使用的比較多的一些關係型資料驅動以及如何使用，5.5 小節介紹我自己開發一個 ORM 函式庫，基於 database/sql 標準介面開發的，可以相容幾乎所有支援 database/sql 的資料庫驅動，可以方便的使用 Go style 來進行資料庫操作。
+目前 NOSQL 已經成為 Web 開發的一個潮流，很多應用採用了 NOSQL 作為資料庫，而不是以前的快取，5.6 小節將介紹 MongoDB 和 Redis 兩種 NOSQL 資料庫。
+ Go database/sql tutorial 裡提供了慣用的範例及詳細的說明。
+ 目錄 links  目錄 上一章: 第四章總結 下一節: database/sql 介面  </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/05.1/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/05.1/</guid>
+      <description>5.1 database/sql 介面 Go 與 PHP 不同的地方是 Go 官方沒有提供資料庫驅動，而是為開發資料庫驅動定義了一些標準介面，開發者可以根據定義的介面來開發相應的資料庫驅動，這樣做有一個好處，只要是按照標準介面開發的程式碼， 以後需要遷移資料庫時，不需要任何修改。那麼 Go 都定義了哪些標準介面呢？讓我們來詳細的分析一下
+sql.Register 這個存在於 database/sql 的函式是用來註冊資料庫驅動的，當第三方開發者開發資料庫驅動時，都會實現 init 函式，在 init 裡面會呼叫這個Register(name string, driver driver.Driver)完成本驅動的註冊。
+我們來看一下 mymysql、sqlite3 的驅動裡面都是怎麼呼叫的：
+//https://github.com/mattn/go-sqlite3 驅動 func init() { sql.Register(&amp;#34;sqlite3&amp;#34;, &amp;amp;SQLiteDriver{}) } //https://github.com/mikespook/mymysql 驅動 // Driver automatically registered in database/sql var d = Driver{proto: &amp;#34;tcp&amp;#34;, raddr: &amp;#34;127.0.0.1:3306&amp;#34;} func init() { Register(&amp;#34;SET NAMES utf8&amp;#34;) sql.Register(&amp;#34;mymysql&amp;#34;, &amp;amp;d) } 我們看到第三方資料庫驅動都是透過呼叫這個函式來註冊自己的資料庫驅動名稱以及相應的 driver 實現。在 database/sql 內部透過一個 map 來儲存使用者定義的相應驅動。
+var drivers = make(map[string]driver.Driver) drivers[name] = driver 因此透過 database/sql 的註冊函式可以同時註冊多個數據函式庫驅動，只要不重複。</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/05.2/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/05.2/</guid>
+      <description>5.2 使用 MySQL 資料庫 目前 Internet 上流行的網站構架方式是 LAMP，其中的 M 即 MySQL, 作為資料庫，MySQL 以免費、開源、使用方便為優勢成為了很多 Web 開發的後端資料庫儲存引擎。
+MySQL 驅動 Go 中支援 MySQL 的驅動目前比較多，有如下幾種，有些是支援 database/sql 標準，而有些是採用了自己的實現介面，常用的有如下幾種:
+ https://github.com/go-sql-driver/mysql 支援 database/sql，全部採用 go 寫。 https://github.com/ziutek/mymysql 支援 database/sql，也支援自訂的介面，全部採用 go 寫。 https://github.com/Philio/GoMySQL 不支援 database/sql，自訂介面，全部採用 go 寫。  接下來的例子我主要以第一個驅動為例(我目前專案中也是採用它來驅動)，也推薦大家採用它，主要理由：
+ 這個驅動比較新，維護的比較好 完全支援 database/sql 介面 支援 keepalive，保持長連線，雖然 星星fork 的 mymysql 也支援 keepalive，但不是執行緒安全的，這個從底層就支援了 keepalive。  範例程式碼 接下來的幾個小節裡面我們都將採用同一個資料庫表結構：資料庫 test，使用者表 userinfo，關聯使用者資訊表 userdetail。
+CREATE TABLE `userinfo` ( `uid` INT(10) NOT NULL AUTO_INCREMENT, `username` VARCHAR(64) NULL DEFAULT NULL, `department` VARCHAR(64) NULL DEFAULT NULL, `created` DATE NULL DEFAULT NULL, PRIMARY KEY (`uid`) ); CREATE TABLE `userdetail` ( `uid` INT(10) NOT NULL DEFAULT &amp;#39;0&amp;#39;, `intro` TEXT NULL, `profile` TEXT NULL, PRIMARY KEY (`uid`) ) 如下範例將示範如何使用 database/sql 介面對資料庫表進行增刪改查操作</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/05.3/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/05.3/</guid>
+      <description>5.3 使用 SQLite 資料庫 SQLite 是一個開源的嵌入式關聯式資料庫，實現自套件容、零配置、支援事務的 SQL 資料庫引擎。其特點是高度便攜、使用方便、結構緊湊、高效、可靠。 與其他資料庫管理系統不同，SQLite 的安裝和執行非常簡單，在大多數情況下，只要確保 SQLite 的二進位制檔案存在即可開始建立、連線和使用資料庫。如果您正在尋找一個嵌入式資料庫專案或解決方案，SQLite 是絕對值得考慮。SQLite 可以說是開源的 Access。
+驅動 Go 支援 sqlite 的驅動也比較多，但是好多都是不支援 database/sql 介面的
+ https://github.com/mattn/go-sqlite3 支援 database/sql 介面，基於 cgo(關於 cgo 的知識請參看官方文件或者本書後面的章節)寫的 https://github.com/feyeleanor/gosqlite3 不支援 database/sql 介面，基於 cgo 寫的 https://github.com/phf/go-sqlite3 不支援 database/sql 介面，基於 cgo 寫的  目前支援 database/sql 的 SQLite 資料庫驅動只有第一個，我目前也是採用它來開發專案的。採用標準介面有利於以後出現更好的驅動的時候做遷移。
+範例程式碼 範例的資料庫表結構如下所示，相應的建表 SQL：
+CREATE TABLE `userinfo` ( `uid` INTEGER PRIMARY KEY AUTOINCREMENT, `username` VARCHAR(64) NULL, `department` VARCHAR(64) NULL, `created` DATE NULL ); CREATE TABLE `userdetail` ( `uid` INT(10) NULL, `intro` TEXT NULL, `profile` TEXT NULL, PRIMARY KEY (`uid`) ); 看下面 Go 程式是如何操作資料庫表資料 : 增刪改查</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/05.4/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/05.4/</guid>
+      <description>5.4 使用 PostgreSQL 資料庫 PostgreSQL 是一個自由的物件-關聯式資料庫伺服器(資料庫管理系統)，它在靈活的 BSD-風格許可證下發行。它提供了相對其他開放原始碼資料庫系統(比如 MySQL 和 Firebird)，和對專有系統比如 Oracle、Sybase、IBM 的 DB2 和 Microsoft SQL Server 的一種選擇。
+PostgreSQL 和 MySQL 比較，它更加龐大一點，因為它是用來替代 Oracle 而設計的。所以在企業應用中採用 PostgreSQL 是一個明智的選擇。
+MySQL 被 Oracle 收購之後正在逐步的封閉（自 MySQL 5.5.31 以後的所有版本將不再遵循 GPL 協議），鑑於此，將來我們也許會選擇 PostgreSQL 而不是 MySQL 作為專案的後端資料庫。
+驅動 Go 實現的支援 PostgreSQL 的驅動也很多，因為國外很多人在開發中使用了這個資料庫。
+ https://github.com/lib/pq 支援 database/sql 驅動，純 Go 寫的 https://github.com/jbarham/gopgsqldriver 支援 database/sql 驅動，純 Go 寫的 https://github.com/lxn/go-pgsql 支援 database/sql 驅動，純 Go 寫的  在下面的範例中我採用了第一個驅動，因為它目前使用的人最多，在 github 上也比較活躍。
+範例程式碼 資料庫建表語句：</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/05.5/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/05.5/</guid>
+      <description>5.5 使用 Beego orm 函式庫進行 ORM 開發 beego orm 是我開發的一個 Go 進行 ORM 操作的函式庫，它採用了 Go style 方式對資料庫進行操作，實現了 struct 到資料表記錄的對映。beego orm 是一個十分輕量級的 Go ORM 框架，開發這個函式庫的本意降低複雜的 ORM 學習曲線，儘可能在 ORM 的執行效率和功能之間尋求一個平衡，beego orm 是目前開源的 Go ORM 框架中實現比較完整的一個函式庫，而且執行效率相當不錯，功能也基本能滿足需求。
+beego orm 是支援 database/sql 標準介面的 ORM 函式庫，所以理論上來說，只要資料庫驅動支援 database/sql 介面就可以無縫的接入 beego orm。目前我測試過的驅動包括下面幾個：
+Mysql: github/go-mysql-driver/mysql
+PostgreSQL: github.com/lib/pq
+SQLite: github.com/mattn/go-sqlite3
+Mysql: github.com/ziutek/mymysql/godrv
+暫未支援資料庫:
+MsSql: github.com/denisenkom/go-mssqldb
+MS ADODB: github.com/mattn/go-adodb
+Oracle: github.com/mattn/go-oci8
+ODBC: bitbucket.org/miquella/mgodbc
+安裝 beego orm 支援 go get 方式安裝，是完全按照 Go Style 的方式來實現的。</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/05.6/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/05.6/</guid>
+      <description>5.6 NOSQL 資料庫操作 NoSQL(Not Only SQL)，指的是非關聯資料庫。隨著 Web2.0 的興起，傳統的關聯式資料庫在應付 Web2.0 網站，特別是超大規模和高併發的 SNS 型別的 Web2.0 純動態網站已經顯得力不從心，暴露了很多難以克服的問題，而非關聯資料庫則由於其本身的特點得到了非常迅速的發展。
+而 Go 語言作為 21 世紀的 C 語言，對 NOSQL 的支援也是很好，目前流行的 NOSQL 主要有 redis、mongoDB、Cassandra 和 Membase 等。這些資料庫都有高效能、高併發讀寫等特點，目前已經廣泛應用於各種應用中。我接下來主要講解一下 redis 和 mongoDB 的操作。
+redis redis 是一個 key-value 儲存系統。和 Memcached 類似，它支援儲存的 value 型別相對更多，包括 string(字串)、list(連結串列)、set(集合)和 zset(有序集合)。
+目前應用 redis 最廣泛的應該是新浪微博平臺，其次還有 Facebook 收購的圖片社交網站 instagram。以及其他一些有名的 網際網路企業
+Go 目前支援 redis 的驅動有如下 - https://github.com/garyburd/redigo (推薦) - https://github.com/go-redis/redis - https://github.com/hoisie/redis - https://github.com/alphazero/Go-Redis - https://github.com/simonz05/godis
+我以 redigo 驅動為例來示範如何進行資料的操作:</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/05.7/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/05.7/</guid>
+      <description> 5.7 小結 這一章我們講解了 Go 如何設計 database/sql 介面，然後介紹了各種第三方關係型資料庫驅動的使用。接著介紹了 beedb，一種基於關係型資料庫的 ORM 函式庫，如何對資料庫進行簡單的操作。最後介紹了 NOSQL 的一些知識，目前 Go 對於 NOSQL 支援還是不錯，因為 Go 作為 21 世紀的 C 語言，那麼對於 21 世紀的資料庫也是支援的相當好。
+透過這一章的學習，我們學會了如何操作各種資料庫，那麼就解決了我們資料儲存的問題，這是 Web 裡面最重要的一部分，所以希望大家能夠深入的去了解 database/sql 的設計思想。
+ Go database/sql tutorial 裡提供了慣用的範例及詳細的說明。
+ links  目錄 上一節: NOSQL 資料庫操作 下一章: session 和資料儲存  </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/06.0/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/06.0/</guid>
+      <description> 6 session 和資料儲存 Web 開發中一個很重要的議題就是如何做好使用者的整個瀏覽過程的控制，因為 HTTP 協議是無狀態的，所以使用者的每一次請求都是無狀態的，我們不知道在整個 Web 操作過程中哪些連線與該使用者有關，我們應該如何來解決這個問題呢？Web 裡面經典的解決方案是 cookie 和 session，cookie 機制是一種客戶端機制，把使用者資料儲存在客戶端，而 session 機制是一種伺服器端的機制，伺服器使用一種類似於散列表的結構來儲存資訊，每一個網站訪客都會被分配給一個唯一的標誌符，即 sessionID，它的存放形式無非兩種 : 要麼經過 url 傳遞，要麼儲存在客戶端的 cookies 裡.當然，你也可以將 Session 儲存到資料庫裡，這樣會更安全，但效率方面會有所下降。
+6.1 小節裡面講介紹 session 機制和 cookie 機制的關係和區別，6.2 講解 Go 語言如何來實現 session，裡面講實現一個簡易的 session 管理器，6.3 小節講解如何防止 session 被劫持的情況，如何有效的保護 session。我們知道 session 其實可以儲存在任何地方，6.4 小節裡面實現的 session 是儲存在記憶體中的，但是如果我們的應用進一步擴充套件了，要實現應用的 session 共享，那麼我們可以把 session 儲存在資料庫中(memcache 或者 redis)，6.5 小節將詳細的講解如何實現這些功能。
+目錄 links  目錄 上一章: 第五章總結 下一節: session 和 cookie  </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/06.1/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/06.1/</guid>
+      <description>6.1 session 和 cookie session 和 cookie 是網站瀏覽中較為常見的兩個概念，也是比較難以辨析的兩個概念，但它們在瀏覽需要認證的服務頁面以及頁面統計中卻相當關鍵。我們先來了解一下 session 和 cookie 怎麼來的？考慮這樣一個問題：
+如何抓取一個訪問受限的網頁？如新浪微博好友的主頁，個人微博頁面等。
+顯然，透過瀏覽器，我們可以手動輸入使用者名稱和密碼來訪問頁面，而所謂的“抓取”，其實就是使用程式來模擬完成同樣的工作，因此我們需要了解“登入”過程中到底發生了什麼。
+當用戶來到微博登入頁面，輸入使用者名稱和密碼之後點選“登入”後瀏覽器將認證資訊 POST 給遠端的伺服器，伺服器執行驗證邏輯，如果驗證透過，則瀏覽器會跳轉到登入使用者的微博首頁，在登入成功後，伺服器如何驗證我們對其他受限制頁面的訪問呢？因為 HTTP 協議是無狀態的，所以很顯然伺服器不可能知道我們已經在上一次的 HTTP 請求中通過了驗證。當然，最簡單的解決方案就是所有的請求裡面都帶上使用者名稱和密碼，這樣雖然可行，但大大加重了伺服器的負擔（對於每個 request 都需要到資料庫驗證），也大大降低了使用者體驗(每個頁面都需要重新輸入使用者名稱密碼，每個頁面都帶有登入表單)。既然直接在請求中帶上使用者名稱與密碼不可行，那麼就只有在伺服器或客戶端儲存一些類似的可以代表身份的資訊了，所以就有了 cookie 與 session。
+cookie，簡而言之就是在本地計算機儲存一些使用者操作的歷史資訊（當然包括登入資訊），並在使用者再次訪問該站點時瀏覽器透過 HTTP 協議將本地 cookie 內容傳送給伺服器，從而完成驗證，或繼續上一步操作。
+圖 6.1 cookie 的原理圖
+session，簡而言之就是在伺服器上儲存使用者操作的歷史資訊。伺服器使用 session id 來標識 session，session id 由伺服器負責產生，保證隨機性與唯一性，相當於一個隨機金鑰，避免在握手或傳輸中暴露使用者真實密碼。但該方式下，仍然需要將傳送請求的客戶端與 session 進行對應，所以可以藉助 cookie 機制來取得客戶端的標識（即 session id），也可以透過 GET 方式將 id 提交給伺服器。
+圖 6.2 session 的原理圖
+cookie Cookie 是由瀏覽器維持的，儲存在客戶端的一小段文字資訊，伴隨著使用者請求和頁面在 Web 伺服器和瀏覽器之間傳遞。使用者每次訪問站點時，Web 應用程式都可以讀取 cookie 包含的資訊。瀏覽器設定裡面有 cookie 隱私資料選項，開啟它，可以看到很多已訪問網站的 cookies，如下圖所示：
+圖 6.3 瀏覽器端儲存的 cookie 資訊</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/06.2/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/06.2/</guid>
+      <description>6.2 Go 如何使用 session 透過上一小節的介紹，我們知道 session 是在伺服器端實現的一種使用者和伺服器之間認證的解決方案，目前 Go 標準套件沒有為 session 提供任何支援，這小節我們將會自己動手來實現 go 版本的 session 管理和建立。
+session 建立過程 session 的基本原理是由伺服器為每個會話維護一份資訊資料，客戶端和伺服器端依靠一個全域性唯一的標識來訪問這份資料，以達到互動的目的。當用戶訪問 Web 應用時，伺服器端程式會隨需要建立 session，這個過程可以概括為三個步驟：
+ 產生全域性唯一識別符號（sessionid）； 開闢資料儲存空間。一般會在記憶體中建立相應的資料結構，但這種情況下，系統一旦掉電，所有的會話資料就會丟失，如果是電子商務類別網站，這將造成嚴重的後果。所以為了解決這類別問題，你可以將會話資料寫到檔案裡或儲存在資料庫中，當然這樣會增加 I/O 開銷，但是它可以實現某種程度的 session 持久化，也更有利於 session 的共享； 將 session 的全域性唯一標示符傳送給客戶端。  以上三個步驟中，最關鍵的是如何傳送這個 session 的唯一標識這一步上。考慮到 HTTP 協議的定義，資料無非可以放到請求行、頭域或 Body 裡，所以一般來說會有兩種常用的方式：cookie 和 URL 重寫。
+ Cookie 伺服器端透過設定 Set-cookie 頭就可以將 session 的識別符號傳送到客戶端，而客戶端此後的每一次請求都會帶上這個識別符號，另外一般包含 session 資訊的 cookie 會將失效時間設定為 0(會話 cookie)，即瀏覽器程序有效時間。至於瀏覽器怎麼處理這個 0，每個瀏覽器都有自己的方案，但差別都不會太大(一般體現在建立瀏覽器視窗的時候)； URL 重寫 所謂 URL 重寫，就是在回傳給使用者的頁面裡的所有的 URL 後面追加 session 識別符號，這樣使用者在收到回應之後，無論點選回應頁面裡的哪個連結或提交表單，都會自動帶上 session 識別符號，從而就實現了會話的保持。雖然這種做法比較麻煩，但是，如果客戶端禁用了 cookie 的話，此種方案將會是首選。  Go 實現 session 管理 透過上面 session 建立過程的講解，讀者應該對 session 有了一個大體的認識，但是具體到動態頁面技術裡面，又是怎麼實現 session 的呢？下面我們將結合 session 的生命週期（lifecycle），來實現 go 語言版本的 session 管理。</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/06.3/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/06.3/</guid>
+      <description>6.3 session 儲存 上一節我們介紹了 Session 管理器的實現原理，定義了儲存 session 的介面，這小節我們將範例一個基於記憶體的 session 儲存介面的實現，其他的儲存方式，讀者可以自行參考範例來實現，記憶體的實現請看下面的例子程式碼
+package memory import ( &amp;#34;container/list&amp;#34; &amp;#34;github.com/astaxie/session&amp;#34; &amp;#34;sync&amp;#34; &amp;#34;time&amp;#34; ) var pder = &amp;amp;Provider{list: list.New()} type SessionStore struct { sid string //session id 唯一標示 	timeAccessed time.Time //最後訪問時間 	value map[interface{}]interface{} //session 裡面儲存的值 } func (st *SessionStore) Set(key, value interface{}) error { st.value[key] = value pder.SessionUpdate(st.sid) return nil } func (st *SessionStore) Get(key interface{}) interface{} { pder.SessionUpdate(st.sid) if v, ok := st.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/06.4/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/06.4/</guid>
+      <description>6.4 預防 session 劫持 session 劫持是一種廣泛存在的比較嚴重的安全威脅，在 session 技術中，客戶端和伺服器端透過 session 的識別符號來維護會話， 但這個識別符號很容易就能被嗅探到，從而被其他人利用。它是中間人攻擊的一種型別。
+本節將透過一個範例來示範會話劫持，希望透過這個範例，能讓讀者更好地理解 session 的本質。
+session 劫持過程 我們寫了如下的程式碼來展示一個 count 計數器：
+func count(w http.ResponseWriter, r *http.Request) { sess := globalSessions.SessionStart(w, r) ct := sess.Get(&amp;#34;countnum&amp;#34;) if ct == nil { sess.Set(&amp;#34;countnum&amp;#34;, 1) } else { sess.Set(&amp;#34;countnum&amp;#34;, (ct.(int) + 1)) } t, _ := template.ParseFiles(&amp;#34;count.gtpl&amp;#34;) w.Header().Set(&amp;#34;Content-Type&amp;#34;, &amp;#34;text/html&amp;#34;) t.Execute(w, sess.Get(&amp;#34;countnum&amp;#34;)) } count.gtpl 的程式碼如下所示：
+Hi. Now count:{{.}} 然後我們在瀏覽器裡面重新整理可以看到如下內容：
+圖 6.4 瀏覽器端顯示 count 數
+隨著重新整理，數字將不斷增長，當數字顯示為 6 的時候，開啟瀏覽器(以 chrome 為例）的 cookie 管理器，可以看到類似如下的資訊：</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/06.5/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/06.5/</guid>
+      <description> 6.5 小結 這章我們學習了什麼是 session，什麼是 cookie，以及他們兩者之間的關係。但是目前 Go 官方標準套件裡面不支援 session，所以我們設計了一個 session 管理器，實現了 session 從建立到刪除的整個過程。然後定義了 Provider 的介面，使得可以支援各種後端的 session 儲存，然後我們在第三小節裡面介紹了如何使用記憶體儲存來實現 session 的管理。第四小節我們講解了 session 劫持的過程，以及我們如何有效的來防止 session 劫持。透過這一章的講解，希望能夠讓讀者了解整個 sesison 的執行原理以及如何實現，而且是如何更加安全的使用 session。
+links  目錄 上一節: session 儲存 下一章: 文字處理  </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/07.0/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/07.0/</guid>
+      <description> 7 文字處理 Web 開發中對於文字處理是非常重要的一部分，我們往往需要對輸出或者輸入的內容進行處理，這裡的文字包括字串、數字、Json、XMl 等等。Go 語言作為一門高效能的語言，對這些文字的處理都有官方的標準函式庫來支援。而且在你使用中你會發現 Go 標準函式庫的一些設計相當的巧妙，而且對於使用者來說也很方便就能處理這些文字。本章我們將透過四個小節的介紹，讓使用者對 Go 語言處理文字有一個很好的認識。
+XML 是目前很多標準介面的互動語言，很多時候和一些 Java 編寫的 webserver 進行互動都是基於 XML 標準進行互動，7.1 小節將介紹如何處理 XML 文字，我們使用 XML 之後發現它太複雜了，現在很多網際網路企業對外的 API 大多數採用了 JSON 格式，這種格式描述簡單，但是又能很好的表達意思，7.2 小節我們將講述如何來處理這樣的 JSON 格式資料。正則是一個讓人又愛又恨的工具，它處理文字的能力非常強大，我們在前面表單驗證裡面已經有所領略它的強大，7.3 小節將詳細的更深入的講解如何利用好 Go 的正則。Web 開發中一個很重要的部分就是 MVC 分離，在 Go 語言的 Web 開發中 V 有一個專門的套件來支援template,7.4 小節將詳細的講解如何使用模版來進行輸出內容。7.5 小節將詳細介紹如何進行檔案和資料夾的操作。7.6 小結介紹了字串的相關操作。
+目錄 links  目錄 上一章: 第六章總結 下一節: XML 處理  </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/07.1/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/07.1/</guid>
+      <description>7.1 XML 處理 XML 作為一種資料交換和資訊傳遞的格式已經十分普及。而隨著 Web 服務日益廣泛的應用，現在 XML 在日常的開發工作中也扮演了愈發重要的角色。這一小節， 我們將就 Go 語言標準套件中的 XML 相關處理的套件進行介紹。
+這個小節不會涉及 XML 規範相關的內容（如需了解相關知識請參考其他文獻），而是介紹如何用 Go 語言來編解碼 XML 檔案相關的知識。
+假如你是一名運維人員，你為你所管理的所有伺服器生成了如下內容的 xml 的配置檔案：
+&amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;utf-8&amp;#34;?&amp;gt; &amp;lt;servers version=&amp;#34;1&amp;#34;&amp;gt; &amp;lt;server&amp;gt; &amp;lt;serverName&amp;gt;Shanghai_VPN&amp;lt;/serverName&amp;gt; &amp;lt;serverIP&amp;gt;127.0.0.1&amp;lt;/serverIP&amp;gt; &amp;lt;/server&amp;gt; &amp;lt;server&amp;gt; &amp;lt;serverName&amp;gt;Beijing_VPN&amp;lt;/serverName&amp;gt; &amp;lt;serverIP&amp;gt;127.0.0.2&amp;lt;/serverIP&amp;gt; &amp;lt;/server&amp;gt; &amp;lt;/servers&amp;gt; 上面的 XML 文件描述了兩個伺服器的資訊，包含了伺服器名和伺服器的 IP 資訊，接下來的 Go 例子以此 XML 描述的資訊進行操作。
+解析 XML 如何解析如上這個 XML 檔案呢？ 我們可以透過 xml 套件的 Unmarshal 函式來達到我們的目的
+func Unmarshal(data []byte, v interface{}) error data 接收的是 XML 資料流，v 是需要輸出的結構，定義為 interface，也就是可以把 XML 轉換為任意的格式。我們這裡主要介紹 struct 的轉換，因為 struct 和 XML 都有類似樹結構的特徵。</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/07.2/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/07.2/</guid>
+      <description>7.2 JSON 處理 JSON（Javascript Object Notation）是一種輕量級的資料交換語言，以文字為基礎，具有自我描述性且易於讓人閱讀。儘管 JSON 是 Javascript 的一個子集，但 JSON 是獨立於語言的文字格式，並且採用了類似於 C 語言家族的一些習慣。JSON 與 XML 最大的不同在於 XML 是一個完整的標記語言，而 JSON 不是。JSON 由於比 XML 更小、更快，更易解析，以及瀏覽器的內建快速解析支援，使得其更適用於網路資料傳輸領域。目前我們看到很多的開放平臺，基本上都是採用了 JSON 作為他們的資料互動的介面。既然 JSON 在 Web 開發中如此重要，那麼 Go 語言對 JSON 支援的怎麼樣呢？Go 語言的標準函式庫已經非常好的支援了 JSON，可以很容易的對 JSON 資料進行編、解碼的工作。
+前一小節的運維的例子用 json 來表示，結果描述如下：
+{&amp;#34;servers&amp;#34;:[{&amp;#34;serverName&amp;#34;:&amp;#34;Shanghai_VPN&amp;#34;,&amp;#34;serverIP&amp;#34;:&amp;#34;127.0.0.1&amp;#34;},{&amp;#34;serverName&amp;#34;:&amp;#34;Beijing_VPN&amp;#34;,&amp;#34;serverIP&amp;#34;:&amp;#34;127.0.0.2&amp;#34;}]} 本小節餘下的內容將以此 JSON 資料為基礎，來介紹 go 語言的 json 套件對 JSON 資料的編、解碼。
+解析 JSON 解析到結構體 假如有了上面的 JSON 串，那麼我們如何來解析這個 JSON 串呢？Go 的 JSON 套件中有如下函式
+func Unmarshal(data []byte, v interface{}) error 透過這個函式我們就可以實現解析的目的，詳細的解析例子請看如下程式碼：</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/07.3/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/07.3/</guid>
+      <description>7.3 正則處理 正則表示式是一種進行模式匹配和文字操縱的複雜而又強大的工具。雖然正則表示式比純粹的文字匹配效率低，但是它卻更靈活。按照它的語法規則，隨需構造出的匹配模式就能夠從原始文字中篩選出幾乎任何你想要得到的字元組合。如果你在 Web 開發中需要從一些文字資料來源中取得資料，那麼你只需要按照它的語法規則，隨需構造出正確的模式字串就能夠從原資料來源提取出有意義的文字資訊。
+Go 語言透過 regexp 標準套件為正則表示式提供了官方支援，如果你已經使用過其他程式語言提供的正則相關功能，那麼你應該對 Go 語言版本的不會太陌生，但是它們之間也有一些小的差異，因為 Go 實現的是 RE2 標準，除了\C，詳細的語法描述參考：http://code.google.com/p/re2/wiki/Syntax
+其實字串處理我們可以使用 strings 套件來進行搜尋(Contains、Index)、替換(Replace)和解析(Split、Join)等操作，但是這些都是簡單的字串操作，他們的搜尋都是區分大小寫的，而且固定的字串，如果我們需要匹配可變的那種就沒辦法實現了，當然如果 strings 套件能解決你的問題，那麼就儘量使用它來解決。因為他們足夠簡單、而且效能和可讀性都會比正則好。
+如果你還記得，在前面表單驗證的小節裡，我們已經接觸過正則處理，在那裡我們利用了它來驗證輸入的資訊是否滿足某些預設的條件。在使用中需要注意的一點就是：所有的字元都是 UTF-8 編碼的。接下來讓我們更加深入的來學習 Go 語言的 regexp 套件相關知識吧。
+透過正則判斷是否匹配 regexp套件中含有三個函式用來判斷是否匹配，如果匹配回傳 true，否則回傳 false
+func Match(pattern string, b []byte) (matched bool, error error) func MatchReader(pattern string, r io.RuneReader) (matched bool, error error) func MatchString(pattern string, s string) (matched bool, error error) 上面的三個函式實現了同一個功能，就是判斷 pattern 是否和輸入源匹配，匹配的話就回傳 true，如果解析正則出錯則回傳 error。三個函式的輸入源分別是 byte slice、RuneReader 和 string。
+如果要驗證一個輸入是不是 IP 地址，那麼如何來判斷呢？請看如下實現</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/07.4/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/07.4/</guid>
+      <description>7.4 範本處理 什麼是範本 你一定聽說過一種叫做 MVC 的設計模式，Model 處理資料，View 展現結果，Controller 控制使用者的請求，至於 View 層的處理，在很多動態語言裡面都是透過在靜態 HTML 中插入動態語言產生的資料，例如 JSP 中透過插入&amp;lt;%=....=%&amp;gt;，PHP 中透過插入&amp;lt;?php.....?&amp;gt;來實現的。
+透過下面這個圖可以說明範本的機制
+圖 7.1 範本機制圖
+Web 應用反饋給客戶端的資訊中的大部分內容是靜態的，不變的，而另外少部分是根據使用者的請求來動態產生的，例如要顯示使用者的訪問記錄列表。使用者之間只有記錄資料是不同的，而列表的樣式則是固定的，此時採用範本可以複用很多靜態程式碼。
+Go 範本使用 在 Go 語言中，我們使用 template 套件來進行範本處理，使用類似Parse、ParseFile、Execute等方法從檔案或者字串載入範本，然後執行類似上面圖片展示的範本的 merge 操作。請看下面的例子：
+func handler(w http.ResponseWriter, r *http.Request) { t := template.New(&amp;#34;some template&amp;#34;) //建立一個範本 	t, _ = t.ParseFiles(&amp;#34;tmpl/welcome.html&amp;#34;) //解析範本檔案 	user := GetUser() //取得當前使用者資訊 	t.Execute(w, user) //執行範本的 merger 操作 } 透過上面的例子我們可以看到 Go 語言的範本操作非常的簡單方便，和其他語言的範本處理類似，都是先取得資料，然後渲染資料。
+為了示範和測試程式碼的方便，我們在接下來的例子中採用如下格式的程式碼
+ 使用 Parse 代替 ParseFiles，因為 Parse 可以直接測試一個字串，而不需要額外的檔案 不使用 handler 來寫示範程式碼，而是每個測試一個 main，方便測試 使用os.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/07.5/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/07.5/</guid>
+      <description>7.5 檔案操作 在任何計算機裝置中，檔案是都是必須的物件，而在 Web 程式設計中，檔案的操作一直是 Web 程式設計師經常遇到的問題，檔案操作在 Web 應用中是必須的，非常有用的，我們經常遇到產生檔案目錄，檔案(夾)編輯等操作，現在我把 Go 中的這些操作做一詳細總結並範例示範如何使用。
+目錄操作 檔案操作的大多數函式都是在 os 套件裡面，下面列舉了幾個目錄操作的：
+ func Mkdir(name string, perm FileMode) error
+建立名稱為 name 的目錄，許可權設定是 perm，例如 0777
+ func MkdirAll(path string, perm FileMode) error
+根據 path 建立多階層子目錄，例如 astaxie/test1/test2。
+ func Remove(name string) error
+刪除名稱為 name 的目錄，當目錄下有檔案或者其他目錄時會出錯
+ func RemoveAll(path string) error
+根據 path 刪除多階層子目錄，如果 path 是單個名稱，那麼該目錄下的子目錄全部刪除。
+  下面是示範程式碼：
+package main import ( &amp;#34;fmt&amp;#34; &amp;#34;os&amp;#34; ) func main() { os.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/07.6/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/07.6/</guid>
+      <description>7.6 字串處理 字串在我們平常的 Web 開發中經常用到，包括使用者的輸入，資料庫讀取的資料等，我們經常需要對字串進行分割、連線、轉換等操作，本小節將透過 Go 標準函式庫中的 strings 和 strconv 兩個套件中的函式來講解如何進行有效快速的操作。
+字串操作 下面這些函式來自於 strings 套件，這裡介紹一些我平常經常用到的函式，更詳細的請參考官方的文件。
+ func Contains(s, substr string) bool
+字串 s 中是否包含 substr，回傳 bool 值
+fmt.Println(strings.Contains(&amp;#34;seafood&amp;#34;, &amp;#34;foo&amp;#34;)) fmt.Println(strings.Contains(&amp;#34;seafood&amp;#34;, &amp;#34;bar&amp;#34;)) fmt.Println(strings.Contains(&amp;#34;seafood&amp;#34;, &amp;#34;&amp;#34;)) fmt.Println(strings.Contains(&amp;#34;&amp;#34;, &amp;#34;&amp;#34;)) //Output: //true //false //true //true func Join(a []string, sep string) string
+字串連結，把 slice a 透過 sep 連結起來
+s := []string{&amp;#34;foo&amp;#34;, &amp;#34;bar&amp;#34;, &amp;#34;baz&amp;#34;} fmt.Println(strings.Join(s, &amp;#34;, &amp;#34;)) //Output:foo, bar, baz func Index(s, sep string) int
+在字串 s 中查詢 sep 所在的位置，回傳位置值，找不到回傳-1</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/07.7/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/07.7/</guid>
+      <description> 7.7 小結 這一章給大家介紹了一些文字處理的工具，包括 XML、JSON、正則和範本技術，XML 和 JSON 是資料互動的工具，透過 XML 和 JSON 你可以表達各種含義，透過正則你可以處理文字(搜尋、替換、擷取)，透過範本技術你可以展現這些資料給使用者。這些都是你開發 Web 應用過程中需要用到的技術，透過這個小節的介紹你能夠了解如何處理文字、展現文字。
+links  目錄 上一節: 字串處理 下一節: Web 服務  </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/08.0/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/08.0/</guid>
+      <description>8 Web 服務 Web 服務可以讓你在 HTTP 協議的基礎上透過 XML 或者 JSON 來交換資訊。如果你想知道上海的天氣預報、中國石油的股價或者淘寶商家的一個商品資訊，你可以編寫一段簡短的程式碼，透過抓取這些資訊然後透過標準的介面開放出來，就如同你呼叫一個本地函式並回傳一個值。
+Web 服務背後的關鍵在於平臺的無關性，你可以執行你的服務在 Linux 系統，可以與其他 Windows 的 asp.net 程式互動，同樣的，也可以透過同一個介面和執行在 FreeBSD 上面的 JSP 無障礙地通訊。
+目前主流的有如下幾種 Web 服務：REST、SOAP。
+REST 請求是很直觀的，因為 REST 是基於 HTTP 協議的一個補充，他的每一次請求都是一個 HTTP 請求，然後根據不同的 method 來處理不同的邏輯，很多 Web 開發者都熟悉 HTTP 協議，所以學習 REST 是一件比較容易的事情。所以我們在 8.3 小節將詳細的講解如何在 Go 語言中來實現 REST 方式。
+SOAP 是 W3C 在跨網路資訊傳遞和遠端計算機函式呼叫方面的一個標準。但是 SOAP 非常複雜，其完整的規範篇幅很長，而且內容仍然在增加。Go 語言是以簡單著稱，所以我們不會介紹 SOAP 這樣複雜的東西。而 Go 語言提供了一種天生效能很不錯，開發起來很方便的 RPC 機制，我們將會在 8.4 小節詳細介紹如何使用 Go 語言來實現 RPC。
+Go 語言是 21 世紀的 C 語言，我們追求的是效能、簡單，所以我們在 8.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/08.1/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/08.1/</guid>
+      <description>8.1 Socket 程式設計 在很多底層網路應用開發者的眼裡一切程式設計都是 Socket，話雖然有點誇張，但卻也幾乎如此了，現在的網路程式設計幾乎都是用 Socket 來程式設計。你想過這些情景麼？我們每天開啟瀏覽器瀏覽網頁時，瀏覽器程序怎麼和 Web 伺服器進行通訊的呢？當你用 QQ 聊天時，QQ 程序怎麼和伺服器或者是你的好友所在的 QQ 程序進行通訊的呢？當你開啟 PPstream 觀看視訊時，PPstream 程序如何與視訊伺服器進行通訊的呢？ 如此種種，都是靠 Socket 來進行通訊的，以一斑窺全豹，可見 Socket 程式設計在現代程式設計中佔據了多麼重要的地位，這一節我們將介紹 Go 語言中如何進行 Socket 程式設計。
+什麼是 Socket？ Socket 起源於 Unix，而 Unix 基本哲學之一就是“一切皆檔案”，都可以用“開啟 open –&amp;gt; 讀寫 write/read –&amp;gt; 關閉 close”模式來操作。Socket 就是該模式的一個實現，網路的 Socket 資料傳輸是一種特殊的 I/O，Socket 也是一種檔案描述符。Socket 也具有一個類似於開啟檔案的函式呼叫：Socket()，該函式回傳一個整型的 Socket 描述符，隨後的連線建立、資料傳輸等操作都是透過該 Socket 實現的。
+常用的 Socket 型別有兩種：串流式的 Socket（SOCK_STREAM）和資料報式的 Socket（SOCK_DGRAM）。串流式是一種連線導向的 Socket，針對於連線導向的 TCP 服務應用；資料報式 Socket 是一種無連線的 Socket，對應於無連線的 UDP 服務應用。
+Socket 如何通訊 網路中的程序之間如何透過 Socket 通訊呢？首要解決的問題是如何唯一標識一個程序，否則通訊無從談起！在本地可以透過程序 PID 來唯一標識一個程序，但是在網路中這是行不通的。其實 TCP/IP 協議族已經幫我們解決了這個問題，網路層的“ip 地址”可以唯一標識網路中的主機，而傳輸層的“協議+埠”可以唯一標識主機中的應用程式（程序）。這樣利用三元組（ip 地址，協議，埠）就可以標識網路的程序了，網路中需要互相通訊的程序，就可以利用這個標誌在他們之間進行互動。請看下面這個 TCP/IP 協議結構圖</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/08.2/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/08.2/</guid>
+      <description>8.2 WebSocket WebSocket 是 HTML5 的重要特性，它實現了基於瀏覽器的遠端 socket，它使瀏覽器和伺服器可以進行全雙工通訊，許多瀏覽器（Firefox、Google Chrome 和 Safari）都已對此做了支援。
+在 WebSocket 出現之前，為了實現即時通訊，採用的技術都是“輪詢”，即在特定的時間間隔內，由瀏覽器對伺服器發出 HTTP Request，伺服器在收到請求後，回傳最新的資料給瀏覽器重新整理，“輪詢”使得瀏覽器需要對伺服器不斷髮出請求，這樣會佔用大量頻寬。
+WebSocket 採用了一些特殊的報頭，使得瀏覽器和伺服器只需要做一個握手的動作，就可以在瀏覽器和伺服器之間建立一條連線通道。且此連線會保持在活動狀態，你可以使用 JavaScript 來向連線寫入或從中接收資料，就像在使用一個常規的 TCP Socket 一樣。它解決了 Web 即時化的問題，相比傳統 HTTP 有如下好處：
+ 一個 Web 客戶端只建立一個 TCP 連線 Websocket 伺服器端可以推送(push)資料到 web 客戶端. 有更加輕量級的頭，減少資料傳送量  WebSocket URL 的起始輸入是 ws://或是 wss://（在 SSL 上）。下圖展示了 WebSocket 的通訊過程，一個帶有特定報頭的 HTTP 握手被髮送到了伺服器端，接著在伺服器端或是客戶端就可以透過 JavaScript 來使用某種套介面（socket），這一套介面可被用來透過事件控制代碼非同步地接收資料。
+圖 8.2 WebSocket 原理圖
+WebSocket 原理 WebSocket 的協議頗為簡單，在第一次 handshake 透過以後，連線便建立成功，其後的通訊資料都是以”\x00″開頭，以”\xFF”結尾。在客戶端，這個是透明的，WebSocket 元件會自動將原始資料“掐頭去尾”。
+瀏覽器發出 WebSocket 連線請求，然後伺服器發出迴應，然後連線建立成功，這個過程通常稱為“握手” (handshaking)。請看下面的請求和反饋資訊：
+圖 8.3 WebSocket 的 request 和 response 資訊</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/08.3/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/08.3/</guid>
+      <description>8.3 REST RESTful，是目前最為流行的一種網際網路軟體架構。因為它結構清晰、符合標準、易於理解、擴充套件方便，所以正得到越來越多網站的採用。本小節我們將來學習它到底是一種什麼樣的架構？以及在 Go 裡面如何來實現它。
+什麼是 REST REST(REpresentational State Transfer)這個概念，首次出現是在 2000 年 Roy Thomas Fielding（他是 HTTP 規範的主要編寫者之一）的博士論文中，它指的是一組架構約束條件和原則。滿足這些約束條件和原則的應用程式或設計就是 RESTful 的。
+要理解什麼是 REST，我們需要理解下面幾個概念:
+ 資源（Resources） REST 是&amp;rdquo;表現層狀態轉化&amp;rdquo;，其實它省略了主語。&amp;rdquo;表現層&amp;rdquo;其實指的是&amp;rdquo;資源&amp;rdquo;的&amp;rdquo;表現層&amp;rdquo;。  那麼什麼是資源呢？就是我們平常上網訪問的一張圖片、一個文件、一個視訊等。這些資源我們透過 URI 來定位，也就是一個 URI 表示一個資源。
+ 表現層（Representation）  資源是做一個具體的實體資訊，他可以有多種的展現方式。而把實體展現出來就是表現層，例如一個 txt 文字資訊，他可以輸出成 html、json、xml 等格式，一個圖片他可以 jpg、png 等方式展現，這個就是表現層的意思。
+URI 確定一個資源，但是如何確定它的具體表現形式呢？應該在 HTTP 請求的頭資訊中用 Accept 和 Content-Type 欄位指定，這兩個欄位才是對&amp;rdquo;表現層&amp;rdquo;的描述。
+ 狀態轉化（State Transfer）  訪問一個網站，就代表了客戶端和伺服器的一個互動過程。在這個過程中，肯定涉及到資料和狀態的變化。而 HTTP 協議是無狀態的，那麼這些狀態肯定儲存在伺服器端，所以如果客戶端想要通知伺服器端改變資料和狀態的變化，肯定要透過某種方式來通知它。
+客戶端能通知伺服器端的手段，只能是 HTTP 協議。具體來說，就是 HTTP 協議裡面，四個表示操作方式的動詞：GET、POST、PUT、DELETE。它們分別對應四種基本操作：GET 用來取得資源，POST 用來建立資源（也可以用於更新資源），PUT 用來更新資源，DELETE 用來刪除資源。
+綜合上面的解釋，我們總結一下什麼是 RESTful 架構：
+ （1）每一個 URI 代表一種資源； （2）客戶端和伺服器之間，傳遞這種資源的某種表現層； （3）客戶端透過四個 HTTP 動詞，對伺服器端資源進行操作，實現&amp;rdquo;表現層狀態轉化&amp;rdquo;。  Web 應用要滿足 REST 最重要的原則是 : 客戶端和伺服器之間的互動在請求之間是無狀態的，即從客戶端到伺服器的每個請求都必須包含理解請求所必需的資訊。如果伺服器在請求之間的任何時間點重啟，客戶端不會得到通知。此外此請求可以由任何可用伺服器回答，這十分適合雲端計算之類別的環境。因為是無狀態的，所以客戶端可以快取資料以改進效能。</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/08.4/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/08.4/</guid>
+      <description>8.4 RPC 前面幾個小節我們介紹了如何基於 Socket 和 HTTP 來編寫網路應用，透過學習我們了解了 Socket 和 HTTP 採用的是類似&amp;rdquo;資訊交換&amp;rdquo;模式，即客戶端傳送一條資訊到伺服器端，然後(一般來說)伺服器端都會回傳一定的資訊以表示回應。客戶端和伺服器端之間約定了互動資訊的格式，以便雙方都能夠解析互動所產生的資訊。但是很多獨立的應用並沒有採用這種模式，而是採用類似常規的函式呼叫的方式來完成想要的功能。
+RPC 就是想實現函式呼叫模式的網路化。客戶端就像呼叫本地函式一樣，然後客戶端把這些參數打套件之後透過網路傳遞到伺服器端，伺服器端解套件到處理過程中執行，然後執行的結果反饋給客戶端。
+RPC（Remote Procedure Call Protocol）——遠端過程呼叫協議，是一種透過網路從遠端計算機程式上請求服務，而不需要了解底層網路技術的協議。它假定某些傳輸協議的存在，如 TCP 或 UDP，以便為通訊程式之間攜帶資訊資料。透過它可以使函式呼叫模式網路化。在 OSI 網路通訊模型中，RPC 跨越了傳輸層和應用層。RPC 使得開發包括網路分散式多程式在內的應用程式更加容易。
+RPC 工作原理 圖 8.8 RPC 工作流程圖
+執行時，一次客戶端對伺服器的 RPC 呼叫，其內部操作大致有如下十步：
+ 1.呼叫客戶端控制代碼；執行傳送參數 2.呼叫本地系統核心傳送網路訊息 3.訊息傳送到遠端主機 4.伺服器控制代碼得到訊息並取得參數 5.執行遠端過程 6.執行的過程將結果回傳伺服器控制代碼 7.伺服器控制代碼回傳結果，呼叫遠端系統核心 8.訊息傳回本地主機 9.客戶控制代碼由核心接收訊息 10.客戶接收控制代碼回傳的資料  Go RPC Go 標準套件中已經提供了對 RPC 的支援，而且支援三個級別的 RPC：TCP、HTTP、JSONRPC。但 Go 的 RPC 套件是獨一無二的 RPC，它和傳統的 RPC 系統不同，它只支援 Go 開發的伺服器與客戶端之間的互動，因為在內部，它們採用了 Gob 來編碼。
+Go RPC 的函式只有符合下面的條件才能被遠端訪問，不然會被忽略，詳細的要求如下：
+ 函式必須是匯出的(首字母大寫) 必須有兩個匯出型別的參數， 第一個參數是接收的參數，第二個參數是回傳給客戶端的參數，第二個參數必須是指標型別的 函式還要有一個回傳值 error  舉個例子，正確的 RPC 函式格式如下：</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/08.5/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/08.5/</guid>
+      <description> 8.5 小結 這一章我們介紹了目前流行的幾種主要的網路應用開發方式，第一小節介紹了網路程式設計中的基礎 :Socket 程式設計，因為現在網路正在朝雲的方向快速進化，作為這一技術演進的基石的的 socket 知識，作為開發者的你，是必須要掌握的。第二小節介紹了正愈發流行的 HTML5 中一個重要的特性 WebSocket，透過它，伺服器可以實現主動的 push 訊息，以簡化以前 ajax 輪詢的模式。第三小節介紹了 REST 編寫模式，這種模式特別適合來開發網路應用 API，目前移動應用的快速發展，我覺得將來會是一個潮流。第四小節介紹了 Go 實現的 RPC 相關知識，對於上面四種開發方式，Go 都已經提供了良好的支援，net 套件及其子套件，是所有涉及到網路程式設計的工具的所在地。如果你想更加深入的了解相關實現細節，可以嘗試閱讀這個套件下面的原始碼。
+links  目錄 上一節: RPC 下一章: 安全與加密  </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/09.0/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/09.0/</guid>
+      <description> 9 安全與加密 無論是開發 Web 應用的開發者還是企圖利用 Web 應用漏洞的攻擊者，對於 Web 程式安全這個話題都給予了越來越多的關注。特別是最近 CSDN 密碼洩露事件，更是讓我們對 Web 安全這個話題更加重視，所有人都談密碼色變，都開始檢測自己的系統是否存在漏洞。那麼我們作為一名 Go 程式的開發者，一定也需要知道我們的應用程式隨時會成為眾多攻擊者的目標，並提前做好防範的準備。
+很多 Web 應用程式中的安全問題都是由於輕信了第三方提供的資料造成的。比如對於使用者的輸入資料，在對其進行驗證之前都應該將其視為不安全的資料。如果直接把這些不安全的資料輸出到客戶端，就可能造成跨站指令碼攻擊(XSS)的問題。如果把不安全的資料用於資料庫查詢，那麼就可能造成 SQL 注入問題，我們將會在 9.3、9.4 小節介紹如何避免這些問題。
+在使用第三方提供的資料，包括使用者提供的資料時，首先檢驗這些資料的合法性非常重要，這個過程叫做過濾，我們將在 9.2 小節介紹如何保證對所有輸入的資料進行過濾處理。
+過濾輸入和轉義輸出並不能解決所有的安全問題，我們將會在 9.1 講解的 CSRF 攻擊，會導致受騙者傳送攻擊者指定的請求從而造成一些破壞。
+與安全加密相關的，能夠增強我們的 Web 應用程式的強大手段就是加密，CSDN 洩密事件就是因為密碼儲存的是明文，使得攻擊拿手函式庫之後就可以直接實施一些破壞行為了。不過，和其他工具一樣，加密手段也必須運用得當。我們將在 9.5 小節介紹如何儲存密碼，如何讓密碼儲存的安全。
+加密的本質就是擾亂資料，某些不可還原的資料擾亂我們稱為單向加密或者雜湊演算法。另外還有一種雙向加密方式，也就是可以對加密後的資料進行解密。我們將會在 9.6 小節介紹如何實現這種雙向加密方式。
+目錄 links  目錄 上一章: 第八章總結 下一節: 預防 CSRF 攻擊  </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/09.1/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/09.1/</guid>
+      <description>9.1 預防 CSRF 攻擊 什麼是 CSRF CSRF（Cross-site request forgery），中文名稱：跨站請求偽造，也被稱為：one click attack/session riding，縮寫為：CSRF/XSRF。
+那麼 CSRF 到底能夠幹嘛呢？你可以這樣簡單的理解：攻擊者可以盜用你的登陸資訊，以你的身份模擬傳送各種請求。攻擊者只要藉助少許的社會工程學的詭計，例如透過 QQ 等聊天軟體傳送的連結(有些還偽裝成短域名，使用者無法分辨)，攻擊者就能迫使 Web 應用的使用者去執行攻擊者預設的操作。例如，當用戶登入網路銀行去檢視其存款餘額，在他沒有退出時，就點選了一個 QQ 好友發來的連結，那麼該使用者銀行帳戶中的資金就有可能被轉移到攻擊者指定的帳戶中。
+所以遇到 CSRF 攻擊時，將對終端使用者的資料和操作指令構成嚴重的威脅；當受攻擊的終端使用者具有管理員帳戶的時候，CSRF 攻擊將危及整個 Web 應用程式。
+CSRF 的原理 下圖簡單闡述了 CSRF 攻擊的思想
+圖 9.1 CSRF 的攻擊過程
+從上圖可以看出，要完成一次 CSRF 攻擊，受害者必須依次完成兩個步驟 ：
+ 1.登入受信任網站 A，並在本地產生 Cookie 。 2.在不退出 A 的情況下，訪問危險網站 B。  看到這裡，讀者也許會問：“如果我不滿足以上兩個條件中的任意一個，就不會受到 CSRF 的攻擊”。是的，確實如此，但你不能保證以下情況不會發生：
+ 你不能保證你登入了一個網站後，不再開啟一個 tab 頁面並訪問另外的網站，特別現在瀏覽器都是支援多 tab 的。 你不能保證你關閉瀏覽器了後，你本地的 Cookie 立刻過期，你上次的會話已經結束。 上圖中所謂的攻擊網站，可能是一個存在其他漏洞的可信任的經常被人訪問的網站。  因此對於使用者來說很難避免在登陸一個網站之後不點選一些連結進行其他操作，所以隨時可能成為 CSRF 的受害者。
+CSRF 攻擊主要是因為 Web 的隱式身份驗證機制，Web 的身份驗證機制雖然可以保證一個請求是來自於某個使用者的瀏覽器，但卻無法保證該請求是使用者批准傳送的。</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/09.2/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/09.2/</guid>
+      <description>9.2 確保輸入過濾 過濾使用者資料是 Web 應用安全的基礎。它是驗證資料合法性的過程。透過對所有的輸入資料進行過濾，可以避免惡意資料在程式中被誤信或誤用。大多數 Web 應用的漏洞都是因為沒有對使用者輸入的資料進行恰當過濾所引起的。
+我們介紹的過濾資料分成三個步驟：
+ 1、識別資料，搞清楚需要過濾的資料來自於哪裡 2、過濾資料，弄明白我們需要什麼樣的資料 3、區分已過濾及被汙染資料，如果存在攻擊資料那麼保證過濾之後可以讓我們使用更安全的資料  識別資料 “識別資料”作為第一步是因為在你不知道“資料是什麼，它來自於哪裡”的前提下，你也就不能正確地過濾它。這裡的資料是指所有源自非程式碼內部提供的資料。例如 : 所有來自客戶端的資料，但客戶端並不是唯一的外部資料來源，資料庫和第三方提供的介面資料等也可以是外部資料來源。
+由使用者輸入的資料我們透過 Go 非常容易識別，Go 透過r.ParseForm之後，把使用者 POST 和 GET 的資料全部放在了r.Form裡面。其它的輸入要難識別得多，例如，r.Header中的很多元素是由客戶端所操縱的。常常很難確認其中的哪些元素組成了輸入，所以，最好的方法是把裡面所有的資料都看成是使用者輸入。(例如r.Header.Get(&amp;quot;Accept-Charset&amp;quot;)這樣的也看做是使用者輸入，雖然這些大多數是瀏覽器操縱的)
+過濾資料 在知道資料來源之後，就可以過濾它了。過濾是一個有點正式的術語，它在平時表述中有很多同義詞，如驗證、清潔及淨化。儘管這些術語表面意義不同，但它們都是指的同一個處理：防止非法資料進入你的應用。
+過濾資料有很多種方法，其中有一些安全性較差。最好的方法是把過濾看成是一個檢查的過程，在你使用資料之前都檢查一下看它們是否是符合合法資料的要求。而且不要試圖好心地去糾正非法資料，而要讓使用者按你制定的規則去輸入資料。歷史證明了試圖糾正非法資料往往會導致安全漏洞。這裡舉個例子：“最近建設銀行系統升級之後，如果密碼後面兩位是 0，只要輸入前面四位就能登入系統”，這是一個非常嚴重的漏洞。
+過濾資料主要採用如下一些函式庫來操作：
+ strconv 套件下面的字串轉化相關函式，因為從 Request 中的r.Form回傳的是字串，而有些時候我們需要將之轉化成整/浮點數，Atoi、ParseBool、ParseFloat、ParseInt等函式就可以派上用場了。 string 套件下面的一些過濾函式Trim、ToLower、ToTitle等函式，能夠幫助我們按照指定的格式取得資訊。 regexp 套件用來處理一些複雜的需求，例如判定輸入是否是 Email、生日之類別。  過濾資料除了檢查驗證之外，在特殊時候，還可以採用白名單。即假定你正在檢查的資料都是非法的，除非能證明它是合法的。使用這個方法，如果出現錯誤，只會導致把合法的資料當成是非法的，而不會是相反，儘管我們不想犯任何錯誤，但這樣總比把非法資料當成合法資料要安全得多。
+區分過濾資料 如果完成了上面的兩步，資料過濾的工作就基本完成了，但是在編寫 Web 應用的時候我們還需要區分已過濾和被汙染資料，因為這樣可以保證過濾資料的完整性，而不影響輸入的資料。我們約定把所有經過過濾的資料放入一個叫全域性的 Map 變數中(CleanMap)。這時需要用兩個重要的步驟來防止被汙染資料的注入： - 每個請求都要初始化 CleanMap 為一個空 Map。 - 加入檢查及阻止來自外部資料來源的變數命名為 CleanMap。
+接下來，讓我們透過一個例子來鞏固這些概念，請看下面這個表單
+&amp;lt;form action=&amp;#34;/whoami&amp;#34; method=&amp;#34;POST&amp;#34;&amp;gt; 我是誰: &amp;lt;select name=&amp;#34;name&amp;#34;&amp;gt; &amp;lt;option value=&amp;#34;astaxie&amp;#34;&amp;gt;astaxie&amp;lt;/option&amp;gt; &amp;lt;option value=&amp;#34;herry&amp;#34;&amp;gt;herry&amp;lt;/option&amp;gt; &amp;lt;option value=&amp;#34;marry&amp;#34;&amp;gt;marry&amp;lt;/option&amp;gt; &amp;lt;/select&amp;gt; &amp;lt;input type=&amp;#34;submit&amp;#34; /&amp;gt; &amp;lt;/form&amp;gt; 在處理這個表單的程式設計邏輯中，非常容易犯的錯誤是認為只能提交三個選擇中的一個。其實攻擊者可以模擬 POST 操作，提交 name=attack 這樣的資料，所以在此時我們需要做類似白名單的處理</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/09.3/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/09.3/</guid>
+      <description>9.3 避免 XSS 攻擊 隨著網際網路技術的發展，現在的 Web 應用都含有大量的動態內容以提高使用者體驗。所謂動態內容，就是應用程式能夠根據使用者環境和使用者請求，輸出相應的內容。動態站點會受到一種名為“跨站指令碼攻擊”（Cross Site Scripting, 安全專家們通常將其縮寫成 XSS）的威脅，而靜態站點則完全不受其影響。
+什麼是 XSS XSS 攻擊：跨站指令碼攻擊(Cross-Site Scripting)，為了不和層疊樣式表(Cascading Style Sheets, CSS)的縮寫混淆，故將跨站指令碼攻擊縮寫為 XSS。XSS 是一種常見的 web 安全漏洞，它允許攻擊者將惡意程式碼植入到提供給其它使用者使用的頁面中。不同於大多數攻擊(一般只涉及攻擊者和受害者)，XSS 涉及到三方，即攻擊者、客戶端與 Web 應用。XSS 的攻擊目標是為了盜取儲存在客戶端的 cookie 或者其他網站用於識別客戶端身份的敏感資訊。一旦取得到合法使用者的資訊後，攻擊者甚至可以假冒合法使用者與網站進行互動。
+XSS 通常可以分為兩大類別：一類別是儲存型 XSS，主要出現在讓使用者輸入資料，供其他瀏覽此頁的使用者進行檢視的地方，包括留言、評論、部落格日誌和各類別表單等。應用程式從資料庫中查詢資料，在頁面中顯示出來，攻擊者在相關頁面輸入惡意的指令碼資料後，使用者瀏覽此類別頁面時就可能受到攻擊。這個流程簡單可以描述為 : 惡意使用者的 Html 輸入 Web 程式-&amp;gt;進入資料庫-&amp;gt;Web 程式-&amp;gt;使用者瀏覽器。另一類別是反射型 XSS，主要做法是將指令碼程式碼加入 URL 地址的請求參數裡，請求參數進入程式後在頁面直接輸出，使用者點選類似的惡意連結就可能受到攻擊。
+XSS 目前主要的手段和目的如下：
+ 盜用 cookie，取得敏感資訊。 利用植入 Flash，透過 crossdomain 許可權設定進一步取得更高許可權；或者利用 Java 等得到類似的操作。 利用 iframe、frame、XMLHttpRequest 或上述 Flash 等方式，以（被攻擊者）使用者的身份執行一些管理動作，或執行一些如 : 發微博、加好友、發私信等常規操作，前段時間新浪微博就遭遇過一次 XSS。 利用可被攻擊的域受到其他域信任的特點，以受信任來源的身份請求一些平時不允許的操作，如進行不當的投票活動。 在訪問量極大的一些頁面上的 XSS 可以攻擊一些小型網站，實現 DDoS 攻擊的效果  XSS 的原理 Web 應用未對使用者提交請求的資料做充分的檢查過濾，允許使用者在提交的資料中摻入 HTML 程式碼(最主要的是“&amp;gt;”、“&amp;lt;”)，並將未經轉義的惡意程式碼輸出到第三方使用者的瀏覽器解釋執行，是導致 XSS 漏洞的產生原因。</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/09.4/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/09.4/</guid>
+      <description>9.4 避免 SQL 注入 什麼是 SQL 注入 SQL 注入攻擊（SQL Injection），簡稱注入攻擊，是 Web 開發中最常見的一種安全漏洞。可以用它來從資料庫取得敏感資訊，或者利用資料庫的特性執行新增使用者，匯出檔案等一系列惡意操作，甚至有可能取得資料庫乃至系統使用者最高許可權。
+而造成 SQL 注入的原因是因為程式沒有有效過濾使用者的輸入，使攻擊者成功的向伺服器提交惡意的 SQL 查詢程式碼，程式在接收後錯誤的將攻擊者的輸入作為查詢語句的一部分執行，導致原始的查詢邏輯被改變，額外的執行了攻擊者精心構造的惡意程式碼。
+SQL 注入範例 很多 Web 開發者沒有意識到 SQL 查詢是可以被篡改的，從而把 SQL 查詢當作可信任的命令。殊不知，SQL 查詢是可以繞開訪問控制，從而繞過身份驗證和許可權檢查的。更有甚者，有可能透過 SQL 查詢去執行主機系統級的命令。
+下面將透過一些真實的例子來詳細講解 SQL 注入的方式。
+考慮以下簡單的登入表單：
+&amp;lt;form action=&amp;#34;/login&amp;#34; method=&amp;#34;POST&amp;#34;&amp;gt; &amp;lt;p&amp;gt;Username: &amp;lt;input type=&amp;#34;text&amp;#34; name=&amp;#34;username&amp;#34; /&amp;gt;&amp;lt;/p&amp;gt; &amp;lt;p&amp;gt;Password: &amp;lt;input type=&amp;#34;password&amp;#34; name=&amp;#34;password&amp;#34; /&amp;gt;&amp;lt;/p&amp;gt; &amp;lt;p&amp;gt;&amp;lt;input type=&amp;#34;submit&amp;#34; value=&amp;#34;登陸&amp;#34; /&amp;gt;&amp;lt;/p&amp;gt; &amp;lt;/form&amp;gt; 我們的處理裡面的 SQL 可能是這樣的：
+username:=r.Form.Get(&amp;#34;username&amp;#34;) password:=r.Form.Get(&amp;#34;password&amp;#34;) sql:=&amp;#34;SELECT * FROM user WHERE username=&amp;#39;&amp;#34;+username+&amp;#34;&amp;#39; AND password=&amp;#39;&amp;#34;+password+&amp;#34;&amp;#39;&amp;#34; 如果使用者的輸入的使用者名稱如下，密碼任意
+myuser&amp;#39; or &amp;#39;foo&amp;#39; = &amp;#39;foo&amp;#39; -- 那麼我們的 SQL 變成了如下所示：</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/09.5/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/09.5/</guid>
+      <description>9.5 儲存密碼 過去一段時間以來, 許多的網站遭遇使用者密碼資料洩露事件, 這其中包括頂級的網際網路企業–Linkedin, 國內諸如 CSDN，該事件橫掃整個國內網際網路，隨後又爆出多玩遊戲 800 萬用戶資料被洩露，另有傳言人人網、開心網、天涯社群、世紀佳緣、百合網等社群都有可能成為黑客下一個目標。層出不窮的類似事件給使用者的網上生活造成巨大的影響，人人自危，因為人們往往習慣在不同網站使用相同的密碼，所以一家“暴函式庫”，全部遭殃。
+那麼我們作為一個 Web 應用開發者，在選擇密碼儲存方案時, 容易掉入哪些陷阱, 以及如何避免這些陷阱?
+普通方案 目前用的最多的密碼儲存方案是將明文密碼做單向雜湊後儲存，單向雜湊演算法有一個特徵：無法透過雜湊後的摘要(digest)還原原始資料，這也是“單向”二字的來源。常用的單向雜湊演算法包括 SHA-256, SHA-1, MD5 等。
+Go 語言對這三種加密演算法的實現如下所示：
+//import &amp;#34;crypto/sha256&amp;#34; h := sha256.New() io.WriteString(h, &amp;#34;His money is twice tainted: &amp;#39;taint yours and &amp;#39;taint mine.&amp;#34;) fmt.Printf(&amp;#34;% x&amp;#34;, h.Sum(nil)) //import &amp;#34;crypto/sha1&amp;#34; h := sha1.New() io.WriteString(h, &amp;#34;His money is twice tainted: &amp;#39;taint yours and &amp;#39;taint mine.&amp;#34;) fmt.Printf(&amp;#34;% x&amp;#34;, h.Sum(nil)) //import &amp;#34;crypto/md5&amp;#34; h := md5.New() io.WriteString(h, &amp;#34;需要加密的密碼&amp;#34;) fmt.Printf(&amp;#34;%x&amp;#34;, h.Sum(nil)) 單向雜湊有兩個特性：</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/09.6/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/09.6/</guid>
+      <description>9.6 加密和解密資料 前面小節介紹了如何儲存密碼，但是有的時候，我們想把一些敏感資料加密後儲存起來，在將來的某個時候，隨需將它們解密出來，此時我們應該在選用對稱加密演算法來滿足我們的需求。
+base64 加解密 如果 Web 應用足夠簡單，資料的安全性沒有那麼嚴格的要求，那麼可以採用一種比較簡單的加解密方法是base64，這種方式實現起來比較簡單，Go 語言的 base64 套件已經很好的支援了這個，請看下面的例子：
+package main import ( &amp;#34;encoding/base64&amp;#34; &amp;#34;fmt&amp;#34; ) func base64Encode(src []byte) []byte { return []byte(base64.StdEncoding.EncodeToString(src)) } func base64Decode(src []byte) ([]byte, error) { return base64.StdEncoding.DecodeString(string(src)) } func main() { // encode 	hello := &amp;#34;你好，世界！ hello world&amp;#34; debyte := base64Encode([]byte(hello)) fmt.Println(debyte) // decode 	enbyte, err := base64Decode(debyte) if err != nil { fmt.Println(err.Error()) } if hello != string(enbyte) { fmt.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/09.7/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/09.7/</guid>
+      <description> 9.7 小結 這一章主要介紹了如：CSRF 攻擊、XSS 攻擊、SQL 注入攻擊等一些 Web 應用中典型的攻擊手法，它們都是由於應用對使用者的輸入沒有很好的過濾引起的，所以除了介紹攻擊的方法外，我們也介紹了了如何有效的進行資料過濾，以防止這些攻擊的發生的方法。然後針對日異嚴重的密碼洩漏事件，介紹了在設計 Web 應用中可採用的從基本到專家的加密方案。最後針對敏感資料的加解密簡要介紹了，Go 語言提供三種對稱加密演算法：base64、aes 和 des 的實現。
+編寫這一章的目的是希望讀者能夠在意識裡面加強安全概念，在編寫 Web 應用的時候多留心一點，以使我們編寫的 Web 應用能遠離黑客們的攻擊。Go 語言在支援防攻擊方面已經提供大量的工具套件，我們可以充分的利用這些套件來做出一個安全的 Web 應用。
+links  目錄 上一節: 加密和解密資料 下一節: 國際化和本地化  </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/10.0/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/10.0/</guid>
+      <description> 10 國際化和本地化 為了適應經濟的全球一體化，作為開發者，我們需要開發出支援多國語言、國際化的 Web 應用，即同樣的頁面在不同的語言環境下需要顯示不同的效果，也就是說應用程式在執行時能夠根據請求所來自的地域與語言的不同而顯示不同的使用者介面。這樣，當需要在應用程式中新增對新的語言的支援時，無需修改應用程式的程式碼，只需要增加語言套件即可實現。
+國際化與本地化（Internationalization and localization，通常用 i18n 和 L10N 表示），國際化是將針對某個地區設計的程式進行重構，以使它能夠在更多地區使用，本地化是指在一個針對國際化的程式中增加對新地區的支援。
+目前，Go 語言的標準套件沒有提供對 i18n 的支援，但有一些比較簡單的第三方實現，這一章我們將實現一個 go-i18n 函式庫，用來支援 Go 語言的 i18n。
+所謂的國際化：就是根據特定的 locale 資訊，提取與之相應的字串或其它一些東西（比如時間和貨幣的格式）等等。這涉及到三個問題：
+1、如何確定 locale。
+2、如何儲存與 locale 相關的字串或其它資訊。
+3、如何根據 locale 提取字串和其它相應的資訊。
+在第一小節裡，我們將介紹如何設定正確的 locale 以便讓訪問站點的使用者能夠獲得與其語言相應的頁面。第二小節將介紹如何處理或儲存字串、貨幣、時間日期等與 locale 相關的資訊，第三小節將介紹如何實現國際化站點，即如何根據不同 locale 回傳不同合適的內容。透過這三個小節的學習，我們將獲得一個完整的 i18n 方案。
+目錄 links  目錄 上一章: 第九章總結 下一節: 設定預設地區  </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/10.1/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/10.1/</guid>
+      <description>10.1 設定預設地區 什麼是 Locale Locale 是一組描述世界上某一特定區域文字格式和語言習慣的設定的集合。locale 名通常由三個部分組成：第一部分，是一個強制性的，表示語言的縮寫，例如&amp;rdquo;en&amp;rdquo;表示英文或&amp;rdquo;zh&amp;rdquo;表示中文。第二部分，跟在一個下劃線之後，是一個可選的國家說明符，用於區分講同一種語言的不同國家，例如&amp;rdquo;en_US&amp;rdquo;表示美國英語，而&amp;rdquo;en_UK&amp;rdquo;表示英國英語。最後一部分，跟在一個句點之後，是可選的字符集說明符，例如&amp;rdquo;zh_CN.gb2312&amp;rdquo;表示中國使用 gb2312 字符集。
+GO 語言預設採用&amp;rdquo;UTF-8&amp;rdquo;編碼集，所以我們實現 i18n 時不考慮第三部分，接下來我們都採用 locale 描述的前面兩部分來作為 i18n 標準的 locale 名。
+ 在 Linux 和 Solaris 系統中可以透過 locale -a 命令列舉所有支援的地區名，讀者可以看到這些地區名的命名規範。對於 BSD 等系統，沒有 locale 命令，但是地區資訊儲存在/usr/share/locale 中。
+ 設定 Locale 有了上面對 locale 的定義，那麼我們就需要根據使用者的資訊(訪問資訊、個人資訊、訪問域名等)來設定與之相關的 locale，我們可以透過如下幾種方式來設定使用者的 locale。
+透過域名設定 Locale 設定 Locale 的辦法之一是在應用執行的時候採用域名分級的方式，例如，我們採用 www.asta.com 當做我們的英文站(預設站)，而把域名 www.asta.cn 當做中文站。這樣透過在應用裡面設定域名和相應的 locale 的對應關係，就可以設定好地區。這樣處理有幾點好處：
+ 透過 URL 就可以很明顯的識別 使用者可以透過域名很直觀的知道將訪問那種語言的站點 在 Go 程式中實現非常的簡單方便，透過一個 map 就可以實現 有利於搜尋引擎抓取，能夠提高站點的 SEO  我們可以透過下面的程式碼來實現域名的對應 locale：
+if r.Host == &amp;#34;www.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/10.2/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/10.2/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/10.3/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/10.3/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/10.4/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/10.4/</guid>
+      <description> 10.4 小結 透過這一章的介紹，讀者應該對如何操作 i18n 有了深入的了解，我也根據這一章介紹的內容實現了一個開源的解決方案 go-i18n：https://github.com/astaxie/go-i18n 透過這個開源函式庫我們可以很方便的實現多語言版本的 Web 應用，使得我們的應用能夠輕鬆的實現國際化。如果你發現這個開源函式庫中的錯誤或者那些缺失的地方，請一起參與到這個開源專案中來，讓我們的這個函式庫爭取成為 Go 的標準函式庫。
+links  目錄 上一節: 國際化站點 下一節: 錯誤處理，故障排除和測試  </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/11.0/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/11.0/</guid>
+      <description> 11 錯誤處理，除錯和測試 我們經常會看到很多程式設計師大部分的&amp;rdquo;程式設計&amp;rdquo;時間都花費在檢查 bug 和修復 bug 上。無論你是在編寫修改程式碼還是重構系統，幾乎都是花費大量的時間在進行故障排除和測試，外界都覺得我們程式設計師是設計師，能夠把一個系統從無做到有，是一項很偉大的工作，而且是相當有趣的工作，但事實上我們每天都是徘徊在排錯、除錯、測試之間。當然如果你有良好的習慣和技術方案來直面這些問題，那麼你就有可能將排錯時間減到最少，而儘可能的將時間花費在更有價值的事情上。
+但是遺憾的是很多程式設計師不願意在錯誤處理、除錯和測試能力上下工夫，導致後面應用上線之後查詢錯誤、定位問題花費更多的時間。所以我們在設計應用之前就做好錯誤處理規劃、測試案例等，那麼將來修改程式碼、升級系統都將變得簡單。
+開發 Web 應用過程中，錯誤自然難免，那麼如何更好的找到錯誤原因，解決問題呢？11.1 小節將介紹 Go 語言中如何處理錯誤，如何設計自己的套件、函式的錯誤處理，11.2 小節將介紹如何使用 GDB 來除錯我們的程式，動態執行情況下各種變數資訊，執行情況的監聽和除錯。
+11.3 小節將對 Go 語言中的單元測試進行深入的探討，並範例如何來編寫單元測試，Go 的單元測試規則規範如何定義，以保證以後升級修改執行相應的測試程式碼就可以進行最小化的測試。
+長期以來，培養良好的除錯、測試習慣一直是很多程式設計師逃避的事情，所以現在你不要再逃避了，就從你現在的專案開發，從學習 Go Web 開發開始養成良好的習慣。
+目錄 links  目錄 上一章: 第十章總結 下一節: 錯誤處理  </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/11.1/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/11.1/</guid>
+      <description>11.1 錯誤處理 Go 語言主要的設計準則是：簡潔、明白，簡潔是指語法和 C 類似，相當的簡單，明白是指任何語句都是很明顯的，不含有任何隱含的東西，在錯誤處理方案的設計中也貫徹了這一思想。我們知道在 C 語言裡面是透過回傳-1 或者 NULL 之類別的資訊來表示錯誤，但是對於使用者來說，不檢視相應的 API 說明文件，根本搞不清楚這個回傳值究竟代表什麼意思，比如 : 回傳 0 是成功，還是失敗，而 Go 定義了一個叫做 error 的型別，來明確的表達錯誤。在使用時，透過把回傳的 error 變數與 nil 的比較，來判定操作是否成功。例如os.Open函式在開啟檔案失敗時將回傳一個不為 nil 的 error 變數
+func Open(name string) (file *File, err error) 下面這個例子透過呼叫os.Open開啟一個檔案，如果出現錯誤，那麼就會呼叫log.Fatal來輸出錯誤資訊：
+f, err := os.Open(&amp;#34;filename.ext&amp;#34;) if err != nil { log.Fatal(err) } 類似於os.Open函式，標準套件中所有可能出錯的 API 都會回傳一個 error 變數，以方便錯誤處理，這個小節將詳細地介紹 error 型別的設計，和討論開發 Web 應用中如何更好地處理 error。
+Error 型別 error 型別是一個介面型別，這是它的定義：
+type error interface { Error() string } error 是一個內建的介面型別，我們可以在/builtin/套件下面找到相應的定義。而我們在很多內部套件裡面用到的 error 是 errors 套件下面的實現的私有結構 errorString</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/11.2/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/11.2/</guid>
+      <description>11.2 使用 GDB 除錯 開發程式過程中除錯程式碼是開發者經常要做的一件事情，Go 語言不像 PHP、Python 等動態語言，只要修改不需要編譯就可以直接輸出，而且可以動態的在執行環境下列印資料。當然 Go 語言也可以透過 Println 之類別的列印資料來除錯，但是每次都需要重新編譯，這是一件相當麻煩的事情。我們知道在 Python 中有 pdb/ipdb 之類別的工具除錯，Javascript 也有類似工具，這些工具都能夠動態的顯示變數資訊，單步除錯等。不過慶幸的是 Go 也有類似的工具支援：GDB。Go 內部已經內建支援了 GDB，所以，我們可以透過 GDB 來進行除錯，那麼本小節就來介紹一下如何透過 GDB 來除錯 Go 程式。
+另外建議純 go 程式碼使用delve可以很好的進行 Go 程式碼除錯
+GDB 除錯簡介 GDB 是 FSF(自由軟體基金會)釋出的一個強大的類別 UNIX 系統下的程式除錯工具。使用 GDB 可以做如下事情：
+ 啟動程式，可以按照開發者的自訂要求執行程式。 可讓被除錯的程式在開發者設定的調置的斷點處停住。（斷點可以是條件表示式） 當程式被停住時，可以檢查此時程式中所發生的事。 動態的改變當前程式的執行環境。  目前支援除錯 Go 程式的 GDB 版本必須大於 7.1。
+編譯 Go 程式的時候需要注意以下幾點
+ 傳遞參數-ldflags &amp;ldquo;-s&amp;rdquo;，忽略 debug 的列印資訊 傳遞-gcflags &amp;ldquo;-N -l&amp;rdquo; 參數，這樣可以忽略 Go 內部做的一些優化，聚合變數和函式等優化，這樣對於 GDB 除錯來說非常困難，所以在編譯的時候加入這兩個參數避免這些優化。  常用命令 GDB 的一些常用命令如下所示</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/11.3/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/11.3/</guid>
+      <description>11.3 Go 怎麼寫測試案例 開發程式其中很重要的一點是測試，我們如何保證程式碼的品質，如何保證每個函式是可執行，執行結果是正確的，又如何保證寫出來的程式碼效能是好的，我們知道單元測試的重點在於發現程式設計或實現的邏輯錯誤，使問題及早暴露，便於問題的定位解決，而效能測試的重點在於發現程式設計上的一些問題，讓線上的程式能夠在高併發的情況下還能保持穩定。本小節將帶著這一連串的問題來講解 Go 語言中如何來實現單元測試和效能測試。
+Go 語言中自帶有一個輕量級的測試框架 testing 和自帶的go test命令來實現單元測試和效能測試，testing框架和其他語言中的測試框架類似，你可以基於這個框架寫針對相應函式的測試案例，也可以基於該框架寫相應的壓力測試案例，那麼接下來讓我們一一來看一下怎麼寫。
+另外建議安裝gotests外掛自動產生測試程式碼:
+go get -u -v github.com/cweill/gotests/... 如何編寫測試案例 由於go test命令只能在一個相應的目錄下執行所有檔案，所以我們接下來建立一個專案目錄gotest，這樣我們所有的程式碼和測試程式碼都在這個目錄下。
+接下來我們在該目錄下面建立兩個檔案：gotest.go 和 gotest_test.go
+ gotest.go:這個檔案裡面我們是建立了一個套件，裡面有一個函式實現了除法運算:
+package gotest import ( &amp;#34;errors&amp;#34; ) func Division(a, b float64) (float64, error) { if b == 0 { return 0, errors.New(&amp;#34;除數不能為 0&amp;#34;) } return a / b, nil } gotest_test.go:這是我們的單元測試檔案，但是記住下面的這些原則：
+ 檔名必須是_test.go結尾的，這樣在執行go test的時候才會執行到相應的程式碼 你必須 import testing這個包 所有的測試案例函式必須是 Test 開頭 測試案例會按照原始碼中寫的順序依次執行 測試函式TestXxx()的參數是testing.T，我們可以使用該型別來記錄錯誤或者是測試狀態 測試格式：func TestXxx (t *testing.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/11.4/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/11.4/</guid>
+      <description> 11.4 小結 本章我們透過三個小節分別介紹了 Go 語言中如何處理錯誤，如何設計錯誤處理，然後第二小節介紹了如何透過 GDB 來除錯程式，透過 GDB 我們可以單步除錯、可以檢視變數、修改變數、列印執行過程等，最後我們介紹了如何利用 Go 語言自帶的輕量級框架 testing 來編寫單元測試和壓力測試，使用go test就可以方便的執行這些測試，使得我們將來程式碼升級修改之後很方便的進行迴歸測試。這一章也許對於你編寫程式邏輯沒有任何幫助，但是對於你編寫出來的程式程式碼保持高品質是至關重要的，因為一個好的 Web 應用必定有良好的錯誤處理機制(錯誤提示的友好、可擴充套件性)、有好的單元測試和壓力測試以保證上線之後程式碼能夠保持良好的效能和按預期的執行。
+links  目錄 上一節: Go 怎麼寫測試案例 下一節: 部署與維護  </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/12.0/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/12.0/</guid>
+      <description> 12 部署與維護 到目前為止，我們前面已經介紹了如何開發程式、除錯程式以及測試程式，正如人們常說的：開發最後的 10%需要花費 90%的時間，所以這一章我們將強調這最後的 10%部分，要真正成為讓人信任並使用的優秀應用，需要考慮到一些細節，以上所說的 10%就是指這些小細節。
+本章我們將透過四個小節來介紹這些小細節的處理，第一小節介紹如何在生產服務上記錄程式產生的日誌，如何記錄日誌，第二小節介紹發生錯誤時我們的程式如何處理，如何保證儘量少的影響到使用者的訪問，第三小節介紹如何來部署 Go 的獨立程式，由於目前 Go 程式還無法像 C 那樣寫成 daemon，那麼我們如何管理這樣的程序程式後臺執行呢？第四小節將介紹應用資料的備份和還原，儘量保證應用在崩潰的情況能夠保持資料的完整性。
+目錄 links  目錄 上一章: 第十一章總結 下一節: 應用日誌  </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/12.1/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/12.1/</guid>
+      <description>12.1 應用日誌 我們期望開發的 Web 應用程式能夠把整個程式執行過程中出現的各種事件一一記錄下來，Go 語言中提供了一個簡易的 log 套件，我們使用該套件可以方便的實現日誌記錄的功能，這些日誌都是基於 fmt 套件的列印再結合 panic 之類別的函式來進行一般的列印、丟擲錯誤處理。Go 目前標準套件只是包含了簡單的功能，如果我們想把我們的應用日誌儲存到檔案，然後又能夠結合日誌實現很多複雜的功能（編寫過 Java 或者 C++的讀者應該都使用過 log4j 和 log4cpp 之類別的日誌工具），可以使用第三方開發的日誌系統:logrus和seelog，它們實現了很強大的日誌功能，可以結合自己專案選擇。接下來我們介紹如何透過該日誌系統來實現我們應用的日誌功能。
+logrus 介紹 logrus 是用 Go 語言實現的一個日誌系統，與標準函式庫 log 完全相容並且核心 API 很穩定，是 Go 語言目前最活躍的日誌函式庫
+首先安裝 logrus
+go get -u github.com/sirupsen/logrus 簡單例子:
+package main import ( log &amp;#34;github.com/Sirupsen/logrus&amp;#34; ) func main() { log.WithFields(log.Fields{ &amp;#34;animal&amp;#34;: &amp;#34;walrus&amp;#34;, }).Info(&amp;#34;A walrus appears&amp;#34;) } 基於 logrus 的自訂日誌處理 package main import ( &amp;#34;os&amp;#34; log &amp;#34;github.com/Sirupsen/logrus&amp;#34; ) func init() { // 日誌格式化為 JSON 而不是預設的 ASCII  log.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/12.2/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/12.2/</guid>
+      <description>&amp;lt;/div&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/body&amp;gt; &amp;lt;/html&amp;gt;  	另一個原始碼：  html
+&amp;lt;html lang=&amp;quot;en&amp;quot;&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta http-equiv=&amp;quot;Content-Type&amp;quot; content=&amp;quot;text/html; charset=utf-8&amp;quot;&amp;gt; &amp;lt;title&amp;gt;系統錯誤頁面&amp;lt;/title&amp;gt; &amp;lt;meta name=&amp;quot;viewport&amp;quot; content=&amp;quot;width=device-width, initial-scale=1.0&amp;quot;&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;div class=&amp;quot;container&amp;quot;&amp;gt; &amp;lt;div class=&amp;quot;row&amp;quot;&amp;gt; &amp;lt;div class=&amp;quot;span10&amp;quot;&amp;gt; &amp;lt;div class=&amp;quot;hero-unit&amp;quot;&amp;gt; &amp;lt;h1&amp;gt;系統暫時不可用!&amp;lt;/h1&amp;gt; &amp;lt;p&amp;gt;{{.ErrorInfo}}&amp;lt;/p&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/div&amp;gt;&amp;lt;!--/span--&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/body&amp;gt; &amp;lt;/html&amp;gt;   404 的錯誤處理邏輯，如果是系統的錯誤也是類似的操作，同時我們看到在：  Go
+func (p *MyMux) ServeHTTP(w http.ResponseWriter, r *http.Request) { if r.URL.Path == &amp;quot;/&amp;quot; { sayhelloName(w, r) return } NotFound404(w, r) return } func NotFound404(w http.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/12.3/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/12.3/</guid>
+      <description>12.3 應用部署 程式開發完畢之後，我們現在要部署 Web 應用程式了，但是我們如何來部署這些應用程式呢？因為 Go 程式編譯之後是一個可執行檔案，編寫過 C 程式的讀者一定知道採用 daemon 就可以完美的實現程式後臺持續執行，但是目前 Go 還無法完美的實現 daemon，因此，針對 Go 的應用程式部署，我們可以利用第三方工具來管理，第三方的工具有很多，例如 Supervisord、upstart、daemontools 等，這小節我介紹目前自己系統中採用的工具 Supervisord。
+daemon 目前 Go 程式還不能實現 daemon，詳細的見這個 Go 語言的 bug：&amp;lt;http://code.google.com/p/go/issues/detail?id=227&amp;gt;，大概的意思說很難從現有的使用的執行緒中 fork 一個出來，因為沒有一種簡單的方法來確保所有已經使用的執行緒的狀態一致性問題。
+但是我們可以看到很多網上的一些實現 daemon 的方法，例如下面兩種方式：
+ MarGo 的一個實現思路，使用 Command 來執行自身的應用，如果真想實現，那麼推薦這種方案
+d := flag.Bool(&amp;#34;d&amp;#34;, false, &amp;#34;Whether or not to launch in the background(like a daemon)&amp;#34;) if *d { cmd := exec.Command(os.Args[0], &amp;#34;-close-fds&amp;#34;, &amp;#34;-addr&amp;#34;, *addr, &amp;#34;-call&amp;#34;, *call, ) serr, err := cmd.StderrPipe() if err !</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/12.4/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/12.4/</guid>
+      <description>12.4 備份和還原 這小節我們要討論應用程式管理的另一個方面：生產伺服器上資料的備份和還原。我們經常會遇到生產伺服器的網路斷了、硬碟壞了、作業系統崩潰、或者資料庫不可用了等各種異常情況，所以維護人員需要對生產伺服器上的應用和資料做好異地災備，冷備熱備的準備。在接下來的介紹中，講解了如何備份應用、如何備份/還原 Mysql 資料庫和 redis 資料庫。
+應用備份 在大多數叢集環境下，Web 應用程式基本不需要備份，因為這個其實就是一個程式碼副本，我們在本地開發環境中，或者版本控制系統中已經保持這些程式碼。但是很多時候，一些開發的站點需要使用者來上傳檔案，那麼我們需要對這些使用者上傳的檔案進行備份。目前其實有一種合適的做法就是把和網站相關的需要儲存的檔案儲存到雲儲存，這樣即使系統崩潰，只要我們的檔案還在雲端儲存上，至少資料不會丟失。
+如果我們沒有采用雲儲存的情況下，如何做到網站的備份呢？這裡我們介紹一個檔案同步工具 rsync：rsync 能夠實現網站的備份，不同系統的檔案的同步，如果是 windows 的話，需要 windows 版本 cwrsync。
+rsync 安裝 rysnc 的官方網站：http://rsync.samba.org/ 可以從上面取得最新版本的原始碼。當然，因為 rsync 是一款非常有用的軟體，所以很多 Linux 的發行版本都將它收錄在內了。
+軟體套件安裝
+# sudo apt-get install rsync 注：在 debian、ubuntu 等線上安裝方法； # yum install rsync 注：Fedora、Redhat、CentOS 等線上安裝方法； # rpm -ivh rsync 注：Fedora、Redhat、CentOS 等 rpm 套件安裝方法；  其它 Linux 發行版，請用相應的軟體套件管理方法來安裝。原始碼套件安裝
+tar xvf rsync-xxx.tar.gz cd rsync-xxx ./configure --prefix=/usr ;make ;make install 注：在用原始碼套件編譯安裝之前，您得安裝 gcc 等編譯工具才行；  rsync 配置 rsync 主要有以下三個配置檔案 rsyncd.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/12.5/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/12.5/</guid>
+      <description> 12.5 小結 本章討論了如何部署和維護我們開發的 Web 應用相關的一些話題。這些內容非常重要，要建立一個能夠基於最小維護平滑執行的應用，必須考慮這些問題。
+具體而言，本章討論的內容包括：
+ 建立一個強健的日誌系統，可以在出現問題時記錄錯誤並且通知系統管理員 處理執行時可能出現的錯誤，包括記錄日誌，並如何友好的顯示給使用者系統出現了問題 處理 404 錯誤，告訴使用者請求的頁面找不到 將應用部署到一個生產環境中(包括如何部署更新) 如何讓部署的應用程式具有高可用 備份和還原檔案以及資料庫  讀完本章內容後，對於從頭開始開發一個 Web 應用需要考慮那些問題，你應該已經有了全面的了解。本章內容將有助於你在實際環境中管理前面各章介紹開發的程式碼。
+links  目錄 上一章: 備份和還原 下一節: 如何設計一個 Web 框架  </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/13.0/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/13.0/</guid>
+      <description> 13 如何設計一個 Web 框架 前面十二章介紹了如何透過 Go 來開發 Web 應用，介紹了很多基礎知識、開發工具和開發技巧，那麼我們這一章透過這些知識來實現一個簡易的 Web 框架。透過 Go 語言來實現一個完整的框架設計，這框架中主要內容有第一小節介紹的 Web 框架的結構規劃，例如採用 MVC 模式來進行開發，程式的執行流程設計等內容；第二小節介紹框架的第一個功能：路由，如何讓訪問的 URL 對映到相應的處理邏輯；第三小節介紹處理邏輯，如何設計一個公共的 controller，物件繼承之後處理函式中如何處理 response 和 request；第四小節介紹框架的一些輔助功能，例如日誌處理、配置資訊等；第五小節介紹如何基於 Web 框架實現一個部落格，包括博文的發表、修改、刪除、顯示列表等操作。
+透過這麼一個完整的專案例子，我期望能夠讓讀者了解如何開發 Web 應用，如何建立自己的目錄結構，如何實現路由，如何實現 MVC 模式等各方面的開發內容。在框架盛行的今天，MVC 也不再是神話。經常聽到很多程式設計師討論哪個框架好，哪個框架不好， 其實框架只是工具，沒有好與不好，只有適合與不適合，適合自己的就是最好的，所以教會大家自己動手寫框架，那麼不同的需求都可以用自己的思路去實現。
+目錄 links  目錄 上一章: 第十二章總結 下一節: 專案規劃  </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/13.1/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/13.1/</guid>
+      <description>13.1 專案規劃 做任何事情都需要做好規劃，那麼我們在開發部落格系統之前，同樣需要做好專案的規劃，如何設定目錄結構，如何理解整個專案的流程圖，當我們理解了應用的執行過程，那麼接下來的設計編碼就會變得相對容易了
+gopath 以及專案設定 假設指定 gopath 是檔案系統的普通目錄名，當然我們可以隨便設定一個目錄名，然後將其路徑存入 GOPATH。前面介紹過 GOPATH 可以是多個目錄：在 window 系統設定環境變數；在 linux/MacOS 系統只要輸入終端命令export gopath=/home/astaxie/gopath，但是必須保證 gopath 這個程式碼目錄下面有三個目錄 pkg、bin、src。建立專案的原始碼放在 src 目錄下面，現在暫定我們的部落格目錄叫做 beeblog，下面是在 window 下的環境變數和目錄結構的截圖：
+圖 13.1 環境變數 GOPATH 設定
+圖 13.2 工作目錄在$gopath/src 下
+應用程式流程圖 部落格系統是基於模型-檢視-控制器這一設計模式的。MVC 是一種將應用程式的邏輯層和表現層進行分離的結構方式。在實踐中，由於表現層從 Go 中分離了出來，所以它允許你的網頁中只包含很少的指令碼。
+ 模型 (Model) 代表資料結構。通常來說，模型類別將包含取出、插入、更新資料庫資料等這些功能。 檢視 (View) 是展示給使用者的資訊的結構及樣式。一個檢視通常是一個網頁，但是在 Go 中，一個檢視也可以是一個頁面片段，如頁首、頁尾。它還可以是一個 RSS 頁面，或其它型別的“頁面”，Go 實現的 template 套件已經很好的實現了 View 層中的部分功能。 控制器 (Controller) 是模型、檢視以及其他任何處理 HTTP 請求所必須的資源之間的中介，並產生網頁。  下圖顯示了專案設計中框架的資料流是如何貫穿整個系統:
+圖 13.3 框架的資料流
+ main.go 作為應用入口，初始化一些執行部落格所需要的基本資源，配置資訊，監聽埠。 路由功能檢查 HTTP 請求，根據 URL 以及 method 來確定誰(控制層)來處理請求的轉發資源。 如果快取檔案存在，它將繞過通常的流程執行，被直接傳送給瀏覽器。 安全檢測：應用程式控制器呼叫之前，HTTP 請求和任一使用者提交的資料將被過濾。 控制器裝載模型、核心函式庫、輔助函式，以及任何處理特定請求所需的其它資源，控制器主要負責處理業務邏輯。 輸出檢視層中渲染好的即將傳送到 Web 瀏覽器中的內容。如果開啟快取，檢視首先被快取，將用於以後的常規請求。  目錄結構 根據上面的應用程式流程設計，部落格的目錄結構設計如下：</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/13.2/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/13.2/</guid>
+      <description>13.2 自訂路由器設計 HTTP 路由 HTTP 路由元件負責將 HTTP 請求交到對應的函式處理(或者是一個 struct 的方法)，如前面小節所描述的結構圖，路由在框架中相當於一個事件處理器，而這個事件包括：
+ 使用者請求的路徑(path)(例如:/user/123,/article/123)，當然還有查詢串資訊(例如?id=11) HTTP 的請求方法(method)(GET、POST、PUT、DELETE、PATCH 等)  路由器就是根據使用者請求的事件資訊轉發到相應的處理函式(控制層)。
+預設的路由實現 在 3.4 小節有過介紹 Go 的 http 套件的詳解，裡面介紹了 Go 的 http 套件如何設計和實現路由，這裡繼續以一個例子來說明：
+func fooHandler(w http.ResponseWriter, r *http.Request) { fmt.Fprintf(w, &amp;#34;Hello, %q&amp;#34;, html.EscapeString(r.URL.Path)) } http.HandleFunc(&amp;#34;/foo&amp;#34;, fooHandler) http.HandleFunc(&amp;#34;/bar&amp;#34;, func(w http.ResponseWriter, r *http.Request) { fmt.Fprintf(w, &amp;#34;Hello, %q&amp;#34;, html.EscapeString(r.URL.Path)) }) log.Fatal(http.ListenAndServe(&amp;#34;:8080&amp;#34;, nil)) 上面的例子呼叫了 http 預設的 DefaultServeMux 來新增路由，需要提供兩個參數，第一個參數是希望使用者訪問此資源的 URL 路徑(儲存在 r.URL.Path)，第二參數是即將要執行的函式，以提供使用者訪問的資源。路由的思路主要集中在兩點：
+ 新增路由資訊 根據使用者請求轉發到要執行的函式  Go 預設的路由新增是透過函式http.Handle和http.HandleFunc等來新增，底層都是呼叫了DefaultServeMux.Handle(pattern string, handler Handler)，這個函式會把路由資訊儲存在一個 map 資訊中map[string]muxEntry，這就解決了上面說的第一點。</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/13.3/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/13.3/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/13.4/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/13.4/</guid>
+      <description>13.4 日誌和配置設計 日誌和配置的重要性 前面已經介紹過日誌在我們程式開發中起著很重要的作用，透過日誌我們可以記錄除錯我們的資訊，當初介紹過一個日誌系統 seelog，根據不同的 level 輸出不同的日誌，這個對於程式開發和程式部署來說至關重要。我們可以在程式開發中設定 level 低一點，部署的時候把 level 設定高，這樣我們開發中的除錯資訊可以遮蔽掉。
+配置模組對於應用部署牽涉到伺服器不同的一些配置資訊非常有用，例如一些資料庫配置資訊、監聽埠、監聽地址等都是可以透過配置檔案來配置，這樣我們的應用程式就具有很強的靈活性，可以透過配置檔案的配置部署在不同的機器上，可以連線不同的資料庫之類別的。
+beego 的日誌設計 beego 的日誌設計部署思路來自於 seelog，根據不同的 level 來記錄日誌，但是 beego 設計的日誌系統比較輕量級，採用了系統的 log.Logger 介面，預設輸出到 os.Stdout，使用者可以實現這個介面然後透過 beego.SetLogger 設定自訂的輸出，詳細的實現如下所示：
+// Log levels to control the logging output. const ( LevelTrace = iota LevelDebug LevelInfo LevelWarning LevelError LevelCritical ) // logLevel controls the global log level used by the logger. var level = LevelTrace // LogLevel returns the global log level and can be used in // own implementations of the logger interface.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/13.5/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/13.5/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/13.6/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/13.6/</guid>
+      <description> 13.6 小結 這一章我們主要介紹了如何實現一個基礎的 Go 語言框架，框架包含有路由設計，由於 Go 內建的 http 套件中路由的一些不足點，我們設計了動態路由規則，然後介紹了 MVC 模式中的 Controller 設計，controller 實現了 REST 的實現，這個主要思路來源於 tornado 框架，然後設計實現了範本的 layout 以及自動化渲染等技術，主要採用了 Go 內建的範本引擎，最後我們介紹了一些輔助的日誌、配置等資訊的設計，透過這些設計我們實現了一個基礎的框架 beego，目前該框架已經開源在 github，最後我們透過 beego 實現了一個部落格系統，透過範例程式碼詳細的展現了如何快速的開發一個站點。
+links  目錄 上一章: 實現部落格的增刪改 下一節: 擴充套件 Web 框架  </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/14.0/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/14.0/</guid>
+      <description> 14 擴充套件 Web 框架 第十三章介紹了如何開發一個 Web 框架，透過介紹 MVC、路由、日誌處理、配置處理完成了一個基本的框架系統，但是一個好的框架需要一些方便的輔助工具來快速的開發 Web，那麼我們這一章將就如何提供一些快速開發 Web 的工具進行介紹，第一小節介紹如何處理靜態檔案，如何利用現有的 twitter 開源的 bootstrap 進行快速的開發美觀的站點，第二小節介紹如何利用前面介紹的 session 來進行使用者登入處理，第三小節介紹如何方便的輸出表單、這些表單如何進行資料驗證，如何快速的結合 model 進行資料的增刪改操作，第四小節介紹如何進行一些使用者認證，包括 http basic 認證、http digest 認證，第五小節介紹如何利用前面介紹的 i18n 支援多語言的應用開發。第六小節介紹了如何整合 Go 的 pprof 套件用於效能除錯。
+透過本章的擴充套件，beego 框架將具有快速開發 Web 的特性，最後我們將講解如何利用這些擴充套件的特性擴充套件開發第十三章開發的部落格系統，透過開發一個完整、美觀的部落格系統讓讀者了解 beego 開發帶給你的快速。
+目錄 links  目錄 上一章: 第十三章總結 下一節: 靜態檔案支援  </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/14.1/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/14.1/</guid>
+      <description>14.1 靜態檔案支援 我們在前面已經講過如何處理靜態檔案，這小節我們詳細的介紹如何在 beego 裡面設定和使用靜態檔案。透過再介紹一個 twitter 開源的 html、css 框架 bootstrap，無需大量的設計工作就能夠讓你快速地建立一個漂亮的站點。
+beego 靜態檔案實現和設定 Go 的 net/http 套件中提供了靜態檔案的服務，ServeFile和 FileServer 等函式。beego 的靜態檔案處理就是基於這一層處理的，具體的實現如下所示：
+//static file server for prefix, staticDir := range StaticDir { if strings.HasPrefix(r.URL.Path, prefix) { file := staticDir + r.URL.Path[len(prefix):] http.ServeFile(w, r, file) w.started = true return } } StaticDir 裡面儲存的是相應的 url 對應到靜態檔案所在的目錄，因此在處理 URL 請求的時候只需要判斷對應的請求地址是否包含靜態處理開頭的 url，如果包含的話就採用 http.ServeFile 提供服務。
+舉例如下：
+beego.StaticDir[&amp;#34;/asset&amp;#34;] = &amp;#34;/static&amp;#34; 那麼請求 url 如http://www.beego.me/asset/bootstrap.css就會請求/static/bootstrap.css來提供反饋給客戶端。
+bootstrap 整合 Bootstrap 是 Twitter 推出的一個開源的用於前端開發的工具套件。對於開發者來說，Bootstrap 是快速開發 Web 應用程式的最佳前端工具套件。它是一個 CSS 和 HTML 的集合，它使用了最新的 HTML5 標準，給你的 Web 開發提供了時尚的版式，表單，按鈕，表格，網格系統等等。</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/14.2/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/14.2/</guid>
+      <description>14.2 Session 支援 第六章的時候我們介紹過如何在 Go 語言中使用 session，也實現了一個 sessionManger，beego 框架基於 sessionManager 實現了方便的 session 處理功能。
+session 整合 beego 中主要有以下的全域性變數來控制 session 處理：
+//related to session SessionOn bool // 是否開啟 session 模組，預設不開啟 SessionProvider string // session 後端提供處理模組，預設是 sessionManager 支援的 memory  SessionName string // 客戶端儲存的 cookies 的名稱 SessionGCMaxLifetime int64 // cookies 有效期  GlobalSessions *session.Manager //全域性 session 控制器 當然上面這些變數需要初始化值，也可以按照下面的程式碼來配合配置檔案以設定這些值：
+if ar, err := AppConfig.Bool(&amp;#34;sessionon&amp;#34;); err != nil { SessionOn = false } else { SessionOn = ar } if ar := AppConfig.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/14.3/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/14.3/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/14.4/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/14.4/</guid>
+      <description>14.4 使用者認證 在開發 Web 應用過程中，使用者認證是開發者經常遇到的問題，使用者登入、註冊、登出等操作，而一般認證也分為三個方面的認證
+ HTTP Basic 和 HTTP Digest 認證 第三方整合認證：QQ、微博、豆瓣、OPENID、google、github、facebook 和 twitter 等 自訂的使用者登入、註冊、登出，一般都是基於 session、cookie 認證  beego 目前沒有針對這三種方式進行任何形式的整合，但是可以充分的利用第三方開源函式庫來實現上面的三種方式的使用者認證，不過後續 beego 會對前面兩種認證逐步整合。
+HTTP Basic 和 HTTP Digest 認證 這兩個認證是一些應用採用的比較簡單的認證，目前已經有開源的第三方函式庫支援這兩個認證：
+github.com/abbot/go-http-auth 下面程式碼示範了如何把這個函式庫引入 beego 中從而實現認證：
+package controllers import ( &amp;#34;github.com/abbot/go-http-auth&amp;#34; &amp;#34;github.com/astaxie/beego&amp;#34; ) func Secret(user, realm string) string { if user == &amp;#34;john&amp;#34; { // password is &amp;#34;hello&amp;#34; 	return &amp;#34;$1$dlPL2MqE$oQmn16q49SqdmhenQuNgs1&amp;#34; } return &amp;#34;&amp;#34; } type MainController struct { beego.Controller } func (this *MainController) Prepare() { a := auth.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/14.5/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/14.5/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/14.6/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/14.6/</guid>
+      <description>14.6 pprof 支援 Go 語言有一個非常棒的設計就是標準函式庫裡面帶有程式碼的效能監聽工具，在兩個地方有套件：
+net/http/pprof runtime/pprof 其實 net/http/pprof 中只是使用 runtime/pprof 套件來進行封裝了一下，並在 http 埠上暴露出來
+beego 支援 pprof 目前 beego 框架新增了 pprof，該特性預設是不開啟的，如果你需要測試效能，檢視相應的執行 goroutine 之類別的資訊，其實 Go 的預設套件&amp;rdquo;net/http/pprof&amp;rdquo;已經具有該功能，如果按照 Go 預設的方式執行 Web，預設就可以使用，但是由於 beego 重新封裝了 ServHTTP 函式，預設的套件是無法開啟該功能的，所以需要對 beego 的內部改造支援 pprof。
+ 首先在 beego.Run 函式中根據變數是否自動載入效能套件
+if PprofOn { BeeApp.RegisterController(`/debug/pprof`, &amp;amp;ProfController{}) BeeApp.RegisterController(`/debug/pprof/:pp([\w]+)`, &amp;amp;ProfController{}) } 設計 ProfController
+package beego import ( &amp;#34;net/http/pprof&amp;#34; ) type ProfController struct { Controller } func (this *ProfController) Get() { switch this.Ctx.Param[&amp;#34;:pp&amp;#34;] { default: pprof.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/14.7/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/14.7/</guid>
+      <description> 14.7 小結 這一章主要闡述了如何基於 beego 框架進行擴充套件，這包括靜態檔案的支援，靜態檔案主要講述了如何利用 beego 進行快速的網站開發，利用 bootstrap 建立漂亮的站點；第二小結講解了如何在 beego 中整合 sessionManager，方便使用者在利用 beego 的時候快速的使用 session；第三小結介紹了表單和驗證，基於 Go 語言的 struct 的定義使得我們在開發 Web 的過程中從重複的工作中解放出來，而且加入了驗證之後可以儘量做到資料安全，第四小結介紹了使用者認證，使用者認證主要有三方面的需求，http basic 和 http digest 認證，第三方認證，自訂認證，透過程式碼示範了如何利用現有的第三方套件整合到 beego 應用中來實現這些認證；第五小節介紹了多語言的支援，beego 中集成了 go-i18n 這個多語言套件，使用者可以很方便的利用該函式庫開發多語言的 Web 應用；第六小節介紹了如何整合 Go 的 pprof 套件，pprof 套件是用於效能除錯的工具，透過對 beego 的改造之後集成了 pprof 套件，使得使用者可以利用 pprof 測試基於 beego 開發的應用，透過這六個小節的介紹我們擴展出來了一個比較強壯的 beego 框架，這個框架足以應付目前大多數的 Web 應用，使用者可以繼續發揮自己的想象力去擴充套件，我這裡只是簡單的介紹了我能想的到的幾個比較重要的擴充套件。
+links  目錄 上一節: pprof 支援  </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/preface/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/preface/</guid>
+      <description>1.Go 環境配置  1.1. 安裝 Go 1.2. GOPATH 與工作空間 1.3. Go 命令 1.4. Go 開發工具 1.5. 小結  2.Go 語言基礎  2.1. 你好，Go 2.2. Go 基礎 2.3. 流程和函式 2.4. struct 2.5. 物件導向 2.6. interface 2.7. 併發 2.8. 小結  3.Web 基礎  3.1 web 工作方式 3.2 Go 建立一個簡單的 web 服務 3.3 Go 如何使得 web 工作 3.4 Go 的 http 套件詳解 3.5 小結  4.表單  4.1 處理表單的輸入 4.2 驗證表單的輸入 4.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/README/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/README/</guid>
+      <description>使用 Golang 打造 Web 應用程式 這本書是專為 Golang 新手開發者所寫，原始內容皆來自 Build Web Application with Golang 專案，感謝所有貢獻者的付出與努力，希望大家會喜歡。
+Purpose Because I&amp;rsquo;m interested in web application development, I used my free time to write this book as an open source version. It doesn&amp;rsquo;t mean that I have a very good ability to build web applications; I would like to share what I&amp;rsquo;ve done with Go in building web applications.
+ For those of you who are working with PHP/Python/Ruby, you will learn how to build a web application with Go.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/ref/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/ref/</guid>
+      <description> 附錄 A 參考資料 這本書的內容基本上是我學習 Go 過程以及以前從事 Web 開發過程中的一些經驗總結，裡面部分內容參考了很多站點的內容，感謝這些站點的內容讓我能夠總結出來這本書，參考資料如下：
+ golang blog Russ Cox blog go book golangtutorials 軒脈刃 de 刀光劍影 Go 官網文件 Network programming with Go setup-the-rails-application-for-internationalization The Cross-Site Scripting (XSS) FAQ Network programming with Go RESTful  </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ezzdoc.com/buildWebWithGolangTw/docs/SUMMARY/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezzdoc.com/buildWebWithGolangTw/docs/SUMMARY/</guid>
+      <description> Go 環境配置  Go 安裝 GOPATH 與工作空間 Go 命令 Go 開發工具 小結  Go 語言基礎  你好，Go Go 基礎 流程和函式 struct 物件導向 interface 併發 小結  Web 基礎  web 工作方式 Go 建立一個簡單的 web 服務 Go 如何使得 web 工作 Go 的 http 套件詳解 小結  表單  處理表單的輸入 驗證表單的輸入 預防跨站指令碼 防止多次提交表單 處理檔案上傳 小結  訪問資料庫  database/sql 介面 使用 MySQL 資料庫 使用 SQLite 資料庫 使用 PostgreSQL 資料庫 使用 beedb 函式庫進行 ORM 開發 NOSQL 資料庫操作 小結  session 和資料儲存  session 和 cookie Go 如何使用 session session 儲存 預防 session 劫持 小結  文字檔案處理  XML 處理 JSON 處理 正則處理 範本處理 檔案操作 字串處理 小結  Web 服務  Socket 程式設計 WebSocket REST RPC 小結  安全與加密  預防 CSRF 攻擊 確保輸入過濾 避免 XSS 攻擊 避免 SQL 注入 儲存密碼 加密和解密資料 小結  國際化和本地化  設定預設地區 本地化資源 國際化站點 小結  錯誤處理，除錯和測試  錯誤處理 使用 GDB 除錯 Go 怎麼寫測試案例 小結  部署與維護  應用日誌 網站錯誤處理 應用部署 備份和還原 小結  如何設計一個 Web 框架　 專案規劃　 自訂路由器設計 controller 設計 日誌和配置設計 實現部落格的增刪改 小結　  擴充套件 Web 框架  靜態檔案支援 Session 支援 表單支援 使用者認證 多語言支援 pprof 支援 小結  參考資料  </description>
+    </item>
+    
+  </channel>
+</rss>

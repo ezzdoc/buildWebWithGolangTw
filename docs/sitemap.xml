@@ -1,0 +1,514 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/000/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/01.0/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/01.1/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/01.2/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/01.3/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/01.4/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/01.5/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/02.0/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/02.1/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/02.2/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/02.3/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/02.4/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/02.5/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/02.6/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/02.7/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/02.8/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/03.0/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/03.1/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/03.2/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/03.3/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/03.4/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/03.5/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/04.0/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/04.1/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/04.2/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/04.3/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/04.4/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/04.5/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/04.6/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/05.0/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/05.1/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/05.2/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/05.3/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/05.4/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/05.5/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/05.6/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/05.7/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/06.0/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/06.1/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/06.2/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/06.3/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/06.4/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/06.5/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/07.0/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/07.1/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/07.2/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/07.3/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/07.4/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/07.5/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/07.6/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/07.7/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/08.0/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/08.1/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/08.2/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/08.3/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/08.4/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/08.5/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/09.0/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/09.1/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/09.2/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/09.3/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/09.4/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/09.5/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/09.6/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/09.7/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/10.0/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/10.1/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/10.2/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/10.3/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/10.4/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/11.0/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/11.1/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/11.2/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/11.3/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/11.4/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/12.0/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/12.1/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/12.2/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/12.3/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/12.4/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/12.5/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/13.0/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/13.1/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/13.2/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/13.3/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/13.4/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/13.5/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/13.6/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/14.0/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/14.1/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/14.2/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/14.3/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/14.4/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/14.5/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/14.6/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/14.7/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/preface/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/README/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/ref/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/SUMMARY/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/docs/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ezzdoc.com/buildWebWithGolangTw/</loc>
+    <lastmod>2019-09-21T01:19:31+08:00</lastmod>
+  </url>
+  
+</urlset>

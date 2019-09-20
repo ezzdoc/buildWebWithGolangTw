@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>09.2 | 使用 Golang 打造 Web 應用程式</title>
+
+
+<link rel="stylesheet" href="/buildWebWithGolangTw/book.min.89885fa0429ec73067282f26fc0c6d38cfc617a443ec4e835d47b821c52c6e92.css" integrity="sha256-iYhfoEKexzBnKC8m/AxtOM/GF6RD7E6DXUe4IcUsbpI=">
+
+
+<script defer src="/buildWebWithGolangTw/search.min.4762838110f5450a8a33fcbe56c7ce734d09867f3e9ab5c1e6f7bbec99b65c68.js" integrity="sha256-R2KDgRD1RQqKM/y&#43;VsfOc00Jhn8&#43;mrXB5ve77Jm2XGg="></script>
+
+
+
+<link rel="icon" href="/buildWebWithGolangTw/favicon.png" type="image/x-icon">
+
+<base href="https://ezzdoc.com/buildWebWithGolangTw/">
+
+
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body>
+  <input type="checkbox" class="hidden" id="menu-control" />
+  <main class="flex container">
+
+    <aside class="book-menu fixed">
+      <nav>
+<h2 class="book-brand">
+  <a href="https://ezzdoc.com/buildWebWithGolangTw/"><span>使用 Golang 打造 Web 應用程式</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" placeholder="Search" id="book-search-input" maxlength="64" readonly />
+  <div class="book-search-spinner spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+    
+  
+  
+  
+
+  <style>
+  nav ul a[href$="\2f buildWebWithGolangTw\2f docs\2f 09.2\2f "] {
+      color: #004ed0;
+  }
+  </style>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/preface/">目錄</a></li>
+<li><a href="/buildWebWithGolangTw/docs/01.0/">1.Go 環境配置</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/01.1/">1.1 安裝 Go</a></li>
+<li><a href="/buildWebWithGolangTw/docs/01.2/">1.2 GOPATH 與工作空間</a></li>
+<li><a href="/buildWebWithGolangTw/docs/01.3/">1.3 Go 命令</a></li>
+<li><a href="/buildWebWithGolangTw/docs/01.4/">1.4 Go 開發工具</a></li>
+<li><a href="/buildWebWithGolangTw/docs/01.5/">1.5 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/02.0/">2.Go 語言基礎</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/02.1/">2.1 你好，Go</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.2/">2.2 Go 基礎</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.3/">2.3 流程和函式</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.4/">2.4 struct</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.5/">2.5 物件導向</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.6/">2.6 interface</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.7/">2.7 併發</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.8/">2.8 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/03.0/">3.Web 基礎</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/03.1/">3.1 web 工作方式</a></li>
+<li><a href="/buildWebWithGolangTw/docs/03.2/">3.2 Go 建立一個簡單的 web 服務</a></li>
+<li><a href="/buildWebWithGolangTw/docs/03.3/">3.3 Go 如何使得 web 工作</a></li>
+<li><a href="/buildWebWithGolangTw/docs/03.4/">3.4 Go 的 http 套件詳解</a></li>
+<li><a href="/buildWebWithGolangTw/docs/03.5/">3.5 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/04.0/">4.表單</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/04.1/">4.1 處理表單的輸入</a></li>
+<li><a href="/buildWebWithGolangTw/docs/04.2/">4.2 驗證表單的輸入</a></li>
+<li><a href="/buildWebWithGolangTw/docs/04.3/">4.3 預防跨站指令碼</a></li>
+<li><a href="/buildWebWithGolangTw/docs/04.4/">4.4 防止多次提交表單</a></li>
+<li><a href="/buildWebWithGolangTw/docs/04.5/">4.5 處理檔案上傳</a></li>
+<li><a href="/buildWebWithGolangTw/docs/04.6/">4.6 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/05.0/">5.訪問資料庫</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/05.1/">5.1 database/sql 介面</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.2/">5.2 使用 MySQL 資料庫</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.3/">5.3 使用 SQLite 資料庫</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.4/">5.4 使用 PostgreSQL 資料庫</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.5/">5.5 使用 Beego orm 函式庫進行 ORM 開發</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.6/">5.6 NOSQL 資料庫操作</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.7/">5.7 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/06.0/">6.session 和資料儲存</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/06.1/">6.1 session 和 cookie</a></li>
+<li><a href="/buildWebWithGolangTw/docs/06.2/">6.2 Go 如何使用 session</a></li>
+<li><a href="/buildWebWithGolangTw/docs/06.3/">6.3 session 儲存</a></li>
+<li><a href="/buildWebWithGolangTw/docs/06.4/">6.4 預防 session 劫持</a></li>
+<li><a href="/buildWebWithGolangTw/docs/06.5/">6.5 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/07.0/">7.文字檔案處理</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/07.1/">7.1 XML 處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.2/">7.2 JSON 處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.3/">7.3 正則處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.4/">7.4 範本處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.5/">7.5 檔案操作</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.6/">7.6 字串處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.7/">7.7 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/08.0/">8.Web 服務</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/08.1/">8.1 Socket 程式設計</a></li>
+<li><a href="/buildWebWithGolangTw/docs/08.2/">8.2 WebSocket</a></li>
+<li><a href="/buildWebWithGolangTw/docs/08.3/">8.3 REST</a></li>
+<li><a href="/buildWebWithGolangTw/docs/08.4/">8.4 RPC</a></li>
+<li><a href="/buildWebWithGolangTw/docs/08.5/">8.5 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/09.0/">9.安全與加密</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/09.1/">9.1 預防 CSRF 攻擊</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.2/">9.2 確保輸入過濾</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.3/">9.3 避免 XSS 攻擊</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.4/">9.4 避免 SQL 注入</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.5/">9.5 儲存密碼</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.6/">9.6 加密和解密資料</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.7/">9.7 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/10.0/">10.國際化和本地化</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/10.1/">10.1 設定預設地區</a></li>
+<li><a href="/buildWebWithGolangTw/docs/10.2/">10.2 本地化資源</a></li>
+<li><a href="/buildWebWithGolangTw/docs/10.3/">10.3 國際化站點</a></li>
+<li><a href="/buildWebWithGolangTw/docs/10.4/">10.4 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/11.0/">11.錯誤處理，除錯和測試</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/11.1/">11.1 錯誤處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/11.2/">11.2 使用 GDB 除錯</a></li>
+<li><a href="/buildWebWithGolangTw/docs/11.3/">11.3 Go 怎麼寫測試案例</a></li>
+<li><a href="/buildWebWithGolangTw/docs/11.4/">11.4 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/12.0/">12.部署與維護</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/12.1/">12.1 應用日誌</a></li>
+<li><a href="/buildWebWithGolangTw/docs/12.2/">12.2 網站錯誤處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/12.3/">12.3 應用部署</a></li>
+<li><a href="/buildWebWithGolangTw/docs/12.4/">12.4 備份和還原</a></li>
+<li><a href="/buildWebWithGolangTw/docs/12.5/">12.5 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/13.0/">13.如何設計一個 Web 框架</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/13.1/">13.1 專案規劃</a></li>
+<li><a href="/buildWebWithGolangTw/docs/13.2/">13.2 自訂路由器設計</a></li>
+<li><a href="/buildWebWithGolangTw/docs/13.3/">13.3 controller 設計</a></li>
+<li><a href="/buildWebWithGolangTw/docs/13.4/">13.4 日誌和配置設計</a></li>
+<li><a href="/buildWebWithGolangTw/docs/13.5/">13.5 實現部落格的增刪改</a></li>
+<li><a href="/buildWebWithGolangTw/docs/13.6/">13.6 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/14.0/">14.擴充套件 Web 框架</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/14.1/">14.1 靜態檔案支援</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.2/">14.2 Session 支援</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.3/">14.3 表單支援</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.4/">14.4 使用者認證</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.5/">14.5 多語言支援</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.6/">14.6 pprof 支援</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.7/">14.7 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/ref/">附錄 A 參考資料</a></li>
+</ul>
+
+
+
+
+
+
+
+</nav>
+
+
+<script>
+(function() {
+  var menu = document.querySelector("aside.book-menu nav");
+  addEventListener("beforeunload", function(event) {
+    localStorage.setItem("menu.scrollTop", menu.scrollTop);
+  });
+  menu.scrollTop = localStorage.getItem("menu.scrollTop");
+})();
+</script>
+
+    </aside>
+
+    <div class="book-page">
+      <header class="flex align-center justify-between book-header">
+  <label for="menu-control">
+    <img src="/buildWebWithGolangTw/svg/menu.svg" alt="Menu" />
+  </label>
+  <strong>09.2</strong>
+</header>
+
+      
+<article class="markdown">
+
+<h1 id="9-2-確保輸入過濾">9.2 確保輸入過濾</h1>
+
+<p>過濾使用者資料是 Web 應用安全的基礎。它是驗證資料合法性的過程。透過對所有的輸入資料進行過濾，可以避免惡意資料在程式中被誤信或誤用。大多數 Web 應用的漏洞都是因為沒有對使用者輸入的資料進行恰當過濾所引起的。</p>
+
+<p>我們介紹的過濾資料分成三個步驟：</p>
+
+<ul>
+<li>1、識別資料，搞清楚需要過濾的資料來自於哪裡</li>
+<li>2、過濾資料，弄明白我們需要什麼樣的資料</li>
+<li>3、區分已過濾及被汙染資料，如果存在攻擊資料那麼保證過濾之後可以讓我們使用更安全的資料</li>
+</ul>
+
+<h2 id="識別資料">識別資料</h2>
+
+<p>“識別資料”作為第一步是因為在你不知道“資料是什麼，它來自於哪裡”的前提下，你也就不能正確地過濾它。這裡的資料是指所有源自非程式碼內部提供的資料。例如 : 所有來自客戶端的資料，但客戶端並不是唯一的外部資料來源，資料庫和第三方提供的介面資料等也可以是外部資料來源。</p>
+
+<p>由使用者輸入的資料我們透過 Go 非常容易識別，Go 透過<code>r.ParseForm</code>之後，把使用者 POST 和 GET 的資料全部放在了<code>r.Form</code>裡面。其它的輸入要難識別得多，例如，<code>r.Header</code>中的很多元素是由客戶端所操縱的。常常很難確認其中的哪些元素組成了輸入，所以，最好的方法是把裡面所有的資料都看成是使用者輸入。(例如<code>r.Header.Get(&quot;Accept-Charset&quot;)</code>這樣的也看做是使用者輸入，雖然這些大多數是瀏覽器操縱的)</p>
+
+<h2 id="過濾資料">過濾資料</h2>
+
+<p>在知道資料來源之後，就可以過濾它了。過濾是一個有點正式的術語，它在平時表述中有很多同義詞，如驗證、清潔及淨化。儘管這些術語表面意義不同，但它們都是指的同一個處理：防止非法資料進入你的應用。</p>
+
+<p>過濾資料有很多種方法，其中有一些安全性較差。最好的方法是把過濾看成是一個檢查的過程，在你使用資料之前都檢查一下看它們是否是符合合法資料的要求。而且不要試圖好心地去糾正非法資料，而要讓使用者按你制定的規則去輸入資料。歷史證明了試圖糾正非法資料往往會導致安全漏洞。這裡舉個例子：“最近建設銀行系統升級之後，如果密碼後面兩位是 0，只要輸入前面四位就能登入系統”，這是一個非常嚴重的漏洞。</p>
+
+<p>過濾資料主要採用如下一些函式庫來操作：</p>
+
+<ul>
+<li>strconv 套件下面的字串轉化相關函式，因為從 Request 中的<code>r.Form</code>回傳的是字串，而有些時候我們需要將之轉化成整/浮點數，<code>Atoi</code>、<code>ParseBool</code>、<code>ParseFloat</code>、<code>ParseInt</code>等函式就可以派上用場了。</li>
+<li>string 套件下面的一些過濾函式<code>Trim</code>、<code>ToLower</code>、<code>ToTitle</code>等函式，能夠幫助我們按照指定的格式取得資訊。</li>
+<li>regexp 套件用來處理一些複雜的需求，例如判定輸入是否是 Email、生日之類別。</li>
+</ul>
+
+<p>過濾資料除了檢查驗證之外，在特殊時候，還可以採用白名單。即假定你正在檢查的資料都是非法的，除非能證明它是合法的。使用這個方法，如果出現錯誤，只會導致把合法的資料當成是非法的，而不會是相反，儘管我們不想犯任何錯誤，但這樣總比把非法資料當成合法資料要安全得多。</p>
+
+<h2 id="區分過濾資料">區分過濾資料</h2>
+
+<p>如果完成了上面的兩步，資料過濾的工作就基本完成了，但是在編寫 Web 應用的時候我們還需要區分已過濾和被汙染資料，因為這樣可以保證過濾資料的完整性，而不影響輸入的資料。我們約定把所有經過過濾的資料放入一個叫全域性的 Map 變數中(CleanMap)。這時需要用兩個重要的步驟來防止被汙染資料的注入：
+- 每個請求都要初始化 CleanMap 為一個空 Map。
+- 加入檢查及阻止來自外部資料來源的變數命名為 CleanMap。</p>
+
+<p>接下來，讓我們透過一個例子來鞏固這些概念，請看下面這個表單</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">form</span> <span style="color:#a6e22e">action</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/whoami&#34;</span> <span style="color:#a6e22e">method</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;POST&#34;</span>&gt;
+	我是誰:
+	&lt;<span style="color:#f92672">select</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;name&#34;</span>&gt;
+		&lt;<span style="color:#f92672">option</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;astaxie&#34;</span>&gt;astaxie&lt;/<span style="color:#f92672">option</span>&gt;
+		&lt;<span style="color:#f92672">option</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;herry&#34;</span>&gt;herry&lt;/<span style="color:#f92672">option</span>&gt;
+		&lt;<span style="color:#f92672">option</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;marry&#34;</span>&gt;marry&lt;/<span style="color:#f92672">option</span>&gt;
+	&lt;/<span style="color:#f92672">select</span>&gt;
+	&lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;submit&#34;</span> /&gt;
+&lt;/<span style="color:#f92672">form</span>&gt;</code></pre></div>
+<p>在處理這個表單的程式設計邏輯中，非常容易犯的錯誤是認為只能提交三個選擇中的一個。其實攻擊者可以模擬 POST 操作，提交 <code>name=attack</code> 這樣的資料，所以在此時我們需要做類似白名單的處理</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">ParseForm</span>()
+<span style="color:#a6e22e">name</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">Form</span>.<span style="color:#a6e22e">Get</span>(<span style="color:#e6db74">&#34;name&#34;</span>)
+<span style="color:#a6e22e">CleanMap</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">interface</span>{}, <span style="color:#ae81ff">0</span>)
+<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">name</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;astaxie&#34;</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">name</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;herry&#34;</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">name</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;marry&#34;</span> {
+	<span style="color:#a6e22e">CleanMap</span>[<span style="color:#e6db74">&#34;name&#34;</span>] = <span style="color:#a6e22e">name</span>
+}</code></pre></div>
+<p>上面程式碼中我們初始化了一個 CleanMap 的變數，當判斷取得的 name 是<code>astaxie</code>、<code>herry</code>、<code>marry</code>三個中的一個之後
+，我們把資料儲存到了 CleanMap 之中，這樣就可以確保 CleanMap[&ldquo;name&rdquo;]中的資料是合法的，從而在程式碼的其它部分使用它。當然我們還可以在 else 部分增加非法資料的處理，一種可能是再次顯示錶單並提示錯誤。但是不要試圖為了友好而輸出被汙染的資料。</p>
+
+<p>上面的方法對於過濾一組已知的合法值的資料很有效，但是對於過濾有一組已知合法字元組成的資料時就沒有什麼幫助。例如，你可能需要一個使用者名稱只能由字母及數字組成：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">ParseForm</span>()
+<span style="color:#a6e22e">username</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">Form</span>.<span style="color:#a6e22e">Get</span>(<span style="color:#e6db74">&#34;username&#34;</span>)
+<span style="color:#a6e22e">CleanMap</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">interface</span>{}, <span style="color:#ae81ff">0</span>)
+<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">ok</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">regexp</span>.<span style="color:#a6e22e">MatchString</span>(<span style="color:#e6db74">&#34;^[a-zA-Z0-9]+$&#34;</span>, <span style="color:#a6e22e">username</span>); <span style="color:#a6e22e">ok</span> {
+	<span style="color:#a6e22e">CleanMap</span>[<span style="color:#e6db74">&#34;username&#34;</span>] = <span style="color:#a6e22e">username</span>
+}</code></pre></div>
+<h2 id="總結">總結</h2>
+
+<p>資料過濾在 Web 安全中起到一個基石的作用，大多數的安全問題都是由於沒有過濾資料和驗證資料引起的，例如前面小節的 CSRF 攻擊，以及接下來將要介紹的 XSS 攻擊、SQL 注入等都是沒有認真地過濾資料引起的，因此我們需要特別重視這部分的內容。</p>
+
+<h2 id="links">links</h2>
+
+<ul>
+<li><a href="docs/preface">目錄</a></li>
+<li>上一節: <a href="docs/09.1">預防 CSRF 攻擊</a></li>
+<li>下一節: <a href="docs/09.3">避免 XSS 攻擊</a></li>
+</ul>
+</article>
+
+      
+<div class="book-footer justify-between">
+  
+  <div>
+    
+    <a href="/commit/fda25aafea9413c8ec77f5df29d5f6bb5f7dc3a6" title='Last modified Sep 21, 2019 by Jiuxiao' target="_blank" rel="noopener">
+      <img src="/buildWebWithGolangTw/svg/calendar.svg" alt="Changed" /> Sep 21, 2019
+    </a>
+  </div>
+  
+  
+</div>
+
+
+      
+    </div>
+
+    
+  
+
+  <aside class="book-toc level-3 fixed">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#9-2-確保輸入過濾">9.2 確保輸入過濾</a>
+<ul>
+<li><a href="#識別資料">識別資料</a></li>
+<li><a href="#過濾資料">過濾資料</a></li>
+<li><a href="#區分過濾資料">區分過濾資料</a></li>
+<li><a href="#總結">總結</a></li>
+<li><a href="#links">links</a></li>
+</ul></li>
+</ul>
+</nav>
+  </aside>
+
+
+
+  </main>
+
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-148025936-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+</body>
+
+</html>

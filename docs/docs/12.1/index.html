@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>12.1 | 使用 Golang 打造 Web 應用程式</title>
+
+
+<link rel="stylesheet" href="/buildWebWithGolangTw/book.min.89885fa0429ec73067282f26fc0c6d38cfc617a443ec4e835d47b821c52c6e92.css" integrity="sha256-iYhfoEKexzBnKC8m/AxtOM/GF6RD7E6DXUe4IcUsbpI=">
+
+
+<script defer src="/buildWebWithGolangTw/search.min.4762838110f5450a8a33fcbe56c7ce734d09867f3e9ab5c1e6f7bbec99b65c68.js" integrity="sha256-R2KDgRD1RQqKM/y&#43;VsfOc00Jhn8&#43;mrXB5ve77Jm2XGg="></script>
+
+
+
+<link rel="icon" href="/buildWebWithGolangTw/favicon.png" type="image/x-icon">
+
+<base href="https://ezzdoc.com/buildWebWithGolangTw/">
+
+
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body>
+  <input type="checkbox" class="hidden" id="menu-control" />
+  <main class="flex container">
+
+    <aside class="book-menu fixed">
+      <nav>
+<h2 class="book-brand">
+  <a href="https://ezzdoc.com/buildWebWithGolangTw/"><span>使用 Golang 打造 Web 應用程式</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" placeholder="Search" id="book-search-input" maxlength="64" readonly />
+  <div class="book-search-spinner spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+    
+  
+  
+  
+
+  <style>
+  nav ul a[href$="\2f buildWebWithGolangTw\2f docs\2f 12.1\2f "] {
+      color: #004ed0;
+  }
+  </style>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/preface/">目錄</a></li>
+<li><a href="/buildWebWithGolangTw/docs/01.0/">1.Go 環境配置</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/01.1/">1.1 安裝 Go</a></li>
+<li><a href="/buildWebWithGolangTw/docs/01.2/">1.2 GOPATH 與工作空間</a></li>
+<li><a href="/buildWebWithGolangTw/docs/01.3/">1.3 Go 命令</a></li>
+<li><a href="/buildWebWithGolangTw/docs/01.4/">1.4 Go 開發工具</a></li>
+<li><a href="/buildWebWithGolangTw/docs/01.5/">1.5 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/02.0/">2.Go 語言基礎</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/02.1/">2.1 你好，Go</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.2/">2.2 Go 基礎</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.3/">2.3 流程和函式</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.4/">2.4 struct</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.5/">2.5 物件導向</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.6/">2.6 interface</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.7/">2.7 併發</a></li>
+<li><a href="/buildWebWithGolangTw/docs/02.8/">2.8 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/03.0/">3.Web 基礎</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/03.1/">3.1 web 工作方式</a></li>
+<li><a href="/buildWebWithGolangTw/docs/03.2/">3.2 Go 建立一個簡單的 web 服務</a></li>
+<li><a href="/buildWebWithGolangTw/docs/03.3/">3.3 Go 如何使得 web 工作</a></li>
+<li><a href="/buildWebWithGolangTw/docs/03.4/">3.4 Go 的 http 套件詳解</a></li>
+<li><a href="/buildWebWithGolangTw/docs/03.5/">3.5 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/04.0/">4.表單</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/04.1/">4.1 處理表單的輸入</a></li>
+<li><a href="/buildWebWithGolangTw/docs/04.2/">4.2 驗證表單的輸入</a></li>
+<li><a href="/buildWebWithGolangTw/docs/04.3/">4.3 預防跨站指令碼</a></li>
+<li><a href="/buildWebWithGolangTw/docs/04.4/">4.4 防止多次提交表單</a></li>
+<li><a href="/buildWebWithGolangTw/docs/04.5/">4.5 處理檔案上傳</a></li>
+<li><a href="/buildWebWithGolangTw/docs/04.6/">4.6 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/05.0/">5.訪問資料庫</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/05.1/">5.1 database/sql 介面</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.2/">5.2 使用 MySQL 資料庫</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.3/">5.3 使用 SQLite 資料庫</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.4/">5.4 使用 PostgreSQL 資料庫</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.5/">5.5 使用 Beego orm 函式庫進行 ORM 開發</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.6/">5.6 NOSQL 資料庫操作</a></li>
+<li><a href="/buildWebWithGolangTw/docs/05.7/">5.7 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/06.0/">6.session 和資料儲存</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/06.1/">6.1 session 和 cookie</a></li>
+<li><a href="/buildWebWithGolangTw/docs/06.2/">6.2 Go 如何使用 session</a></li>
+<li><a href="/buildWebWithGolangTw/docs/06.3/">6.3 session 儲存</a></li>
+<li><a href="/buildWebWithGolangTw/docs/06.4/">6.4 預防 session 劫持</a></li>
+<li><a href="/buildWebWithGolangTw/docs/06.5/">6.5 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/07.0/">7.文字檔案處理</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/07.1/">7.1 XML 處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.2/">7.2 JSON 處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.3/">7.3 正則處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.4/">7.4 範本處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.5/">7.5 檔案操作</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.6/">7.6 字串處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/07.7/">7.7 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/08.0/">8.Web 服務</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/08.1/">8.1 Socket 程式設計</a></li>
+<li><a href="/buildWebWithGolangTw/docs/08.2/">8.2 WebSocket</a></li>
+<li><a href="/buildWebWithGolangTw/docs/08.3/">8.3 REST</a></li>
+<li><a href="/buildWebWithGolangTw/docs/08.4/">8.4 RPC</a></li>
+<li><a href="/buildWebWithGolangTw/docs/08.5/">8.5 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/09.0/">9.安全與加密</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/09.1/">9.1 預防 CSRF 攻擊</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.2/">9.2 確保輸入過濾</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.3/">9.3 避免 XSS 攻擊</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.4/">9.4 避免 SQL 注入</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.5/">9.5 儲存密碼</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.6/">9.6 加密和解密資料</a></li>
+<li><a href="/buildWebWithGolangTw/docs/09.7/">9.7 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/10.0/">10.國際化和本地化</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/10.1/">10.1 設定預設地區</a></li>
+<li><a href="/buildWebWithGolangTw/docs/10.2/">10.2 本地化資源</a></li>
+<li><a href="/buildWebWithGolangTw/docs/10.3/">10.3 國際化站點</a></li>
+<li><a href="/buildWebWithGolangTw/docs/10.4/">10.4 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/11.0/">11.錯誤處理，除錯和測試</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/11.1/">11.1 錯誤處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/11.2/">11.2 使用 GDB 除錯</a></li>
+<li><a href="/buildWebWithGolangTw/docs/11.3/">11.3 Go 怎麼寫測試案例</a></li>
+<li><a href="/buildWebWithGolangTw/docs/11.4/">11.4 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/12.0/">12.部署與維護</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/12.1/">12.1 應用日誌</a></li>
+<li><a href="/buildWebWithGolangTw/docs/12.2/">12.2 網站錯誤處理</a></li>
+<li><a href="/buildWebWithGolangTw/docs/12.3/">12.3 應用部署</a></li>
+<li><a href="/buildWebWithGolangTw/docs/12.4/">12.4 備份和還原</a></li>
+<li><a href="/buildWebWithGolangTw/docs/12.5/">12.5 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/13.0/">13.如何設計一個 Web 框架</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/13.1/">13.1 專案規劃</a></li>
+<li><a href="/buildWebWithGolangTw/docs/13.2/">13.2 自訂路由器設計</a></li>
+<li><a href="/buildWebWithGolangTw/docs/13.3/">13.3 controller 設計</a></li>
+<li><a href="/buildWebWithGolangTw/docs/13.4/">13.4 日誌和配置設計</a></li>
+<li><a href="/buildWebWithGolangTw/docs/13.5/">13.5 實現部落格的增刪改</a></li>
+<li><a href="/buildWebWithGolangTw/docs/13.6/">13.6 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/14.0/">14.擴充套件 Web 框架</a>
+
+<ul>
+<li><a href="/buildWebWithGolangTw/docs/14.1/">14.1 靜態檔案支援</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.2/">14.2 Session 支援</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.3/">14.3 表單支援</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.4/">14.4 使用者認證</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.5/">14.5 多語言支援</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.6/">14.6 pprof 支援</a></li>
+<li><a href="/buildWebWithGolangTw/docs/14.7/">14.7 小結</a></li>
+</ul></li>
+<li><a href="/buildWebWithGolangTw/docs/ref/">附錄 A 參考資料</a></li>
+</ul>
+
+
+
+
+
+
+
+</nav>
+
+
+<script>
+(function() {
+  var menu = document.querySelector("aside.book-menu nav");
+  addEventListener("beforeunload", function(event) {
+    localStorage.setItem("menu.scrollTop", menu.scrollTop);
+  });
+  menu.scrollTop = localStorage.getItem("menu.scrollTop");
+})();
+</script>
+
+    </aside>
+
+    <div class="book-page">
+      <header class="flex align-center justify-between book-header">
+  <label for="menu-control">
+    <img src="/buildWebWithGolangTw/svg/menu.svg" alt="Menu" />
+  </label>
+  <strong>12.1</strong>
+</header>
+
+      
+<article class="markdown">
+
+<h1 id="12-1-應用日誌">12.1 應用日誌</h1>
+
+<p>我們期望開發的 Web 應用程式能夠把整個程式執行過程中出現的各種事件一一記錄下來，Go 語言中提供了一個簡易的 log 套件，我們使用該套件可以方便的實現日誌記錄的功能，這些日誌都是基於 fmt 套件的列印再結合 panic 之類別的函式來進行一般的列印、丟擲錯誤處理。Go 目前標準套件只是包含了簡單的功能，如果我們想把我們的應用日誌儲存到檔案，然後又能夠結合日誌實現很多複雜的功能（編寫過 Java 或者 C++的讀者應該都使用過 log4j 和 log4cpp 之類別的日誌工具），可以使用第三方開發的日誌系統:<a href="https://github.com/sirupsen/logrus">logrus</a>和<a href="https://github.com/cihub/seelog">seelog</a>，它們實現了很強大的日誌功能，可以結合自己專案選擇。接下來我們介紹如何透過該日誌系統來實現我們應用的日誌功能。</p>
+
+<h2 id="logrus-介紹">logrus 介紹</h2>
+
+<p>logrus 是用 Go 語言實現的一個日誌系統，與標準函式庫 log 完全相容並且核心 API 很穩定，是 Go 語言目前最活躍的日誌函式庫</p>
+
+<p>首先安裝 logrus</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">go</span> <span style="color:#a6e22e">get</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">u</span> <span style="color:#a6e22e">github</span>.<span style="color:#a6e22e">com</span><span style="color:#f92672">/</span><span style="color:#a6e22e">sirupsen</span><span style="color:#f92672">/</span><span style="color:#a6e22e">logrus</span></code></pre></div>
+<p>簡單例子:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+	<span style="color:#a6e22e">log</span> <span style="color:#e6db74">&#34;github.com/Sirupsen/logrus&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">WithFields</span>(<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fields</span>{
+		<span style="color:#e6db74">&#34;animal&#34;</span>: <span style="color:#e6db74">&#34;walrus&#34;</span>,
+	}).<span style="color:#a6e22e">Info</span>(<span style="color:#e6db74">&#34;A walrus appears&#34;</span>)
+}</code></pre></div>
+<h3 id="基於-logrus-的自訂日誌處理">基於 logrus 的自訂日誌處理</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+	<span style="color:#e6db74">&#34;os&#34;</span>
+
+	<span style="color:#a6e22e">log</span> <span style="color:#e6db74">&#34;github.com/Sirupsen/logrus&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">init</span>() {
+	<span style="color:#75715e">// 日誌格式化為 JSON 而不是預設的 ASCII
+</span><span style="color:#75715e"></span>
+	<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">SetFormatter</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">JSONFormatter</span>{})
+
+	<span style="color:#75715e">// 輸出 stdout 而不是預設的 stderr，也可以是一個檔案
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">SetOutput</span>(<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Stdout</span>)
+
+	<span style="color:#75715e">// 只記錄嚴重或以上警告
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">SetLevel</span>(<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">WarnLevel</span>)
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">WithFields</span>(<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fields</span>{
+		<span style="color:#e6db74">&#34;animal&#34;</span>: <span style="color:#e6db74">&#34;walrus&#34;</span>,
+		<span style="color:#e6db74">&#34;size&#34;</span>:   <span style="color:#ae81ff">10</span>,
+	}).<span style="color:#a6e22e">Info</span>(<span style="color:#e6db74">&#34;A group of walrus emerges from the ocean&#34;</span>)
+
+	<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">WithFields</span>(<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fields</span>{
+		<span style="color:#e6db74">&#34;omg&#34;</span>:    <span style="color:#66d9ef">true</span>,
+		<span style="color:#e6db74">&#34;number&#34;</span>: <span style="color:#ae81ff">122</span>,
+	}).<span style="color:#a6e22e">Warn</span>(<span style="color:#e6db74">&#34;The group&#39;s number increased tremendously!&#34;</span>)
+
+	<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">WithFields</span>(<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fields</span>{
+		<span style="color:#e6db74">&#34;omg&#34;</span>:    <span style="color:#66d9ef">true</span>,
+		<span style="color:#e6db74">&#34;number&#34;</span>: <span style="color:#ae81ff">100</span>,
+	}).<span style="color:#a6e22e">Fatal</span>(<span style="color:#e6db74">&#34;The ice breaks!&#34;</span>)
+
+	<span style="color:#75715e">// 透過日誌語句重用欄位
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">// logrus.Entry 回傳自 WithFields()
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">contextLogger</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">WithFields</span>(<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fields</span>{
+		<span style="color:#e6db74">&#34;common&#34;</span>: <span style="color:#e6db74">&#34;this is a common field&#34;</span>,
+		<span style="color:#e6db74">&#34;other&#34;</span>:  <span style="color:#e6db74">&#34;I also should be logged always&#34;</span>,
+	})
+
+	<span style="color:#a6e22e">contextLogger</span>.<span style="color:#a6e22e">Info</span>(<span style="color:#e6db74">&#34;I&#39;ll be logged with common and other field&#34;</span>)
+	<span style="color:#a6e22e">contextLogger</span>.<span style="color:#a6e22e">Info</span>(<span style="color:#e6db74">&#34;Me too&#34;</span>)
+}</code></pre></div>
+<h2 id="seelog-介紹">seelog 介紹</h2>
+
+<p>seelog 是用 Go 語言實現的一個日誌系統，它提供了一些簡單的函式來實現複雜的日誌分配、過濾和格式化。主要有如下特性：</p>
+
+<ul>
+<li>XML 的動態配置，可以不用重新編譯程式而動態的載入配置資訊</li>
+<li>支援熱更新，能夠動態改變配置而不需要重啟應用</li>
+<li>支援多輸出流，能夠同時把日誌輸出到多種流中、例如檔案流、網路流等</li>
+
+<li><p>支援不同的日誌輸出</p>
+
+<ul>
+<li>命令列輸出</li>
+<li>檔案輸出</li>
+<li>快取輸出</li>
+<li>支援 log rotate</li>
+<li>SMTP 郵件</li>
+</ul></li>
+</ul>
+
+<p>上面只列舉了部分特性，seelog 是一個特別強大的日誌處理系統，詳細的內容請參看官方 wiki。接下來我將簡要介紹一下如何在專案中使用它：</p>
+
+<p>首先安裝 seelog</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">go</span> <span style="color:#a6e22e">get</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">u</span> <span style="color:#a6e22e">github</span>.<span style="color:#a6e22e">com</span><span style="color:#f92672">/</span><span style="color:#a6e22e">cihub</span><span style="color:#f92672">/</span><span style="color:#a6e22e">seelog</span></code></pre></div>
+<p>然後我們來看一個簡單的例子：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> <span style="color:#a6e22e">log</span> <span style="color:#e6db74">&#34;github.com/cihub/seelog&#34;</span>
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Flush</span>()
+    <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Info</span>(<span style="color:#e6db74">&#34;Hello from Seelog!&#34;</span>)
+}</code></pre></div>
+<p>編譯後執行如果出現了<code>Hello from seelog</code>，說明 seelog 日誌系統已經成功安裝並且可以正常運行了。</p>
+
+<h3 id="基於-seelog-的自訂日誌處理">基於 seelog 的自訂日誌處理</h3>
+
+<p>seelog 支援自訂日誌處理，下面是我基於它自訂的日誌處理套件的部分內容：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">logs</span>
+
+<span style="color:#f92672">import</span> (
+	<span style="color:#75715e">// &#34;errors&#34;
+</span><span style="color:#75715e"></span>	<span style="color:#e6db74">&#34;fmt&#34;</span>
+	<span style="color:#75715e">// &#34;io&#34;
+</span><span style="color:#75715e"></span>
+	<span style="color:#a6e22e">seelog</span> <span style="color:#e6db74">&#34;github.com/cihub/seelog&#34;</span>
+)
+
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">Logger</span> <span style="color:#a6e22e">seelog</span>.<span style="color:#a6e22e">LoggerInterface</span>
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">loadAppConfig</span>() {
+	<span style="color:#a6e22e">appConfig</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">`
+</span><span style="color:#e6db74">&lt;seelog minlevel=&#34;warn&#34;&gt;
+</span><span style="color:#e6db74">    &lt;outputs formatid=&#34;common&#34;&gt;
+</span><span style="color:#e6db74">        &lt;rollingfile type=&#34;size&#34; filename=&#34;/data/logs/roll.log&#34; maxsize=&#34;100000&#34; maxrolls=&#34;5&#34;/&gt;
+</span><span style="color:#e6db74">		&lt;filter levels=&#34;critical&#34;&gt;
+</span><span style="color:#e6db74">            &lt;file path=&#34;/data/logs/critical.log&#34; formatid=&#34;critical&#34;/&gt;
+</span><span style="color:#e6db74">            &lt;smtp formatid=&#34;criticalemail&#34; senderaddress=&#34;astaxie@gmail.com&#34; sendername=&#34;ShortUrl API&#34; hostname=&#34;smtp.gmail.com&#34; hostport=&#34;587&#34; username=&#34;mailusername&#34; password=&#34;mailpassword&#34;&gt;
+</span><span style="color:#e6db74">                &lt;recipient address=&#34;xiemengjun@gmail.com&#34;/&gt;
+</span><span style="color:#e6db74">            &lt;/smtp&gt;
+</span><span style="color:#e6db74">        &lt;/filter&gt;
+</span><span style="color:#e6db74">    &lt;/outputs&gt;
+</span><span style="color:#e6db74">    &lt;formats&gt;
+</span><span style="color:#e6db74">        &lt;format id=&#34;common&#34; format=&#34;%Date/%Time [%LEV] %Msg%n&#34; /&gt;
+</span><span style="color:#e6db74">	    &lt;format id=&#34;critical&#34; format=&#34;%File %FullPath %Func %Msg%n&#34; /&gt;
+</span><span style="color:#e6db74">	    &lt;format id=&#34;criticalemail&#34; format=&#34;Critical error on our server!\n    %Time %Date %RelFile %Func %Msg \nSent by Seelog&#34;/&gt;
+</span><span style="color:#e6db74">    &lt;/formats&gt;
+</span><span style="color:#e6db74">&lt;/seelog&gt;
+</span><span style="color:#e6db74">`</span>
+	<span style="color:#a6e22e">logger</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">seelog</span>.<span style="color:#a6e22e">LoggerFromConfigAsBytes</span>([]byte(<span style="color:#a6e22e">appConfig</span>))
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">err</span>)
+		<span style="color:#66d9ef">return</span>
+	}
+	<span style="color:#a6e22e">UseLogger</span>(<span style="color:#a6e22e">logger</span>)
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">init</span>() {
+	<span style="color:#a6e22e">DisableLog</span>()
+	<span style="color:#a6e22e">loadAppConfig</span>()
+}
+
+<span style="color:#75715e">// DisableLog disables all library log output
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">DisableLog</span>() {
+	<span style="color:#a6e22e">Logger</span> = <span style="color:#a6e22e">seelog</span>.<span style="color:#a6e22e">Disabled</span>
+}
+
+<span style="color:#75715e">// UseLogger uses a specified seelog.LoggerInterface to output library log.
+</span><span style="color:#75715e">// Use this func if you are using Seelog logging system in your app.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">UseLogger</span>(<span style="color:#a6e22e">newLogger</span> <span style="color:#a6e22e">seelog</span>.<span style="color:#a6e22e">LoggerInterface</span>) {
+	<span style="color:#a6e22e">Logger</span> = <span style="color:#a6e22e">newLogger</span>
+}</code></pre></div>
+<p>上面主要實現了三個函式，</p>
+
+<ul>
+<li><p><code>DisableLog</code></p>
+
+<p>初始化全域性變數 Logger 為 seelog 的禁用狀態，主要為了防止 Logger 被多次初始化</p></li>
+
+<li><p><code>loadAppConfig</code></p>
+
+<p>根據配置檔案初始化 seelog 的配置資訊，這裡我們把配置檔案透過字串讀取設定好了，當然也可以透過讀取 XML 檔案。裡面的配置說明如下：</p>
+
+<ul>
+<li><p>seelog</p>
+
+<p>minlevel 參數可選，如果被配置，高於或等於此級別的日誌會被記錄，同理 maxlevel。</p></li>
+
+<li><p>outputs</p>
+
+<p>輸出資訊的目的地，這裡分成了兩份資料，一份記錄到 log rotate 檔案裡面。另一份設定了 filter，如果這個錯誤級別是 critical，那麼將傳送報警郵件。</p></li>
+
+<li><p>formats</p>
+
+<p>定義了各種日誌的格式</p></li>
+</ul></li>
+
+<li><p><code>UseLogger</code></p>
+
+<p>設定當前的日誌器為相應的日誌處理</p></li>
+</ul>
+
+<p>上面我們定義了一個自訂的日誌處理套件，下面就是使用範例：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+	<span style="color:#e6db74">&#34;net/http&#34;</span>
+	<span style="color:#e6db74">&#34;project/logs&#34;</span>
+	<span style="color:#e6db74">&#34;project/configs&#34;</span>
+	<span style="color:#e6db74">&#34;project/routes&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#a6e22e">addr</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">configs</span>.<span style="color:#a6e22e">MainConfig</span>.<span style="color:#a6e22e">String</span>(<span style="color:#e6db74">&#34;server&#34;</span>, <span style="color:#e6db74">&#34;addr&#34;</span>)
+	<span style="color:#a6e22e">logs</span>.<span style="color:#a6e22e">Logger</span>.<span style="color:#a6e22e">Info</span>(<span style="color:#e6db74">&#34;Start server at:%v&#34;</span>, <span style="color:#a6e22e">addr</span>)
+	<span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ListenAndServe</span>(<span style="color:#a6e22e">addr</span>, <span style="color:#a6e22e">routes</span>.<span style="color:#a6e22e">NewMux</span>())
+	<span style="color:#a6e22e">logs</span>.<span style="color:#a6e22e">Logger</span>.<span style="color:#a6e22e">Critical</span>(<span style="color:#e6db74">&#34;Server err:%v&#34;</span>, <span style="color:#a6e22e">err</span>)
+}</code></pre></div>
+<h2 id="發生錯誤傳送郵件">發生錯誤傳送郵件</h2>
+
+<p>上面的例子解釋了如何設定傳送郵件，我們透過如下的 smtp 配置用來發送郵件：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">smtp</span> <span style="color:#a6e22e">formatid</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;criticalemail&#34;</span> <span style="color:#a6e22e">senderaddress</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;astaxie@gmail.com&#34;</span> <span style="color:#a6e22e">sendername</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;ShortUrl API&#34;</span> <span style="color:#a6e22e">hostname</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;smtp.gmail.com&#34;</span> <span style="color:#a6e22e">hostport</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;587&#34;</span> <span style="color:#a6e22e">username</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;mailusername&#34;</span> <span style="color:#a6e22e">password</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;mailpassword&#34;</span>&gt;
+	&lt;<span style="color:#f92672">recipient</span> <span style="color:#a6e22e">address</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;xiemengjun@gmail.com&#34;</span>/&gt;
+&lt;/<span style="color:#f92672">smtp</span>&gt;</code></pre></div>
+<p>郵件的格式透過 criticalemail 配置，然後透過其他的配置傳送郵件伺服器的配置，透過 recipient 配置接收郵件的使用者，如果有多個使用者可以再新增一行。</p>
+
+<p>要測試這個程式碼是否正常工作，可以在程式碼中增加類似下面的一個假訊息。不過記住過後要把它刪除，否則上線之後就會收到很多垃圾郵件。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">logs</span>.<span style="color:#a6e22e">Logger</span>.<span style="color:#a6e22e">Critical</span>(<span style="color:#e6db74">&#34;test Critical message&#34;</span>)</code></pre></div>
+<p>現在，只要我們的應用在線上記錄一個 Critical 的資訊，你的郵箱就會收到一個 Email，這樣一旦線上的系統出現問題，你就能立馬透過郵件獲知，就能及時的進行處理。</p>
+
+<h2 id="使用應用日誌">使用應用日誌</h2>
+
+<p>對於應用日誌，每個人的應用場景可能會各不相同，有些人利用應用日誌來做資料分析，有些人利用應用日誌來做效能分析，有些人來做使用者行為分析，還有些就是純粹的記錄，以方便應用出現問題的時候輔助查詢問題。</p>
+
+<p>舉一個例子，我們需要追蹤使用者嘗試登陸系統的操作。這裡會把成功與不成功的嘗試都記錄下來。記錄成功的使用&rdquo;Info&rdquo;日誌級別，而不成功的使用&rdquo;warn&rdquo;級別。如果想查詢所有不成功的登陸，我們可以利用 linux 的 grep 之類別的命令工具，如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#960050;background-color:#1e0010">#</span> <span style="color:#a6e22e">cat</span> <span style="color:#f92672">/</span><span style="color:#a6e22e">data</span><span style="color:#f92672">/</span><span style="color:#a6e22e">logs</span><span style="color:#f92672">/</span><span style="color:#a6e22e">roll</span>.<span style="color:#a6e22e">log</span> | <span style="color:#a6e22e">grep</span> <span style="color:#e6db74">&#34;failed login&#34;</span>
+<span style="color:#ae81ff">2012</span><span style="color:#f92672">-</span><span style="color:#ae81ff">12</span><span style="color:#f92672">-</span><span style="color:#ae81ff">11</span> <span style="color:#ae81ff">11</span>:<span style="color:#ae81ff">12</span>:<span style="color:#ae81ff">00</span> <span style="color:#a6e22e">WARN</span> : <span style="color:#a6e22e">failed</span> <span style="color:#a6e22e">login</span> <span style="color:#a6e22e">attempt</span> <span style="color:#a6e22e">from</span> <span style="color:#ae81ff">11.22.33.44</span> <span style="color:#a6e22e">username</span> <span style="color:#a6e22e">password</span></code></pre></div>
+<p>透過這種方式我們就可以很方便的查詢相應的資訊，這樣有利於我們針對應用日誌做一些統計和分析。另外我們還需要考慮日誌的大小，對於一個高流量的 Web 應用來說，日誌的增長是相當可怕的，所以我們在 seelog 的配置檔案裡面設定了 logrotate，這樣就能保證日誌檔案不會因為不斷變大而導致我們的磁碟空間不夠引起問題。</p>
+
+<h2 id="小結">小結</h2>
+
+<p>透過上面對 seelog 系統及如何基於它進行自訂日誌系統的學習，現在我們可以很輕鬆的隨需建構一個合適的功能強大的日誌處理系統了。日誌處理系統為資料分析提供了可靠的資料來源，比如透過對日誌的分析，我們可以進一步優化系統，或者應用出現問題時方便查詢定位問題，另外 seelog 也提供了日誌分級功能，透過對 minlevel 的配置，我們可以很方便的設定測試或釋出版本的輸出訊息級別。</p>
+
+<h2 id="links">links</h2>
+
+<ul>
+<li><a href="docs/preface">目錄</a></li>
+<li>上一章: <a href="docs/12.0">部署與維護</a></li>
+<li>下一節: <a href="docs/12.2">網站錯誤處理</a></li>
+</ul>
+</article>
+
+      
+<div class="book-footer justify-between">
+  
+  <div>
+    
+    <a href="/commit/fda25aafea9413c8ec77f5df29d5f6bb5f7dc3a6" title='Last modified Sep 21, 2019 by Jiuxiao' target="_blank" rel="noopener">
+      <img src="/buildWebWithGolangTw/svg/calendar.svg" alt="Changed" /> Sep 21, 2019
+    </a>
+  </div>
+  
+  
+</div>
+
+
+      
+    </div>
+
+    
+  
+
+  <aside class="book-toc level-3 fixed">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#12-1-應用日誌">12.1 應用日誌</a>
+<ul>
+<li><a href="#logrus-介紹">logrus 介紹</a>
+<ul>
+<li><a href="#基於-logrus-的自訂日誌處理">基於 logrus 的自訂日誌處理</a></li>
+</ul></li>
+<li><a href="#seelog-介紹">seelog 介紹</a>
+<ul>
+<li><a href="#基於-seelog-的自訂日誌處理">基於 seelog 的自訂日誌處理</a></li>
+</ul></li>
+<li><a href="#發生錯誤傳送郵件">發生錯誤傳送郵件</a></li>
+<li><a href="#使用應用日誌">使用應用日誌</a></li>
+<li><a href="#小結">小結</a></li>
+<li><a href="#links">links</a></li>
+</ul></li>
+</ul>
+</nav>
+  </aside>
+
+
+
+  </main>
+
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-148025936-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+</body>
+
+</html>
