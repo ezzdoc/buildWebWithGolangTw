@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="/buildWebWithGolangTw/book.min.89885fa0429ec73067282f26fc0c6d38cfc617a443ec4e835d47b821c52c6e92.css" integrity="sha256-iYhfoEKexzBnKC8m/AxtOM/GF6RD7E6DXUe4IcUsbpI=">
 
 
-<script defer src="/buildWebWithGolangTw/search.min.4762838110f5450a8a33fcbe56c7ce734d09867f3e9ab5c1e6f7bbec99b65c68.js" integrity="sha256-R2KDgRD1RQqKM/y&#43;VsfOc00Jhn8&#43;mrXB5ve77Jm2XGg="></script>
+<script defer src="/buildWebWithGolangTw/search.min.1a26f030063cd84b7dd0472b3e255bc21c62c31322ab49b56f536fba41b42496.js" integrity="sha256-GibwMAY82Et90EcrPiVbwhxiwxMiq0m1b1NvukG0JJY="></script>
 
 
 
@@ -232,7 +232,169 @@ https://github.com/alex-shpak/hugo-book
 </header>
 
       
-<article class="markdown"></article>
+<article class="markdown">
+
+<h1 id="13-3-controller-設計">13.3 controller 設計</h1>
+
+<p>傳統的 MVC 框架大多數是基於 Action 設計的字尾式對映，然而，現在 Web 流行 REST 風格的架構。儘管使用 Filter 或者 rewrite 能夠透過 URL 重寫實現 REST 風格的 URL，但是為什麼不直接設計一個全新的 REST 風格的 MVC 框架呢？本小節就是基於這種思路來講述如何從頭設計一個基於 REST 風格的 MVC 框架中的 controller，最大限度地簡化 Web 應用的開發，甚至編寫一行程式碼就可以實現“Hello, world”。</p>
+
+<h2 id="controller-作用">controller 作用</h2>
+
+<p>MVC 設計模式是目前 Web 應用開發中最常見的架構模式，透過分離 Model（模型）、View（檢視）和 Controller（控制器），可以更容易實現易於擴充套件的使用者介面(UI)。Model 指後臺回傳的資料；View 指需要渲染的頁面，通常是範本頁面，渲染後的內容通常是 HTML；Controller 指 Web 開發人員編寫的處理不同 URL 的控制器，如前面小節講述的路由就是 URL 請求轉發到控制器的過程，controller 在整個的 MVC 框架中起到了一個核心的作用，負責處理業務邏輯，因此控制器是整個框架中必不可少的一部分，Model 和 View 對於有些業務需求是可以不寫的，例如沒有資料處理的邏輯處理，沒有頁面輸出的 302 調整之類別的就不需要 Model 和 View，但是 controller 這一環節是必不可少的。</p>
+
+<h2 id="beego-的-rest-設計">beego 的 REST 設計</h2>
+
+<p>前面小節介紹了路由實現了註冊 struct 的功能，而 struct 中實現了 REST 方式，因此我們需要設計一個用於邏輯處理 controller 的基底類別，這裡主要設計了兩個型別，一個 struct、一個 interface</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Controller</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">Ct</span>        <span style="color:#f92672">*</span><span style="color:#a6e22e">Context</span>
+	<span style="color:#a6e22e">Tpl</span>       <span style="color:#f92672">*</span><span style="color:#a6e22e">template</span>.<span style="color:#a6e22e">Template</span>
+	<span style="color:#a6e22e">Data</span>      <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">interface</span>{}]<span style="color:#66d9ef">interface</span>{}
+	<span style="color:#a6e22e">ChildName</span> <span style="color:#66d9ef">string</span>
+	<span style="color:#a6e22e">TplNames</span>  <span style="color:#66d9ef">string</span>
+	<span style="color:#a6e22e">Layout</span>    []<span style="color:#66d9ef">string</span>
+	<span style="color:#a6e22e">TplExt</span>    <span style="color:#66d9ef">string</span>
+}
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">ControllerInterface</span> <span style="color:#66d9ef">interface</span> {
+	<span style="color:#a6e22e">Init</span>(<span style="color:#a6e22e">ct</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">cn</span> <span style="color:#66d9ef">string</span>)    <span style="color:#75715e">//初始化上下文和子類別名稱稱
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Prepare</span>()                       <span style="color:#75715e">//開始執行之前的一些處理
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Get</span>()                           <span style="color:#75715e">//method=GET 的處理
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Post</span>()                          <span style="color:#75715e">//method=POST 的處理
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Delete</span>()                        <span style="color:#75715e">//method=DELETE 的處理
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Put</span>()                           <span style="color:#75715e">//method=PUT 的處理
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Head</span>()                          <span style="color:#75715e">//method=HEAD 的處理
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Patch</span>()                         <span style="color:#75715e">//method=PATCH 的處理
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Options</span>()                       <span style="color:#75715e">//method=OPTIONS 的處理
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Finish</span>()                        <span style="color:#75715e">//執行完成之後的處理
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Render</span>() <span style="color:#66d9ef">error</span>                  <span style="color:#75715e">//執行完 method 對應的方法之後渲染頁面
+</span><span style="color:#75715e"></span>}</code></pre></div>
+<p>那麼前面介紹的路由 add 函式的時候是定義了 ControllerInterface 型別，因此，只要我們實現這個介面就可以，所以我們的基底類別 Controller 實現如下的方法：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Controller</span>) <span style="color:#a6e22e">Init</span>(<span style="color:#a6e22e">ct</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">cn</span> <span style="color:#66d9ef">string</span>) {
+	<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Data</span> = make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">interface</span>{}]<span style="color:#66d9ef">interface</span>{})
+	<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Layout</span> = make([]<span style="color:#66d9ef">string</span>, <span style="color:#ae81ff">0</span>)
+	<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">TplNames</span> = <span style="color:#e6db74">&#34;&#34;</span>
+	<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">ChildName</span> = <span style="color:#a6e22e">cn</span>
+	<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Ct</span> = <span style="color:#a6e22e">ct</span>
+	<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">TplExt</span> = <span style="color:#e6db74">&#34;tpl&#34;</span>
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Controller</span>) <span style="color:#a6e22e">Prepare</span>() {
+
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Controller</span>) <span style="color:#a6e22e">Finish</span>() {
+
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Controller</span>) <span style="color:#a6e22e">Get</span>() {
+	<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Error</span>(<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Ct</span>.<span style="color:#a6e22e">ResponseWriter</span>, <span style="color:#e6db74">&#34;Method Not Allowed&#34;</span>, <span style="color:#ae81ff">405</span>)
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Controller</span>) <span style="color:#a6e22e">Post</span>() {
+	<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Error</span>(<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Ct</span>.<span style="color:#a6e22e">ResponseWriter</span>, <span style="color:#e6db74">&#34;Method Not Allowed&#34;</span>, <span style="color:#ae81ff">405</span>)
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Controller</span>) <span style="color:#a6e22e">Delete</span>() {
+	<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Error</span>(<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Ct</span>.<span style="color:#a6e22e">ResponseWriter</span>, <span style="color:#e6db74">&#34;Method Not Allowed&#34;</span>, <span style="color:#ae81ff">405</span>)
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Controller</span>) <span style="color:#a6e22e">Put</span>() {
+	<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Error</span>(<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Ct</span>.<span style="color:#a6e22e">ResponseWriter</span>, <span style="color:#e6db74">&#34;Method Not Allowed&#34;</span>, <span style="color:#ae81ff">405</span>)
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Controller</span>) <span style="color:#a6e22e">Head</span>() {
+	<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Error</span>(<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Ct</span>.<span style="color:#a6e22e">ResponseWriter</span>, <span style="color:#e6db74">&#34;Method Not Allowed&#34;</span>, <span style="color:#ae81ff">405</span>)
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Controller</span>) <span style="color:#a6e22e">Patch</span>() {
+	<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Error</span>(<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Ct</span>.<span style="color:#a6e22e">ResponseWriter</span>, <span style="color:#e6db74">&#34;Method Not Allowed&#34;</span>, <span style="color:#ae81ff">405</span>)
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Controller</span>) <span style="color:#a6e22e">Options</span>() {
+	<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Error</span>(<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Ct</span>.<span style="color:#a6e22e">ResponseWriter</span>, <span style="color:#e6db74">&#34;Method Not Allowed&#34;</span>, <span style="color:#ae81ff">405</span>)
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Controller</span>) <span style="color:#a6e22e">Render</span>() <span style="color:#66d9ef">error</span> {
+	<span style="color:#66d9ef">if</span> len(<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Layout</span>) &gt; <span style="color:#ae81ff">0</span> {
+		<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">filenames</span> []<span style="color:#66d9ef">string</span>
+		<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">file</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Layout</span> {
+			<span style="color:#a6e22e">filenames</span> = append(<span style="color:#a6e22e">filenames</span>, <span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">Join</span>(<span style="color:#a6e22e">ViewsPath</span>, <span style="color:#a6e22e">file</span>))
+		}
+		<span style="color:#a6e22e">t</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">template</span>.<span style="color:#a6e22e">ParseFiles</span>(<span style="color:#a6e22e">filenames</span><span style="color:#f92672">...</span>)
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+			<span style="color:#a6e22e">Trace</span>(<span style="color:#e6db74">&#34;template ParseFiles err:&#34;</span>, <span style="color:#a6e22e">err</span>)
+		}
+		<span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">ExecuteTemplate</span>(<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Ct</span>.<span style="color:#a6e22e">ResponseWriter</span>, <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">TplNames</span>, <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Data</span>)
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+			<span style="color:#a6e22e">Trace</span>(<span style="color:#e6db74">&#34;template Execute err:&#34;</span>, <span style="color:#a6e22e">err</span>)
+		}
+	} <span style="color:#66d9ef">else</span> {
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">TplNames</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;&#34;</span> {
+			<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">TplNames</span> = <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">ChildName</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;/&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Ct</span>.<span style="color:#a6e22e">Request</span>.<span style="color:#a6e22e">Method</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;.&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">TplExt</span>
+		}
+		<span style="color:#a6e22e">t</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">template</span>.<span style="color:#a6e22e">ParseFiles</span>(<span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">Join</span>(<span style="color:#a6e22e">ViewsPath</span>, <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">TplNames</span>))
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+			<span style="color:#a6e22e">Trace</span>(<span style="color:#e6db74">&#34;template ParseFiles err:&#34;</span>, <span style="color:#a6e22e">err</span>)
+		}
+		<span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Execute</span>(<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Ct</span>.<span style="color:#a6e22e">ResponseWriter</span>, <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Data</span>)
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+			<span style="color:#a6e22e">Trace</span>(<span style="color:#e6db74">&#34;template Execute err:&#34;</span>, <span style="color:#a6e22e">err</span>)
+		}
+	}
+	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Controller</span>) <span style="color:#a6e22e">Redirect</span>(<span style="color:#a6e22e">url</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">code</span> <span style="color:#66d9ef">int</span>) {
+	<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Ct</span>.<span style="color:#a6e22e">Redirect</span>(<span style="color:#a6e22e">code</span>, <span style="color:#a6e22e">url</span>)
+}</code></pre></div>
+<p>上面的 controller 基底類別已經實現了介面定義的函式，透過路由根據 url 執行相應的 controller 的原則，會依次執行如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">Init</span>()      <span style="color:#a6e22e">初始化</span>
+<span style="color:#a6e22e">Prepare</span>()   <span style="color:#a6e22e">執行之前的初始化</span><span style="color:#960050;background-color:#1e0010">，</span><span style="color:#a6e22e">每個繼承的子類別可以來實現該函式</span>
+<span style="color:#a6e22e">method</span>()    <span style="color:#a6e22e">根據不同的</span> <span style="color:#a6e22e">method</span> <span style="color:#a6e22e">執行不同的函式</span><span style="color:#960050;background-color:#1e0010">：</span><span style="color:#a6e22e">GET</span><span style="color:#960050;background-color:#1e0010">、</span><span style="color:#a6e22e">POST</span><span style="color:#960050;background-color:#1e0010">、</span><span style="color:#a6e22e">PUT</span><span style="color:#960050;background-color:#1e0010">、</span><span style="color:#a6e22e">HEAD</span> <span style="color:#a6e22e">等</span><span style="color:#960050;background-color:#1e0010">，</span><span style="color:#a6e22e">子類別來實現這些函式</span><span style="color:#960050;background-color:#1e0010">，</span><span style="color:#a6e22e">如果沒實現</span><span style="color:#960050;background-color:#1e0010">，</span><span style="color:#a6e22e">那麼預設都是</span> <span style="color:#ae81ff">403</span>
+
+<span style="color:#a6e22e">Render</span>()    <span style="color:#a6e22e">可選</span><span style="color:#960050;background-color:#1e0010">，</span><span style="color:#a6e22e">根據全域性變數</span> <span style="color:#a6e22e">AutoRender</span> <span style="color:#a6e22e">來判斷是否執行</span>
+<span style="color:#a6e22e">Finish</span>()    <span style="color:#a6e22e">執行完之後執行的操作</span><span style="color:#960050;background-color:#1e0010">，</span><span style="color:#a6e22e">每個繼承的子類別可以來實現該函式</span></code></pre></div>
+<h2 id="應用指南">應用指南</h2>
+
+<p>上面 beego 框架中完成了 controller 基底類別的設計，那麼我們在我們的應用中可以這樣來設計我們的方法：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">controllers</span>
+
+<span style="color:#f92672">import</span> (
+	<span style="color:#e6db74">&#34;github.com/astaxie/beego&#34;</span>
+)
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">MainController</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">beego</span>.<span style="color:#a6e22e">Controller</span>
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">this</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">MainController</span>) <span style="color:#a6e22e">Get</span>() {
+	<span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">Data</span>[<span style="color:#e6db74">&#34;Username&#34;</span>] = <span style="color:#e6db74">&#34;astaxie&#34;</span>
+	<span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">Data</span>[<span style="color:#e6db74">&#34;Email&#34;</span>] = <span style="color:#e6db74">&#34;astaxie@gmail.com&#34;</span>
+	<span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">TplNames</span> = <span style="color:#e6db74">&#34;index.tpl&#34;</span>
+}</code></pre></div>
+<p>上面的方式我們實現了子類別 MainController，實現了 Get 方法，那麼如果使用者透過其他的方式(POST/HEAD 等)來訪問該資源都將回傳 405，而如果是 Get 來訪問，因為我們設定了 AutoRender=true，那麼在執行完 Get 方法之後會自動執行 Render 函式，就會顯示如下介面：</p>
+
+<p><img src="images/13.4.beego.png" alt="" /></p>
+
+<p>index.tpl 的程式碼如下所示，我們可以看到資料的設定和顯示都是相當的簡單方便：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#75715e">&lt;!DOCTYPE html&gt;</span>
+&lt;<span style="color:#f92672">html</span>&gt;
+  &lt;<span style="color:#f92672">head</span>&gt;
+    &lt;<span style="color:#f92672">title</span>&gt;beego welcome template&lt;/<span style="color:#f92672">title</span>&gt;
+  &lt;/<span style="color:#f92672">head</span>&gt;
+  &lt;<span style="color:#f92672">body</span>&gt;
+    &lt;<span style="color:#f92672">h1</span>&gt;Hello, world!{{.Username}},{{.Email}}&lt;/<span style="color:#f92672">h1</span>&gt;
+  &lt;/<span style="color:#f92672">body</span>&gt;
+&lt;/<span style="color:#f92672">html</span>&gt;</code></pre></div>
+<h2 id="links">links</h2>
+
+<ul>
+<li><a href="docs/preface">目錄</a></li>
+<li>上一章: <a href="docs/13.2">自訂路由器設計</a></li>
+<li>下一節: <a href="docs/13.4">日誌和配置設計</a>
+<!-- {% endraw %} --></li>
+</ul>
+</article>
 
       
 <div class="book-footer justify-between">
@@ -253,6 +415,20 @@ https://github.com/alex-shpak/hugo-book
 
     
   
+
+  <aside class="book-toc level-3 fixed">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#13-3-controller-設計">13.3 controller 設計</a>
+<ul>
+<li><a href="#controller-作用">controller 作用</a></li>
+<li><a href="#beego-的-rest-設計">beego 的 REST 設計</a></li>
+<li><a href="#應用指南">應用指南</a></li>
+<li><a href="#links">links</a></li>
+</ul></li>
+</ul>
+</nav>
+  </aside>
 
 
 

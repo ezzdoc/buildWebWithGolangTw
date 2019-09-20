@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="/buildWebWithGolangTw/book.min.89885fa0429ec73067282f26fc0c6d38cfc617a443ec4e835d47b821c52c6e92.css" integrity="sha256-iYhfoEKexzBnKC8m/AxtOM/GF6RD7E6DXUe4IcUsbpI=">
 
 
-<script defer src="/buildWebWithGolangTw/search.min.4762838110f5450a8a33fcbe56c7ce734d09867f3e9ab5c1e6f7bbec99b65c68.js" integrity="sha256-R2KDgRD1RQqKM/y&#43;VsfOc00Jhn8&#43;mrXB5ve77Jm2XGg="></script>
+<script defer src="/buildWebWithGolangTw/search.min.1a26f030063cd84b7dd0472b3e255bc21c62c31322ab49b56f536fba41b42496.js" integrity="sha256-GibwMAY82Et90EcrPiVbwhxiwxMiq0m1b1NvukG0JJY="></script>
 
 
 
@@ -232,7 +232,120 @@ https://github.com/alex-shpak/hugo-book
 </header>
 
       
-<article class="markdown"></article>
+<article class="markdown">
+
+<h1 id="14-5-多語言支援">14.5 多語言支援</h1>
+
+<p>我們在第十章介紹過國際化和本地化，開發了一個 go-i18n 函式庫，這小節我們將把該函式庫整合到 beego 框架裡面來，使得我們的框架支援國際化和本地化。</p>
+
+<h2 id="i18n-整合">i18n 整合</h2>
+
+<p>beego 中設定全域性變數如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">Translation</span>	<span style="color:#a6e22e">i18n</span>.<span style="color:#a6e22e">IL</span>
+<span style="color:#a6e22e">Lang</span> 		<span style="color:#66d9ef">string</span>  <span style="color:#75715e">//設定語言套件，zh、en
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">LangPath</span>	<span style="color:#66d9ef">string</span>  <span style="color:#f92672">//</span><span style="color:#a6e22e">設定語言套件所在位置</span></code></pre></div>
+<p>初始化多語言函式:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">InitLang</span>(){
+    <span style="color:#a6e22e">beego</span>.<span style="color:#a6e22e">Translation</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">i18n</span>.<span style="color:#a6e22e">NewLocale</span>()
+    <span style="color:#a6e22e">beego</span>.<span style="color:#a6e22e">Translation</span>.<span style="color:#a6e22e">LoadPath</span>(<span style="color:#a6e22e">beego</span>.<span style="color:#a6e22e">LangPath</span>)
+    <span style="color:#a6e22e">beego</span>.<span style="color:#a6e22e">Translation</span>.<span style="color:#a6e22e">SetLocale</span>(<span style="color:#a6e22e">beego</span>.<span style="color:#a6e22e">Lang</span>)
+}</code></pre></div>
+<p>為了方便在範本中直接呼叫多語言套件，我們設計了三個函式來處理回應的多語言：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">beegoTplFuncMap</span>[<span style="color:#e6db74">&#34;Trans&#34;</span>] = <span style="color:#a6e22e">i18n</span>.<span style="color:#a6e22e">I18nT</span>
+<span style="color:#a6e22e">beegoTplFuncMap</span>[<span style="color:#e6db74">&#34;TransDate&#34;</span>] = <span style="color:#a6e22e">i18n</span>.<span style="color:#a6e22e">I18nTimeDate</span>
+<span style="color:#a6e22e">beegoTplFuncMap</span>[<span style="color:#e6db74">&#34;TransMoney&#34;</span>] = <span style="color:#a6e22e">i18n</span>.<span style="color:#a6e22e">I18nMoney</span>
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">I18nT</span>(<span style="color:#a6e22e">args</span> <span style="color:#f92672">...</span><span style="color:#66d9ef">interface</span>{}) <span style="color:#66d9ef">string</span> {
+    <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">false</span>
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">s</span> <span style="color:#66d9ef">string</span>
+    <span style="color:#66d9ef">if</span> len(<span style="color:#a6e22e">args</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> {
+        <span style="color:#a6e22e">s</span>, <span style="color:#a6e22e">ok</span> = <span style="color:#a6e22e">args</span>[<span style="color:#ae81ff">0</span>].(<span style="color:#66d9ef">string</span>)
+    }
+    <span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">ok</span> {
+        <span style="color:#a6e22e">s</span> = <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprint</span>(<span style="color:#a6e22e">args</span><span style="color:#f92672">...</span>)
+    }
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">beego</span>.<span style="color:#a6e22e">Translation</span>.<span style="color:#a6e22e">Translate</span>(<span style="color:#a6e22e">s</span>)
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">I18nTimeDate</span>(<span style="color:#a6e22e">args</span> <span style="color:#f92672">...</span><span style="color:#66d9ef">interface</span>{}) <span style="color:#66d9ef">string</span> {
+    <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">false</span>
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">s</span> <span style="color:#66d9ef">string</span>
+    <span style="color:#66d9ef">if</span> len(<span style="color:#a6e22e">args</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> {
+        <span style="color:#a6e22e">s</span>, <span style="color:#a6e22e">ok</span> = <span style="color:#a6e22e">args</span>[<span style="color:#ae81ff">0</span>].(<span style="color:#66d9ef">string</span>)
+    }
+    <span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">ok</span> {
+        <span style="color:#a6e22e">s</span> = <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprint</span>(<span style="color:#a6e22e">args</span><span style="color:#f92672">...</span>)
+    }
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">beego</span>.<span style="color:#a6e22e">Translation</span>.<span style="color:#a6e22e">Time</span>(<span style="color:#a6e22e">s</span>)
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">I18nMoney</span>(<span style="color:#a6e22e">args</span> <span style="color:#f92672">...</span><span style="color:#66d9ef">interface</span>{}) <span style="color:#66d9ef">string</span> {
+    <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">false</span>
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">s</span> <span style="color:#66d9ef">string</span>
+    <span style="color:#66d9ef">if</span> len(<span style="color:#a6e22e">args</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> {
+        <span style="color:#a6e22e">s</span>, <span style="color:#a6e22e">ok</span> = <span style="color:#a6e22e">args</span>[<span style="color:#ae81ff">0</span>].(<span style="color:#66d9ef">string</span>)
+    }
+    <span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">ok</span> {
+        <span style="color:#a6e22e">s</span> = <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprint</span>(<span style="color:#a6e22e">args</span><span style="color:#f92672">...</span>)
+    }
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">beego</span>.<span style="color:#a6e22e">Translation</span>.<span style="color:#a6e22e">Money</span>(<span style="color:#a6e22e">s</span>)
+}</code></pre></div>
+<h2 id="多語言開發使用">多語言開發使用</h2>
+
+<ol>
+<li><p>設定語言以及語言套件所在位置，然後初始化 i18n 物件：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">beego</span>.<span style="color:#a6e22e">Lang</span> = <span style="color:#e6db74">&#34;zh&#34;</span>
+<span style="color:#a6e22e">beego</span>.<span style="color:#a6e22e">LangPath</span> = <span style="color:#e6db74">&#34;views/lang&#34;</span>
+<span style="color:#a6e22e">beego</span>.<span style="color:#a6e22e">InitLang</span>()</code></pre></div></li>
+
+<li><p>設計多語言套件</p>
+
+<p>上面講了如何初始化多語言套件，現在設計多語言套件，多語言套件是 json 檔案，如第十章介紹的一樣，我們需要把設計的檔案放在 LangPath 下面，例如 zh.json 或者 en.json</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#960050;background-color:#1e0010">#</span> <span style="color:#960050;background-color:#1e0010">zh.json</span>
+
+{
+<span style="color:#f92672">&#34;zh&#34;</span>: {
+<span style="color:#f92672">&#34;submit&#34;</span>: <span style="color:#e6db74">&#34;提交&#34;</span>,
+<span style="color:#f92672">&#34;create&#34;</span>: <span style="color:#e6db74">&#34;建立&#34;</span>
+}
+}
+
+<span style="color:#960050;background-color:#1e0010">#</span> <span style="color:#960050;background-color:#1e0010">en.json</span>
+
+{
+<span style="color:#f92672">&#34;en&#34;</span>: {
+<span style="color:#f92672">&#34;submit&#34;</span>: <span style="color:#e6db74">&#34;Submit&#34;</span>,
+<span style="color:#f92672">&#34;create&#34;</span>: <span style="color:#e6db74">&#34;Create&#34;</span>
+}
+}</code></pre></div></li>
+
+<li><p>使用語言套件</p>
+
+<p>我們可以在 controller 中呼叫翻譯取得回應的翻譯語言，如下所示：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">this</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">MainController</span>) <span style="color:#a6e22e">Get</span>() {
+	<span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">Data</span>[<span style="color:#e6db74">&#34;create&#34;</span>] = <span style="color:#a6e22e">beego</span>.<span style="color:#a6e22e">Translation</span>.<span style="color:#a6e22e">Translate</span>(<span style="color:#e6db74">&#34;create&#34;</span>)
+	<span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">TplNames</span> = <span style="color:#e6db74">&#34;index.tpl&#34;</span>
+}</code></pre></div>
+<p>我們也可以在範本中直接呼叫回應的翻譯函式：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#75715e">//直接文字翻譯
+</span><span style="color:#75715e"></span>{{.<span style="color:#a6e22e">create</span> | <span style="color:#a6e22e">Trans</span>}}
+
+<span style="color:#75715e">//時間翻譯
+</span><span style="color:#75715e"></span>{{.<span style="color:#a6e22e">time</span> | <span style="color:#a6e22e">TransDate</span>}}
+
+<span style="color:#75715e">//貨幣翻譯
+</span><span style="color:#75715e"></span>{{.<span style="color:#a6e22e">money</span> | <span style="color:#a6e22e">TransMoney</span>}}</code></pre></div></li>
+</ol>
+
+<h2 id="links">links</h2>
+
+<ul>
+<li><a href="docs/preface">目錄</a></li>
+<li>上一節: <a href="docs/14.4">使用者認證</a></li>
+<li>下一節: <a href="docs/14.6">pprof 支援</a>
+<!-- {% endraw %} --></li>
+</ul>
+</article>
 
       
 <div class="book-footer justify-between">
@@ -253,6 +366,19 @@ https://github.com/alex-shpak/hugo-book
 
     
   
+
+  <aside class="book-toc level-3 fixed">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#14-5-多語言支援">14.5 多語言支援</a>
+<ul>
+<li><a href="#i18n-整合">i18n 整合</a></li>
+<li><a href="#多語言開發使用">多語言開發使用</a></li>
+<li><a href="#links">links</a></li>
+</ul></li>
+</ul>
+</nav>
+  </aside>
 
 
 

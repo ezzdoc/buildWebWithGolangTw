@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="/buildWebWithGolangTw/book.min.89885fa0429ec73067282f26fc0c6d38cfc617a443ec4e835d47b821c52c6e92.css" integrity="sha256-iYhfoEKexzBnKC8m/AxtOM/GF6RD7E6DXUe4IcUsbpI=">
 
 
-<script defer src="/buildWebWithGolangTw/search.min.4762838110f5450a8a33fcbe56c7ce734d09867f3e9ab5c1e6f7bbec99b65c68.js" integrity="sha256-R2KDgRD1RQqKM/y&#43;VsfOc00Jhn8&#43;mrXB5ve77Jm2XGg="></script>
+<script defer src="/buildWebWithGolangTw/search.min.1a26f030063cd84b7dd0472b3e255bc21c62c31322ab49b56f536fba41b42496.js" integrity="sha256-GibwMAY82Et90EcrPiVbwhxiwxMiq0m1b1NvukG0JJY="></script>
 
 
 
@@ -232,7 +232,140 @@ https://github.com/alex-shpak/hugo-book
 </header>
 
       
-<article class="markdown"></article>
+<article class="markdown">
+
+<h1 id="10-2-本地化資源">10.2 本地化資源</h1>
+
+<p>前面小節我們介紹了如何設定 Locale，設定好 Locale 之後我們需要解決的問題就是如何儲存相應的 Locale 對應的資訊呢？這裡面的資訊包括：文字資訊、時間和日期、貨幣值、圖片、包含檔案以及檢視等資源。那麼接下來我們將對這些資訊一一進行介紹，Go 語言中我們把這些格式資訊儲存在 JSON 中，然後透過合適的方式展現出來。(接下來以中文和英文兩種語言對比舉例，儲存格式檔案 en.json 和 zh-CN.json)</p>
+
+<h2 id="本地化文字訊息">本地化文字訊息</h2>
+
+<p>文字資訊是編寫 Web 應用中最常用到的，也是本地化資源中最多的資訊，想要以適合本地語言的方式來顯示文字資訊，可行的一種方案是 : 建立需要的語言相應的 map 來維護一個 key-value 的關係，在輸出之前按需從適合的 map 中去取得相應的文字，如下是一個簡單的範例：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
+
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">locales</span> <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">string</span>
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#a6e22e">locales</span> = make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">string</span>, <span style="color:#ae81ff">2</span>)
+	<span style="color:#a6e22e">en</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">string</span>, <span style="color:#ae81ff">10</span>)
+	<span style="color:#a6e22e">en</span>[<span style="color:#e6db74">&#34;pea&#34;</span>] = <span style="color:#e6db74">&#34;pea&#34;</span>
+	<span style="color:#a6e22e">en</span>[<span style="color:#e6db74">&#34;bean&#34;</span>] = <span style="color:#e6db74">&#34;bean&#34;</span>
+	<span style="color:#a6e22e">locales</span>[<span style="color:#e6db74">&#34;en&#34;</span>] = <span style="color:#a6e22e">en</span>
+	<span style="color:#a6e22e">cn</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">string</span>, <span style="color:#ae81ff">10</span>)
+	<span style="color:#a6e22e">cn</span>[<span style="color:#e6db74">&#34;pea&#34;</span>] = <span style="color:#e6db74">&#34;豌豆&#34;</span>
+	<span style="color:#a6e22e">cn</span>[<span style="color:#e6db74">&#34;bean&#34;</span>] = <span style="color:#e6db74">&#34;毛豆&#34;</span>
+	<span style="color:#a6e22e">locales</span>[<span style="color:#e6db74">&#34;zh-CN&#34;</span>] = <span style="color:#a6e22e">cn</span>
+	<span style="color:#a6e22e">lang</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;zh-CN&#34;</span>
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">msg</span>(<span style="color:#a6e22e">lang</span>, <span style="color:#e6db74">&#34;pea&#34;</span>))
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">msg</span>(<span style="color:#a6e22e">lang</span>, <span style="color:#e6db74">&#34;bean&#34;</span>))
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">msg</span>(<span style="color:#a6e22e">locale</span>, <span style="color:#a6e22e">key</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">string</span> {
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">v</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">locales</span>[<span style="color:#a6e22e">locale</span>]; <span style="color:#a6e22e">ok</span> {
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">v2</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">v</span>[<span style="color:#a6e22e">key</span>]; <span style="color:#a6e22e">ok</span> {
+			<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">v2</span>
+		}
+	}
+	<span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;&#34;</span>
+}</code></pre></div>
+<p>上面範例示範了不同 locale 的文字翻譯，實現了中文和英文對於同一個 key 顯示不同語言的實現，上面實現了中文的文字訊息，如果想切換到英文版本，只需要把 lang 設定為 en 即可。</p>
+
+<p>有些時候僅是 key-value 替換是不能滿足需要的，例如&rdquo;I am 30 years old&rdquo;，中文表達是&rdquo;我今年 30 歲了&rdquo;，而此處的 30 是一個變數，該怎麼辦呢？這個時候，我們可以結合<code>fmt.Printf</code>函式來實現，請看下面的程式碼：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">en</span>[<span style="color:#e6db74">&#34;how old&#34;</span>] =<span style="color:#e6db74">&#34;I am %d years old&#34;</span>
+<span style="color:#a6e22e">cn</span>[<span style="color:#e6db74">&#34;how old&#34;</span>] =<span style="color:#e6db74">&#34;我今年%d 歲了&#34;</span>
+
+<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#a6e22e">msg</span>(<span style="color:#a6e22e">lang</span>, <span style="color:#e6db74">&#34;how old&#34;</span>), <span style="color:#ae81ff">30</span>)</code></pre></div>
+<p>上面的範例程式碼僅用以示範內部的實現方案，而實際資料是儲存在 JSON 裡面的，所以我們可以透過<code>json.Unmarshal</code>來為相應的 map 填充資料。</p>
+
+<h2 id="本地化日期和時間">本地化日期和時間</h2>
+
+<p>因為時區的關係，同一時刻，在不同的地區，表示是不一樣的，而且因為 Locale 的關係，時間格式也不盡相同，例如中文環境下可能顯示：<code>2012 年 10 月 24 日 星期三 23 時 11 分 13 秒 CST</code>，而在英文環境下可能顯示:<code>Wed Oct 24 23:11:13 CST 2012</code>。這裡面我們需要解決兩點:</p>
+
+<ol>
+<li>時區問題</li>
+<li>格式問題</li>
+</ol>
+
+<p>$GOROOT/lib/time 套件中的 timeinfo.zip 含有 locale 對應的時區的定義，為了獲得對應於當前 locale 的時間，我們應首先使用<code>time.LoadLocation(name string)</code>取得相應於地區的 locale，比如<code>Asia/Shanghai</code>或<code>America/Chicago</code>對應的時區資訊，然後再利用此資訊與呼叫<code>time.Now</code>獲得的 Time 物件協作來獲得最終的時間。詳細的請看下面的例子(該例子採用上面例子的一些變數):</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">en</span>[<span style="color:#e6db74">&#34;time_zone&#34;</span>]=<span style="color:#e6db74">&#34;America/Chicago&#34;</span>
+<span style="color:#a6e22e">cn</span>[<span style="color:#e6db74">&#34;time_zone&#34;</span>]=<span style="color:#e6db74">&#34;Asia/Shanghai&#34;</span>
+
+<span style="color:#a6e22e">loc</span>,<span style="color:#a6e22e">_</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">LoadLocation</span>(<span style="color:#a6e22e">msg</span>(<span style="color:#a6e22e">lang</span>,<span style="color:#e6db74">&#34;time_zone&#34;</span>))
+<span style="color:#a6e22e">t</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>()
+<span style="color:#a6e22e">t</span> = <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">In</span>(<span style="color:#a6e22e">loc</span>)
+<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Format</span>(<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">RFC3339</span>))</code></pre></div>
+<p>我們可以透過類似處理文字格式的方式來解決時間格式的問題，舉例如下:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">en</span>[<span style="color:#e6db74">&#34;date_format&#34;</span>]=<span style="color:#e6db74">&#34;%Y-%m-%d %H:%M:%S&#34;</span>
+<span style="color:#a6e22e">cn</span>[<span style="color:#e6db74">&#34;date_format&#34;</span>]=<span style="color:#e6db74">&#34;%Y 年%m 月%d 日 %H 時%M 分%S 秒&#34;</span>
+
+<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">date</span>(<span style="color:#a6e22e">msg</span>(<span style="color:#a6e22e">lang</span>,<span style="color:#e6db74">&#34;date_format&#34;</span>),<span style="color:#a6e22e">t</span>))
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">date</span>(<span style="color:#a6e22e">fomate</span> <span style="color:#66d9ef">string</span>,<span style="color:#a6e22e">t</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Time</span>) <span style="color:#66d9ef">string</span>{
+	<span style="color:#a6e22e">year</span>, <span style="color:#a6e22e">month</span>, <span style="color:#a6e22e">day</span> = <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Date</span>()
+	<span style="color:#a6e22e">hour</span>, <span style="color:#a6e22e">min</span>, <span style="color:#a6e22e">sec</span> = <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Clock</span>()
+	<span style="color:#75715e">//解析相應的%Y %m %d %H %M %S 然後回傳資訊
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">//%Y 替換成 2012
+</span><span style="color:#75715e"></span>
+	<span style="color:#75715e">//%m 替換成 10
+</span><span style="color:#75715e"></span>
+	<span style="color:#75715e">//%d 替換成 24
+</span><span style="color:#75715e"></span>
+}</code></pre></div>
+<h2 id="本地化貨幣值">本地化貨幣值</h2>
+
+<p>各個地區的貨幣表示也不一樣，處理方式也與日期差不多，細節請看下面程式碼:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">en</span>[<span style="color:#e6db74">&#34;money&#34;</span>] =<span style="color:#e6db74">&#34;USD %d&#34;</span>
+<span style="color:#a6e22e">cn</span>[<span style="color:#e6db74">&#34;money&#34;</span>] =<span style="color:#e6db74">&#34;￥%d 元&#34;</span>
+
+<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">money_format</span>(<span style="color:#a6e22e">msg</span>(<span style="color:#a6e22e">lang</span>,<span style="color:#e6db74">&#34;date_format&#34;</span>),<span style="color:#ae81ff">100</span>))
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">money_format</span>(<span style="color:#a6e22e">fomate</span> <span style="color:#66d9ef">string</span>,<span style="color:#a6e22e">money</span> <span style="color:#66d9ef">int64</span>) <span style="color:#66d9ef">string</span>{
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#a6e22e">fomate</span>,<span style="color:#a6e22e">money</span>)
+}</code></pre></div>
+<h2 id="本地化檢視和資源">本地化檢視和資源</h2>
+
+<p>我們可能會根據 Locale 的不同來展示檢視，這些檢視包含不同的圖片、css、js 等各種靜態資源。那麼應如何來處理這些資訊呢？首先我們應按 locale 來組織檔案資訊，請看下面的檔案目錄安排：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">views
+|--en  //英文範本
+	|--images     //儲存圖片資訊
+	|--js         //儲存 JS 檔案
+	|--css        //儲存 css 檔案
+	index.tpl     //使用者首頁
+	login.tpl     //登陸首頁
+|--zh-CN //中文範本
+	|--images
+	|--js
+	|--css
+	index.tpl
+	login.tpl</code></pre></div>
+<p>有了這個目錄結構後我們就可以在渲染的地方這樣來實現程式碼：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">s1</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">template</span>.<span style="color:#a6e22e">ParseFiles</span>(<span style="color:#e6db74">&#34;views/&#34;</span><span style="color:#f92672">+</span><span style="color:#a6e22e">lang</span><span style="color:#f92672">+</span><span style="color:#e6db74">&#34;/index.tpl&#34;</span>)
+<span style="color:#a6e22e">VV</span>.<span style="color:#a6e22e">Lang</span>=<span style="color:#a6e22e">lang</span>
+<span style="color:#a6e22e">s1</span>.<span style="color:#a6e22e">Execute</span>(<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Stdout</span>, <span style="color:#a6e22e">VV</span>)</code></pre></div>
+<p>而對於裡面的 index.tpl 裡面的資源設定如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">// js 檔案
+&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;views/{{.Lang}}/js/jquery/jquery-1.8.0.min.js&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
+// css 檔案
+&lt;<span style="color:#f92672">link</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;views/{{.Lang}}/css/bootstrap-responsive.min.css&#34;</span> <span style="color:#a6e22e">rel</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stylesheet&#34;</span>&gt;
+// 圖片檔案
+&lt;<span style="color:#f92672">img</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;views/{{.Lang}}/images/btn.png&#34;</span>&gt;</code></pre></div>
+<p>採用這種方式來本地化檢視以及資源時，我們就可以很容易的進行擴充套件了。</p>
+
+<h2 id="總結">總結</h2>
+
+<p>本小節介紹了如何使用及儲存本地資源，有時需要透過轉換函式來實現，有時透過 lang 來設定，但是最終都是透過 key-value 的方式來儲存 Locale 對應的資料，在需要時取出相應於 Locale 的資訊後，如果是文字資訊就直接輸出，如果是時間日期或者貨幣，則需要先透過<code>fmt.Printf</code>或其他格式化函式來處理，而對於不同 Locale 的檢視和資源則是最簡單的，只要在路徑裡面增加 lang 就可以實現了。</p>
+
+<h2 id="links">links</h2>
+
+<ul>
+<li><a href="docs/preface">目錄</a></li>
+<li>上一節: <a href="docs/10.1">設定預設地區</a></li>
+<li>下一節: <a href="docs/10.3">國際化站點</a>
+<!-- {% endraw %} --></li>
+</ul>
+</article>
 
       
 <div class="book-footer justify-between">
@@ -253,6 +386,22 @@ https://github.com/alex-shpak/hugo-book
 
     
   
+
+  <aside class="book-toc level-3 fixed">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#10-2-本地化資源">10.2 本地化資源</a>
+<ul>
+<li><a href="#本地化文字訊息">本地化文字訊息</a></li>
+<li><a href="#本地化日期和時間">本地化日期和時間</a></li>
+<li><a href="#本地化貨幣值">本地化貨幣值</a></li>
+<li><a href="#本地化檢視和資源">本地化檢視和資源</a></li>
+<li><a href="#總結">總結</a></li>
+<li><a href="#links">links</a></li>
+</ul></li>
+</ul>
+</nav>
+  </aside>
 
 
 

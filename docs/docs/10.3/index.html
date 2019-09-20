@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="/buildWebWithGolangTw/book.min.89885fa0429ec73067282f26fc0c6d38cfc617a443ec4e835d47b821c52c6e92.css" integrity="sha256-iYhfoEKexzBnKC8m/AxtOM/GF6RD7E6DXUe4IcUsbpI=">
 
 
-<script defer src="/buildWebWithGolangTw/search.min.4762838110f5450a8a33fcbe56c7ce734d09867f3e9ab5c1e6f7bbec99b65c68.js" integrity="sha256-R2KDgRD1RQqKM/y&#43;VsfOc00Jhn8&#43;mrXB5ve77Jm2XGg="></script>
+<script defer src="/buildWebWithGolangTw/search.min.1a26f030063cd84b7dd0472b3e255bc21c62c31322ab49b56f536fba41b42496.js" integrity="sha256-GibwMAY82Et90EcrPiVbwhxiwxMiq0m1b1NvukG0JJY="></script>
 
 
 
@@ -232,7 +232,176 @@ https://github.com/alex-shpak/hugo-book
 </header>
 
       
-<article class="markdown"></article>
+<article class="markdown">
+
+<h1 id="10-3-國際化站點">10.3 國際化站點</h1>
+
+<p>前面小節介紹了如何處理本地化資源，即 Locale 一個相應的配置檔案，那麼如果處理多個的本地化資源呢？而對於一些我們經常用到的例如：簡單的文字翻譯、時間日期、數字等如果處理呢？本小節將一一解決這些問題。</p>
+
+<h2 id="管理多個本地包">管理多個本地包</h2>
+
+<p>在開發一個應用的時候，首先我們要決定是隻支援一種語言，還是多種語言，如果要支援多種語言，我們則需要制定一個組織結構，以方便將來更多語言的新增。在此我們設計如下：Locale 有關的檔案放置在 config/locales 下，假設你要支援中文和英文，那麼你需要在這個資料夾下放置 en.json 和 zh.json。大概的內容如下所示：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#960050;background-color:#1e0010">#</span> <span style="color:#960050;background-color:#1e0010">zh.json</span>
+
+{
+<span style="color:#f92672">&#34;zh&#34;</span>: {
+	<span style="color:#f92672">&#34;submit&#34;</span>: <span style="color:#e6db74">&#34;提交&#34;</span>,
+	<span style="color:#f92672">&#34;create&#34;</span>: <span style="color:#e6db74">&#34;建立&#34;</span>
+	}
+}
+
+<span style="color:#960050;background-color:#1e0010">#</span> <span style="color:#960050;background-color:#1e0010">en.json</span>
+
+{
+<span style="color:#f92672">&#34;en&#34;</span>: {
+	<span style="color:#f92672">&#34;submit&#34;</span>: <span style="color:#e6db74">&#34;Submit&#34;</span>,
+	<span style="color:#f92672">&#34;create&#34;</span>: <span style="color:#e6db74">&#34;Create&#34;</span>
+	}
+}</code></pre></div>
+<p>為了支援國際化，在此我們使用了一個國際化相關的套件——<a href="https://github.com/astaxie/go-i18n">go-i18n</a>，首先我們向 go-i18n 套件註冊 config/locales 這個目錄，以載入所有的 locale 檔案</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">Tr</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">i18n</span>.<span style="color:#a6e22e">NewLocale</span>()
+<span style="color:#a6e22e">Tr</span>.<span style="color:#a6e22e">LoadPath</span>(<span style="color:#e6db74">&#34;config/locales&#34;</span>)</code></pre></div>
+<p>這個套件使用起來很簡單，你可以透過下面的方式進行測試：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">Tr</span>.<span style="color:#a6e22e">Translate</span>(<span style="color:#e6db74">&#34;submit&#34;</span>))
+<span style="color:#75715e">//輸出 Submit
+</span><span style="color:#75715e"></span>
+<span style="color:#a6e22e">Tr</span>.<span style="color:#a6e22e">SetLocale</span>(<span style="color:#e6db74">&#34;zh&#34;</span>)
+<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">Tr</span>.<span style="color:#a6e22e">Translate</span>(<span style="color:#e6db74">&#34;submit&#34;</span>))
+<span style="color:#f92672">//</span><span style="color:#a6e22e">輸出</span><span style="color:#960050;background-color:#1e0010">“</span><span style="color:#a6e22e">提交</span><span style="color:#960050;background-color:#1e0010">”</span></code></pre></div>
+<h2 id="自動載入本地套件">自動載入本地套件</h2>
+
+<p>上面我們介紹了如何自動載入自訂語言套件，其實 go-i18n 函式庫已經預載入了很多預設的格式資訊，例如時間格式、貨幣格式，使用者可以在自訂配置時改寫這些預設配置，請看下面的處理過程：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#75715e">//載入預設配置檔案，這些檔案都放在 go-i18n/locales 下面
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">//檔案命名 zh.json、en.json、en-US.json 等，可以不斷的擴充套件支援更多的語言
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">il</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">IL</span>) <span style="color:#a6e22e">loadDefaultTranslations</span>(<span style="color:#a6e22e">dirPath</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">error</span> {
+	<span style="color:#a6e22e">dir</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Open</span>(<span style="color:#a6e22e">dirPath</span>)
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
+	}
+	<span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">dir</span>.<span style="color:#a6e22e">Close</span>()
+
+	<span style="color:#a6e22e">names</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">dir</span>.<span style="color:#a6e22e">Readdirnames</span>(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
+	}
+
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">name</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">names</span> {
+		<span style="color:#a6e22e">fullPath</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">Join</span>(<span style="color:#a6e22e">dirPath</span>, <span style="color:#a6e22e">name</span>)
+
+		<span style="color:#a6e22e">fi</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Stat</span>(<span style="color:#a6e22e">fullPath</span>)
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+			<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
+		}
+
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">fi</span>.<span style="color:#a6e22e">IsDir</span>() {
+			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">il</span>.<span style="color:#a6e22e">loadTranslations</span>(<span style="color:#a6e22e">fullPath</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+				<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
+			}
+		} <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">locale</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">il</span>.<span style="color:#a6e22e">matchingLocaleFromFileName</span>(<span style="color:#a6e22e">name</span>); <span style="color:#a6e22e">locale</span> <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#34;&#34;</span> {
+			<span style="color:#a6e22e">file</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Open</span>(<span style="color:#a6e22e">fullPath</span>)
+			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+				<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
+			}
+			<span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">file</span>.<span style="color:#a6e22e">Close</span>()
+
+			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">il</span>.<span style="color:#a6e22e">loadTranslation</span>(<span style="color:#a6e22e">file</span>, <span style="color:#a6e22e">locale</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+				<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
+			}
+		}
+	}
+
+	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
+}</code></pre></div>
+<p>透過上面的方法載入配置資訊到預設的檔案，這樣我們就可以在我們沒有自訂時間資訊的時候執行如下的程式碼取得對應的資訊:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#75715e">//locale=zh 的情況下，執行如下程式碼：
+</span><span style="color:#75715e"></span>
+<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">Tr</span>.<span style="color:#a6e22e">Time</span>(<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>()))
+<span style="color:#75715e">//輸出：2009 年 1 月 08 日 星期四 20:37:58 CST
+</span><span style="color:#75715e"></span>
+<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">Tr</span>.<span style="color:#a6e22e">Time</span>(<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>(),<span style="color:#e6db74">&#34;long&#34;</span>))
+<span style="color:#75715e">//輸出：2009 年 1 月 08 日
+</span><span style="color:#75715e"></span>
+<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">Tr</span>.<span style="color:#a6e22e">Money</span>(<span style="color:#ae81ff">11.11</span>))
+<span style="color:#f92672">//</span><span style="color:#a6e22e">輸出</span>:<span style="color:#960050;background-color:#1e0010">￥</span><span style="color:#ae81ff">11.11</span></code></pre></div>
+<h2 id="template-mapfunc">template mapfunc</h2>
+
+<p>上面我們實現了多個語言套件的管理和載入，而一些函式的實現是基於邏輯層的，例如：&rdquo;Tr.Translate&rdquo;、&rdquo;Tr.Time&rdquo;、&rdquo;Tr.Money&rdquo;等，雖然我們在邏輯層可以利用這些函式把需要的參數進行轉換後在範本層渲染的時候直接輸出，但是如果我們想在模版層直接使用這些函式該怎麼實現呢？不知你是否還記得，在前面介紹範本的時候說過：Go 語言的範本支援自訂範本函式，下面是我們實現的方便操作的 mapfunc：</p>
+
+<ol>
+<li>文字資訊</li>
+</ol>
+
+<p>文字資訊呼叫<code>Tr.Translate</code>來實現相應的資訊轉換，mapFunc 的實現如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">I18nT</span>(<span style="color:#a6e22e">args</span> <span style="color:#f92672">...</span><span style="color:#66d9ef">interface</span>{}) <span style="color:#66d9ef">string</span> {
+	<span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">false</span>
+	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">s</span> <span style="color:#66d9ef">string</span>
+	<span style="color:#66d9ef">if</span> len(<span style="color:#a6e22e">args</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> {
+		<span style="color:#a6e22e">s</span>, <span style="color:#a6e22e">ok</span> = <span style="color:#a6e22e">args</span>[<span style="color:#ae81ff">0</span>].(<span style="color:#66d9ef">string</span>)
+	}
+	<span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">ok</span> {
+		<span style="color:#a6e22e">s</span> = <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprint</span>(<span style="color:#a6e22e">args</span><span style="color:#f92672">...</span>)
+	}
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">Tr</span>.<span style="color:#a6e22e">Translate</span>(<span style="color:#a6e22e">s</span>)
+}</code></pre></div>
+<p>註冊函式如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Funcs</span>(<span style="color:#a6e22e">template</span>.<span style="color:#a6e22e">FuncMap</span>{<span style="color:#e6db74">&#34;T&#34;</span>: <span style="color:#a6e22e">I18nT</span>})</code></pre></div>
+<p>範本中使用如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go">{{.<span style="color:#a6e22e">V</span>.<span style="color:#a6e22e">Submit</span> | <span style="color:#a6e22e">T</span>}}</code></pre></div>
+<ol>
+<li>時間日期</li>
+</ol>
+
+<p>時間日期呼叫<code>Tr.Time</code>函式來實現相應的時間轉換，mapFunc 的實現如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">I18nTimeDate</span>(<span style="color:#a6e22e">args</span> <span style="color:#f92672">...</span><span style="color:#66d9ef">interface</span>{}) <span style="color:#66d9ef">string</span> {
+	<span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">false</span>
+	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">s</span> <span style="color:#66d9ef">string</span>
+	<span style="color:#66d9ef">if</span> len(<span style="color:#a6e22e">args</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> {
+		<span style="color:#a6e22e">s</span>, <span style="color:#a6e22e">ok</span> = <span style="color:#a6e22e">args</span>[<span style="color:#ae81ff">0</span>].(<span style="color:#66d9ef">string</span>)
+	}
+	<span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">ok</span> {
+		<span style="color:#a6e22e">s</span> = <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprint</span>(<span style="color:#a6e22e">args</span><span style="color:#f92672">...</span>)
+	}
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">Tr</span>.<span style="color:#a6e22e">Time</span>(<span style="color:#a6e22e">s</span>)
+}</code></pre></div>
+<p>註冊函式如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Funcs</span>(<span style="color:#a6e22e">template</span>.<span style="color:#a6e22e">FuncMap</span>{<span style="color:#e6db74">&#34;TD&#34;</span>: <span style="color:#a6e22e">I18nTimeDate</span>})</code></pre></div>
+<p>範本中使用如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go">{{.<span style="color:#a6e22e">V</span>.<span style="color:#a6e22e">Now</span> | <span style="color:#a6e22e">TD</span>}}</code></pre></div>
+<ol>
+<li>貨幣資訊</li>
+</ol>
+
+<p>貨幣呼叫<code>Tr.Money</code>函式來實現相應的時間轉換，mapFunc 的實現如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">I18nMoney</span>(<span style="color:#a6e22e">args</span> <span style="color:#f92672">...</span><span style="color:#66d9ef">interface</span>{}) <span style="color:#66d9ef">string</span> {
+	<span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">false</span>
+	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">s</span> <span style="color:#66d9ef">string</span>
+	<span style="color:#66d9ef">if</span> len(<span style="color:#a6e22e">args</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> {
+		<span style="color:#a6e22e">s</span>, <span style="color:#a6e22e">ok</span> = <span style="color:#a6e22e">args</span>[<span style="color:#ae81ff">0</span>].(<span style="color:#66d9ef">string</span>)
+	}
+	<span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">ok</span> {
+		<span style="color:#a6e22e">s</span> = <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprint</span>(<span style="color:#a6e22e">args</span><span style="color:#f92672">...</span>)
+	}
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">Tr</span>.<span style="color:#a6e22e">Money</span>(<span style="color:#a6e22e">s</span>)
+}</code></pre></div>
+<p>註冊函式如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Funcs</span>(<span style="color:#a6e22e">template</span>.<span style="color:#a6e22e">FuncMap</span>{<span style="color:#e6db74">&#34;M&#34;</span>: <span style="color:#a6e22e">I18nMoney</span>})</code></pre></div>
+<p>範本中使用如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go">{{.<span style="color:#a6e22e">V</span>.<span style="color:#a6e22e">Money</span> | <span style="color:#a6e22e">M</span>}}</code></pre></div>
+<h2 id="總結">總結</h2>
+
+<p>透過這小節我們知道了如何實現一個多語言套件的 Web 應用，透過自訂語言套件我們可以方便的實現多語言，而且透過配置檔案能夠非常方便的擴充多語言，預設情況下，go-i18n 會自定載入一些公共的配置資訊，例如時間、貨幣等，我們就可以非常方便的使用，同時為了支援在範本中使用這些函式，也實現了相應的範本函式，這樣就允許我們在開發 Web 應用的時候直接在範本中透過 pipeline 的方式來操作多語言套件。</p>
+
+<h2 id="links">links</h2>
+
+<ul>
+<li><a href="docs/preface">目錄</a></li>
+<li>上一節: <a href="docs/10.2">本地化資源</a></li>
+<li>下一節: <a href="docs/10.4">小結</a>
+<!-- {% endraw %} --></li>
+</ul>
+</article>
 
       
 <div class="book-footer justify-between">
@@ -253,6 +422,21 @@ https://github.com/alex-shpak/hugo-book
 
     
   
+
+  <aside class="book-toc level-3 fixed">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#10-3-國際化站點">10.3 國際化站點</a>
+<ul>
+<li><a href="#管理多個本地包">管理多個本地包</a></li>
+<li><a href="#自動載入本地套件">自動載入本地套件</a></li>
+<li><a href="#template-mapfunc">template mapfunc</a></li>
+<li><a href="#總結">總結</a></li>
+<li><a href="#links">links</a></li>
+</ul></li>
+</ul>
+</nav>
+  </aside>
 
 
 

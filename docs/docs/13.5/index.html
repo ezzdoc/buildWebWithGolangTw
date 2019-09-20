@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="/buildWebWithGolangTw/book.min.89885fa0429ec73067282f26fc0c6d38cfc617a443ec4e835d47b821c52c6e92.css" integrity="sha256-iYhfoEKexzBnKC8m/AxtOM/GF6RD7E6DXUe4IcUsbpI=">
 
 
-<script defer src="/buildWebWithGolangTw/search.min.4762838110f5450a8a33fcbe56c7ce734d09867f3e9ab5c1e6f7bbec99b65c68.js" integrity="sha256-R2KDgRD1RQqKM/y&#43;VsfOc00Jhn8&#43;mrXB5ve77Jm2XGg="></script>
+<script defer src="/buildWebWithGolangTw/search.min.1a26f030063cd84b7dd0472b3e255bc21c62c31322ab49b56f536fba41b42496.js" integrity="sha256-GibwMAY82Et90EcrPiVbwhxiwxMiq0m1b1NvukG0JJY="></script>
 
 
 
@@ -232,7 +232,250 @@ https://github.com/alex-shpak/hugo-book
 </header>
 
       
-<article class="markdown"></article>
+<article class="markdown">
+
+<h1 id="13-5-實現部落格的增刪改">13.5 實現部落格的增刪改</h1>
+
+<p>前面介紹了 beego 框架實現的整體構思以及部分實現的虛擬碼，這小節介紹透過 beego 建立一個部落格系統，包括部落格瀏覽、新增、修改、刪除等操作。</p>
+
+<h2 id="部落格目錄">部落格目錄</h2>
+
+<p>部落格目錄如下所示：</p>
+
+<pre><code>.
+├── controllers
+│   ├── delete.go
+│   ├── edit.go
+│   ├── index.go
+│   ├── new.go
+│   └── view.go
+├── main.go
+├── models
+│   └── model.go
+└── views
+    ├── edit.tpl
+    ├── index.tpl
+    ├── layout.tpl
+    ├── new.tpl
+    └── view.tpl
+</code></pre>
+
+<h2 id="部落格路由">部落格路由</h2>
+
+<p>部落格主要的路由規則如下所示：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#75715e">//顯示部落格首頁
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">beego</span>.<span style="color:#a6e22e">Router</span>(<span style="color:#e6db74">&#34;/&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">controllers</span>.<span style="color:#a6e22e">IndexController</span>{})
+<span style="color:#75715e">//檢視部落格詳細資訊
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">beego</span>.<span style="color:#a6e22e">Router</span>(<span style="color:#e6db74">&#34;/view/:id([0-9]+)&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">controllers</span>.<span style="color:#a6e22e">ViewController</span>{})
+<span style="color:#75715e">//建立部落格博文
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">beego</span>.<span style="color:#a6e22e">Router</span>(<span style="color:#e6db74">&#34;/new&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">controllers</span>.<span style="color:#a6e22e">NewController</span>{})
+<span style="color:#75715e">//刪除博文
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">beego</span>.<span style="color:#a6e22e">Router</span>(<span style="color:#e6db74">&#34;/delete/:id([0-9]+)&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">controllers</span>.<span style="color:#a6e22e">DeleteController</span>{})
+<span style="color:#75715e">//編輯博文
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">beego</span>.<span style="color:#a6e22e">Router</span>(<span style="color:#e6db74">&#34;/edit/:id([0-9]+)&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">controllers</span>.<span style="color:#a6e22e">EditController</span>{})</code></pre></div>
+<h2 id="資料庫結構">資料庫結構</h2>
+
+<p>資料庫設計最簡單的部落格資訊</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TABLE</span> entries (
+    id INT AUTO_INCREMENT,
+    title TEXT,
+    content TEXT,
+    created DATETIME,
+    <span style="color:#66d9ef">primary</span> <span style="color:#66d9ef">key</span> (id)
+);</code></pre></div>
+<h2 id="控制器">控制器</h2>
+
+<p>IndexController:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">IndexController</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">beego</span>.<span style="color:#a6e22e">Controller</span>
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">this</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">IndexController</span>) <span style="color:#a6e22e">Get</span>() {
+	<span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">Data</span>[<span style="color:#e6db74">&#34;blogs&#34;</span>] = <span style="color:#a6e22e">models</span>.<span style="color:#a6e22e">GetAll</span>()
+	<span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">Layout</span> = <span style="color:#e6db74">&#34;layout.tpl&#34;</span>
+	<span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">TplName</span> = <span style="color:#e6db74">&#34;index.tpl&#34;</span>
+}</code></pre></div>
+<p>ViewController:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">ViewController</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">beego</span>.<span style="color:#a6e22e">Controller</span>
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">this</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">ViewController</span>) <span style="color:#a6e22e">Get</span>() {
+	<span style="color:#a6e22e">id</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">strconv</span>.<span style="color:#a6e22e">Atoi</span>(<span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">Ctx</span>.<span style="color:#a6e22e">Input</span>.<span style="color:#a6e22e">Params</span>()[<span style="color:#e6db74">&#34;:id&#34;</span>])
+	<span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">Data</span>[<span style="color:#e6db74">&#34;Post&#34;</span>] = <span style="color:#a6e22e">models</span>.<span style="color:#a6e22e">GetBlog</span>(<span style="color:#a6e22e">id</span>)
+	<span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">Layout</span> = <span style="color:#e6db74">&#34;layout.tpl&#34;</span>
+	<span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">TplName</span> = <span style="color:#e6db74">&#34;view.tpl&#34;</span>
+}</code></pre></div>
+<p>NewController</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">NewController</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">beego</span>.<span style="color:#a6e22e">Controller</span>
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">this</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">NewController</span>) <span style="color:#a6e22e">Get</span>() {
+	<span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">Layout</span> = <span style="color:#e6db74">&#34;layout.tpl&#34;</span>
+	<span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">TplName</span> = <span style="color:#e6db74">&#34;new.tpl&#34;</span>
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">this</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">NewController</span>) <span style="color:#a6e22e">Post</span>() {
+	<span style="color:#a6e22e">inputs</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">Input</span>()
+	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">blog</span> <span style="color:#a6e22e">models</span>.<span style="color:#a6e22e">Blog</span>
+	<span style="color:#a6e22e">blog</span>.<span style="color:#a6e22e">Title</span> = <span style="color:#a6e22e">inputs</span>.<span style="color:#a6e22e">Get</span>(<span style="color:#e6db74">&#34;title&#34;</span>)
+	<span style="color:#a6e22e">blog</span>.<span style="color:#a6e22e">Content</span> = <span style="color:#a6e22e">inputs</span>.<span style="color:#a6e22e">Get</span>(<span style="color:#e6db74">&#34;content&#34;</span>)
+	<span style="color:#a6e22e">blog</span>.<span style="color:#a6e22e">Created</span> = <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>()
+	<span style="color:#a6e22e">models</span>.<span style="color:#a6e22e">SaveBlog</span>(<span style="color:#a6e22e">blog</span>)
+	<span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">Ctx</span>.<span style="color:#a6e22e">Redirect</span>(<span style="color:#ae81ff">302</span>, <span style="color:#e6db74">&#34;/&#34;</span>)
+}</code></pre></div>
+<p>EditController</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">EditController</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">beego</span>.<span style="color:#a6e22e">Controller</span>
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">this</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">EditController</span>) <span style="color:#a6e22e">Get</span>() {
+	<span style="color:#a6e22e">id</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">strconv</span>.<span style="color:#a6e22e">Atoi</span>(<span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">Ctx</span>.<span style="color:#a6e22e">Input</span>.<span style="color:#a6e22e">Params</span>()[<span style="color:#e6db74">&#34;:id&#34;</span>])
+	<span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">Data</span>[<span style="color:#e6db74">&#34;Post&#34;</span>] = <span style="color:#a6e22e">models</span>.<span style="color:#a6e22e">GetBlog</span>(<span style="color:#a6e22e">id</span>)
+	<span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">Layout</span> = <span style="color:#e6db74">&#34;layout.tpl&#34;</span>
+	<span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">TplName</span> = <span style="color:#e6db74">&#34;edit.tpl&#34;</span>
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">this</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">EditController</span>) <span style="color:#a6e22e">Post</span>() {
+	<span style="color:#a6e22e">inputs</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">Input</span>()
+	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">blog</span> <span style="color:#a6e22e">models</span>.<span style="color:#a6e22e">Blog</span>
+	<span style="color:#a6e22e">blog</span>.<span style="color:#a6e22e">Id</span>, <span style="color:#a6e22e">_</span> = <span style="color:#a6e22e">strconv</span>.<span style="color:#a6e22e">Atoi</span>(<span style="color:#a6e22e">inputs</span>.<span style="color:#a6e22e">Get</span>(<span style="color:#e6db74">&#34;id&#34;</span>))
+	<span style="color:#a6e22e">blog</span>.<span style="color:#a6e22e">Title</span> = <span style="color:#a6e22e">inputs</span>.<span style="color:#a6e22e">Get</span>(<span style="color:#e6db74">&#34;title&#34;</span>)
+	<span style="color:#a6e22e">blog</span>.<span style="color:#a6e22e">Content</span> = <span style="color:#a6e22e">inputs</span>.<span style="color:#a6e22e">Get</span>(<span style="color:#e6db74">&#34;content&#34;</span>)
+	<span style="color:#a6e22e">blog</span>.<span style="color:#a6e22e">Created</span> = <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>()
+	<span style="color:#a6e22e">models</span>.<span style="color:#a6e22e">SaveBlog</span>(<span style="color:#a6e22e">blog</span>)
+	<span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">Ctx</span>.<span style="color:#a6e22e">Redirect</span>(<span style="color:#ae81ff">302</span>, <span style="color:#e6db74">&#34;/&#34;</span>)
+}</code></pre></div>
+<p>DeleteController</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">DeleteController</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">beego</span>.<span style="color:#a6e22e">Controller</span>
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">this</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">DeleteController</span>) <span style="color:#a6e22e">Get</span>() {
+	<span style="color:#a6e22e">id</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">strconv</span>.<span style="color:#a6e22e">Atoi</span>(<span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">Ctx</span>.<span style="color:#a6e22e">Input</span>.<span style="color:#a6e22e">Params</span>()[<span style="color:#e6db74">&#34;:id&#34;</span>])
+	<span style="color:#a6e22e">blog</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">models</span>.<span style="color:#a6e22e">GetBlog</span>(<span style="color:#a6e22e">id</span>)
+	<span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">Data</span>[<span style="color:#e6db74">&#34;Post&#34;</span>] = <span style="color:#a6e22e">blog</span>
+	<span style="color:#a6e22e">models</span>.<span style="color:#a6e22e">DelBlog</span>(<span style="color:#a6e22e">blog</span>)
+	<span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">Ctx</span>.<span style="color:#a6e22e">Redirect</span>(<span style="color:#ae81ff">302</span>, <span style="color:#e6db74">&#34;/&#34;</span>)
+}</code></pre></div>
+<h2 id="model-層">model 層</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">models</span>
+
+<span style="color:#f92672">import</span> (
+	<span style="color:#e6db74">&#34;database/sql&#34;</span>
+	<span style="color:#e6db74">&#34;github.com/astaxie/beedb&#34;</span>
+	<span style="color:#a6e22e">_</span> <span style="color:#e6db74">&#34;github.com/ziutek/mymysql/godrv&#34;</span>
+	<span style="color:#e6db74">&#34;time&#34;</span>
+)
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Blog</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">Id</span>      <span style="color:#66d9ef">int</span> <span style="color:#e6db74">`PK`</span>
+	<span style="color:#a6e22e">Title</span>   <span style="color:#66d9ef">string</span>
+	<span style="color:#a6e22e">Content</span> <span style="color:#66d9ef">string</span>
+	<span style="color:#a6e22e">Created</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Time</span>
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">GetLink</span>() <span style="color:#a6e22e">beedb</span>.<span style="color:#a6e22e">Model</span> {
+	<span style="color:#a6e22e">db</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">sql</span>.<span style="color:#a6e22e">Open</span>(<span style="color:#e6db74">&#34;mymysql&#34;</span>, <span style="color:#e6db74">&#34;blog/astaxie/123456&#34;</span>)
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		panic(<span style="color:#a6e22e">err</span>)
+	}
+	<span style="color:#a6e22e">orm</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">beedb</span>.<span style="color:#a6e22e">New</span>(<span style="color:#a6e22e">db</span>)
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">orm</span>
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">GetAll</span>() (<span style="color:#a6e22e">blogs</span> []<span style="color:#a6e22e">Blog</span>) {
+	<span style="color:#a6e22e">db</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">GetLink</span>()
+	<span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">FindAll</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">blogs</span>)
+	<span style="color:#66d9ef">return</span>
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">GetBlog</span>(<span style="color:#a6e22e">id</span> <span style="color:#66d9ef">int</span>) (<span style="color:#a6e22e">blog</span> <span style="color:#a6e22e">Blog</span>) {
+	<span style="color:#a6e22e">db</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">GetLink</span>()
+	<span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">Where</span>(<span style="color:#e6db74">&#34;id=?&#34;</span>, <span style="color:#a6e22e">id</span>).<span style="color:#a6e22e">Find</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">blog</span>)
+	<span style="color:#66d9ef">return</span>
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">SaveBlog</span>(<span style="color:#a6e22e">blog</span> <span style="color:#a6e22e">Blog</span>) (<span style="color:#a6e22e">bg</span> <span style="color:#a6e22e">Blog</span>) {
+	<span style="color:#a6e22e">db</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">GetLink</span>()
+	<span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">Save</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">blog</span>)
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">bg</span>
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">DelBlog</span>(<span style="color:#a6e22e">blog</span> <span style="color:#a6e22e">Blog</span>) {
+	<span style="color:#a6e22e">db</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">GetLink</span>()
+	<span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">Delete</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">blog</span>)
+	<span style="color:#66d9ef">return</span>
+}</code></pre></div>
+<h2 id="view-層">view 層</h2>
+
+<p>layout.tpl</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">html</span>&gt;
+&lt;<span style="color:#f92672">head</span>&gt;
+    &lt;<span style="color:#f92672">title</span>&gt;My Blog&lt;/<span style="color:#f92672">title</span>&gt;
+    &lt;<span style="color:#f92672">style</span>&gt;
+        #menu {
+            <span style="color:#66d9ef">width</span>: <span style="color:#ae81ff">200</span><span style="color:#66d9ef">px</span>;
+            <span style="color:#66d9ef">float</span>: <span style="color:#66d9ef">right</span>;
+        }
+    &lt;/<span style="color:#f92672">style</span>&gt;
+&lt;/<span style="color:#f92672">head</span>&gt;
+&lt;<span style="color:#f92672">body</span>&gt;
+
+&lt;<span style="color:#f92672">ul</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;menu&#34;</span>&gt;
+    &lt;<span style="color:#f92672">li</span>&gt;&lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/&#34;</span>&gt;Home&lt;/<span style="color:#f92672">a</span>&gt;&lt;/<span style="color:#f92672">li</span>&gt;
+    &lt;<span style="color:#f92672">li</span>&gt;&lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/new&#34;</span>&gt;New Post&lt;/<span style="color:#f92672">a</span>&gt;&lt;/<span style="color:#f92672">li</span>&gt;
+&lt;/<span style="color:#f92672">ul</span>&gt;
+
+{{.LayoutContent}}
+
+&lt;/<span style="color:#f92672">body</span>&gt;
+&lt;/<span style="color:#f92672">html</span>&gt;</code></pre></div>
+<p>index.tpl</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">h1</span>&gt;Blog posts&lt;/<span style="color:#f92672">h1</span>&gt;
+
+&lt;<span style="color:#f92672">ul</span>&gt;
+{{range .blogs}}
+    &lt;<span style="color:#f92672">li</span>&gt;
+        &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/view/{{.Id}}&#34;</span>&gt;{{.Title}}&lt;/<span style="color:#f92672">a</span>&gt;
+        from {{.Created}}
+        &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/edit/{{.Id}}&#34;</span>&gt;Edit&lt;/<span style="color:#f92672">a</span>&gt;
+        &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/delete/{{.Id}}&#34;</span>&gt;Delete&lt;/<span style="color:#f92672">a</span>&gt;
+    &lt;/<span style="color:#f92672">li</span>&gt;
+{{end}}
+&lt;/<span style="color:#f92672">ul</span>&gt;</code></pre></div>
+<p>view.tpl</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">h1</span>&gt;{{.Post.Title}}&lt;/<span style="color:#f92672">h1</span>&gt;
+{{.Post.Created}}&lt;<span style="color:#f92672">br</span>/&gt;
+
+{{.Post.Content}}</code></pre></div>
+<p>new.tpl</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">h1</span>&gt;New Blog Post&lt;/<span style="color:#f92672">h1</span>&gt;
+&lt;<span style="color:#f92672">form</span> <span style="color:#a6e22e">action</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span> <span style="color:#a6e22e">method</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;post&#34;</span>&gt;
+標題:&lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;title&#34;</span>&gt;&lt;<span style="color:#f92672">br</span>&gt;
+內容：&lt;<span style="color:#f92672">textarea</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;content&#34;</span> <span style="color:#a6e22e">colspan</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;3&#34;</span> <span style="color:#a6e22e">rowspan</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;10&#34;</span>&gt;&lt;/<span style="color:#f92672">textarea</span>&gt;
+&lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;submit&#34;</span>&gt;
+&lt;/<span style="color:#f92672">form</span>&gt;</code></pre></div>
+<p>edit.tpl</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">h1</span>&gt;Edit {{.Post.Title}}&lt;/<span style="color:#f92672">h1</span>&gt;
+
+&lt;<span style="color:#f92672">h1</span>&gt;New Blog Post&lt;/<span style="color:#f92672">h1</span>&gt;
+&lt;<span style="color:#f92672">form</span> <span style="color:#a6e22e">action</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span> <span style="color:#a6e22e">method</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;post&#34;</span>&gt;
+標題:&lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;title&#34;</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{.Post.Title}}&#34;</span>&gt;&lt;<span style="color:#f92672">br</span>&gt;
+內容：&lt;<span style="color:#f92672">textarea</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;content&#34;</span> <span style="color:#a6e22e">colspan</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;3&#34;</span> <span style="color:#a6e22e">rowspan</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;10&#34;</span>&gt;{{.Post.Content}}&lt;/<span style="color:#f92672">textarea</span>&gt;
+&lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;hidden&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;id&#34;</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{.Post.Id}}&#34;</span>&gt;
+&lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;submit&#34;</span>&gt;
+&lt;/<span style="color:#f92672">form</span>&gt;</code></pre></div>
+<h2 id="links">links</h2>
+
+<ul>
+<li><a href="docs/preface">目錄</a></li>
+<li>上一章: <a href="docs/13.4">日誌和配置設計</a></li>
+<li>下一節: <a href="docs/13.6">小結</a>
+<!-- {% endraw %} --></li>
+</ul>
+</article>
 
       
 <div class="book-footer justify-between">
@@ -253,6 +496,23 @@ https://github.com/alex-shpak/hugo-book
 
     
   
+
+  <aside class="book-toc level-3 fixed">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#13-5-實現部落格的增刪改">13.5 實現部落格的增刪改</a>
+<ul>
+<li><a href="#部落格目錄">部落格目錄</a></li>
+<li><a href="#部落格路由">部落格路由</a></li>
+<li><a href="#資料庫結構">資料庫結構</a></li>
+<li><a href="#控制器">控制器</a></li>
+<li><a href="#model-層">model 層</a></li>
+<li><a href="#view-層">view 層</a></li>
+<li><a href="#links">links</a></li>
+</ul></li>
+</ul>
+</nav>
+  </aside>
 
 
 
